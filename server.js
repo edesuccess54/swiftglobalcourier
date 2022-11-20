@@ -2,6 +2,7 @@ const express = require('express');
 const env = require('dotenv').config()
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+const packageRoutes = require('./routes/packageRoutes')
 
 
 const app = express();
@@ -12,6 +13,9 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
     res.render('index')
 })
+
+
+app.use('/api/package',packageRoutes)
 
 app.get('/about', (req, res) => {
     res.render('about')
