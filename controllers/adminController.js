@@ -127,8 +127,14 @@ const loginAdmin = async(req, res) => {
     }
 }
 
+// const logout admin 
+const logoutAdmin = async (req, res) => {
+
+}
+
 
 module.exports = {
     registerAdmin,
-    loginAdmin
+    loginAdmin,
+    logoutAdmin
 }
