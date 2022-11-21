@@ -4,7 +4,7 @@ const validator = require("validator")
 
 
 generateToken = async (id) => {
-    return jwt.sign(id, process.env.JWT_SECRET, {expiresIn: "1d"})
+    return jwt.sign({ id }, process.env.JWT_SECRET, {expiresIn: "1d"})
 }
 
 
@@ -13,7 +13,6 @@ const registerAdmin = async (req, res) => {
     const {email, password} = req.body
 
     try {
-
         // validation 
         if(!validator.isEmail(email)) {
             res.status(400)
@@ -30,13 +29,10 @@ const registerAdmin = async (req, res) => {
             password
         })
 
-        // if(!admin) {
-        //     res.status(400)
-        //     throw new Error("Registration failed")
-        // }
-
         // generateToken
-        const token = generateToken(admin._id)
+        const token = await generateToken(admin._id)
+
+        console.log("the token  is " + token)
 
         res.cookie("token", token, {
             path: "/",
@@ -83,7 +79,7 @@ const loginAdmin = async(req, res) => {
         }
 
         // check if password is strong enough
-        if(!isStrongPassword(password)) {
+        if(!validator.isStrongPassword(password)) {
             res.status(400)
             throw new Error("Password is not strong enough")
         }
@@ -97,7 +93,6 @@ const loginAdmin = async(req, res) => {
         }
 
         // check if password is correct 
-
         if(admin.password !== password) {
             res.status(400)
             throw new Error("invalid email or password")
@@ -105,7 +100,7 @@ const loginAdmin = async(req, res) => {
 
         const token = await generateToken(admin._id)
 
-        res.cookies("token", token),{
+        res.cookie("token", token),{
             path: "/",
             httpOnly: true,
             expires: new Date(Date.now() + 1000 * 86400), // 1 day

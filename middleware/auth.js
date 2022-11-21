@@ -13,7 +13,7 @@ const proctect = async (req, res, next) => {
         const verified = jwt.verify(token, process.env.JWT_SECRET)
 
         // get admin 
-        const admin = await Admin.findById(verified.id).SELECT('-password')
+        const admin = await Admin.findById(verified.id).select('-password')
 
         if(!admin) {
             res.status(401)
