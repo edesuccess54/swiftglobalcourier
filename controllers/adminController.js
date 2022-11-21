@@ -129,7 +129,14 @@ const loginAdmin = async(req, res) => {
 
 // const logout admin 
 const logoutAdmin = async (req, res) => {
-
+    res.cookie("token", "", {
+        path: "/",
+        httpOnly: true,
+        sameSite: "none",
+        expires: new Date(0),
+        secure: true
+    })
+    return res.status(200).json({message: "Successfully Logged out"})
 }
 
 

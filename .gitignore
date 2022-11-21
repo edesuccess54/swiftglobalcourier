@@ -1,5 +1,3 @@
-#Dependencies
-/node_modules
 
-#Misc
+/node_modules
 .env
