@@ -2,7 +2,8 @@ const express = require('express');
 const env = require('dotenv').config()
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-const packageRoutes = require('./routes/packageRoutes')
+const packageRoutes = require('./routes/packageRoutes');
+// const { urlencoded } = require('body-parser');
 
 
 const app = express();
@@ -10,12 +11,15 @@ app.set("view engine", 'ejs')
 
 // middlewares & static assets
 app.use(express.static('public'));
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
+app.use('/api/package',packageRoutes)
+
+
 app.get('/', (req, res) => {
     res.render('index')
 })
-
-
-app.use('/api/package',packageRoutes)
 
 app.get('/about', (req, res) => {
     res.render('about')

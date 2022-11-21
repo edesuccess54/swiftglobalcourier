@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router()
 const { createPackage } = require("../controllers/packageController")
+const protect = require("../middleware/auth.js")
 
 // create package route 
-router.post("/create", createPackage)
+router.post("/create", protect, createPackage)
 
 
 

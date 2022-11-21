@@ -6,10 +6,7 @@ const packageSchema = new Schema({
         type: String,
         require: true
     },
-    sendersAddresses: {
-        type: String,
-        require: true
-    },
+    
     sendersEmail: {
         type: String,
         require: true
@@ -18,7 +15,7 @@ const packageSchema = new Schema({
         type: String,
         require: true
     },
-    receiversAddresses: {
+    receiversAddress: {
         type: String,
         require: true
     },
