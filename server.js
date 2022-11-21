@@ -3,6 +3,7 @@ const env = require('dotenv').config()
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const packageRoutes = require('./routes/packageRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 // const { urlencoded } = require('body-parser');
 
 
@@ -15,6 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 app.use('/api/package',packageRoutes)
+app.use('/api/user/admin',adminRoutes)
 
 
 app.get('/', (req, res) => {

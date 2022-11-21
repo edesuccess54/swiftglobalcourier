@@ -113,3 +113,9 @@ const loginAdmin = async(req, res) => {
     })
 
 }
+
+
+module.exports = {
+    registerAdmin,
+    loginAdmin
+}
