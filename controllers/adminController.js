@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/adminModel')
 const validator = require("validator")
+const bcrypt = require("bcryptjs")
 
 
+// generateToken
 generateToken = async (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {expiresIn: "1d"})
 }
-
 
 // register admin 
 const registerAdmin = async (req, res) => {
@@ -24,9 +25,13 @@ const registerAdmin = async (req, res) => {
             throw new Error("Password is not strong enough")
         }
 
+        // hash password 
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt)
+
         const admin = await Admin.create({
             email,
-            password
+            password: hashedPassword
         })
 
         // generateToken
@@ -92,11 +97,7 @@ const loginAdmin = async(req, res) => {
             throw new Error("Invalid email or password")
         }
 
-        // check if password is correct 
-        if(admin.password !== password) {
-            res.status(400)
-            throw new Error("invalid email or password")
-        }
+        const hashedPassword = await bcrypt.compare(password, admin.password)
 
         const token = await generateToken(admin._id)
 
@@ -107,13 +108,19 @@ const loginAdmin = async(req, res) => {
             sameSite: "none"
         }
 
-        const { _id, email: adminEmail, password: adminPassword } = admin
-        res.status(200).json({
+        if(admin && hashedPassword) {
+            const { _id, email: adminEmail, password: adminPassword } = admin
+            res.status(200).json({
             _id,
             adminEmail,
             adminPassword,
             token
-        })
+            })
+
+        } else {
+            res.status(400)
+            throw new Error("Invalid email or password")
+        }
         
     } catch (error) {
         res.status(400).json({error: error.message})
