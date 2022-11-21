@@ -4,7 +4,7 @@ const validator = require("validator")
 
 
 generateToken = async (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1d"})
+    return jwt.sign(id, process.env.JWT_SECRET, {expiresIn: "1d"})
 }
 
 
@@ -12,48 +12,55 @@ generateToken = async (id) => {
 const registerAdmin = async (req, res) => {
     const {email, password} = req.body
 
-    // validation 
-    if(!validator.isEmail(email)) {
-        res.status(400)
-        throw new Error("Invalid email")
-    }
+    try {
 
-    if(!validator.isStrongPassword(password)) {
-        res.status(400)
-        throw new Error("Password is not strong enough")
-    }
+        // validation 
+        if(!validator.isEmail(email)) {
+            res.status(400)
+            throw new Error("Invalid email")
+        }
 
-    const admin = await Admin.create({
-        email,
-        password
-    })
+        if(!validator.isStrongPassword(password)) {
+            res.status(400)
+            throw new Error("Password is not strong enough")
+        }
 
-    // if(!admin) {
-    //     res.status(400)
-    //     throw new Error("Registration failed")
-    // }
-
-    // generateToken
-    const token = generateToken(admin._id)
-
-    res.cookies("token", token, {
-        path: "/",
-        httpOnly: true,
-        expires: new Date(Date.now() + ( 1000 * 86400)),
-        sameSite:"none"
-    })
-
-    if(admin) {
-        const { _id, email, password } = admin
-        res.status(200).json({
-            _id, 
-            email, 
-            password,
-            token
+        const admin = await Admin.create({
+            email,
+            password
         })
-    } else {
-        res.status(400)
-        throw new Error("Registration failed")
+
+        // if(!admin) {
+        //     res.status(400)
+        //     throw new Error("Registration failed")
+        // }
+
+        // generateToken
+        const token = generateToken(admin._id)
+
+        res.cookie("token", token, {
+            path: "/",
+            httpOnly: true,
+            expires: new Date(Date.now() + ( 1000 * 86400)),
+            sameSite:"none",
+            secure: true
+        })
+
+        if(admin) {
+            const { _id, email, password } = admin
+            res.status(200).json({
+                _id, 
+                email, 
+                password,
+                token
+            })
+        } else {
+            res.status(400)
+            throw new Error("Registration failed")
+        }
+        
+    } catch (error) {
+        res.status(400).json({error: error.message})
     }
 }
 
@@ -62,56 +69,60 @@ const registerAdmin = async (req, res) => {
 const loginAdmin = async(req, res) => {
     const { email, password } = req.body
 
-    // validation
-    if(!email || !password) {
-        res.status(400)
-        throw new Error("Fill all fields")
+    try {
+        // validation
+        if(!email || !password) {
+            res.status(400)
+            throw new Error("Fill all fields")
+        }
+
+        // check if email is valid email address
+        if(!validator.isEmail(email)) {
+            res.status(400)
+            throw new Error("Not a valid email address")
+        }
+
+        // check if password is strong enough
+        if(!isStrongPassword(password)) {
+            res.status(400)
+            throw new Error("Password is not strong enough")
+        }
+
+        // check if details are correct 
+        const admin = await Admin.findOne({ email })
+
+        if(!admin) {
+            res.status(400)
+            throw new Error("Invalid email or password")
+        }
+
+        // check if password is correct 
+
+        if(admin.password !== password) {
+            res.status(400)
+            throw new Error("invalid email or password")
+        }
+
+        const token = await generateToken(admin._id)
+
+        res.cookies("token", token),{
+            path: "/",
+            httpOnly: true,
+            expires: new Date(Date.now() + 1000 * 86400), // 1 day
+            sameSite: "none"
+        }
+
+        const { _id, email: adminEmail, password: adminPassword } = admin
+        res.status(200).json({
+            _id,
+            adminEmail,
+            adminPassword,
+            token
+        })
+        
+    } catch (error) {
+        res.status(400).json({error: error.message})
     }
-
-    // check if email is valid email address
-    if(!validator.isEmail(email)) {
-        res.status(400)
-        throw new Error("Not a valid email address")
-    }
-
-    // check if password is strong enough
-    if(!isStrongPassword(password)) {
-        res.status(400)
-        throw new Error("Password is not strong enough")
-    }
-
-    // check if details are correct 
-    const admin = await Admin.findOne({ email })
-
-    if(!admin) {
-        res.status(400)
-        throw new Error("Invalid email or password")
-    }
-
-    // check if password is correct 
-
-    if(admin.password !== password) {
-        res.status(400)
-        throw new Error("invalid email or password")
-    }
-
-    const token = await generateToken(admin._id)
-
-    res.cookies("token", token),{
-        path: "/",
-        httpOnly: true,
-        expires: new Date(Date.now() + 1000 * 86400), // 1 day
-        sameSite: "none"
-    }
-
-    const { _id, email: adminEmail, password: adminPassword } = admin
-    res.status(200).json({
-        _id,
-        adminEmail,
-        adminPassword,
-        token
-    })
-
 }
 
 

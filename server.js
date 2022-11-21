@@ -4,8 +4,7 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 const packageRoutes = require('./routes/packageRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-// const { urlencoded } = require('body-parser');
-
+const cookieParser = require('cookie-parser')
 
 const app = express();
 app.set("view engine", 'ejs')
@@ -14,6 +13,7 @@ app.set("view engine", 'ejs')
 app.use(express.static('public'));
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cookieParser())
 
 app.use('/api/package',packageRoutes)
 app.use('/api/user/admin',adminRoutes)
