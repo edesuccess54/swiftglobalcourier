@@ -36,6 +36,11 @@ const createPackage = async (req, res) => {
     }
 }
 
+// update package 
+const updatePackage = async (req, res) => {
+    const {} = req.body
+}
+
 
 
 
@@ -43,5 +48,6 @@ const createPackage = async (req, res) => {
 
 
 module.exports = {
-    createPackage
+    createPackage,
+    updatePackage
 }
