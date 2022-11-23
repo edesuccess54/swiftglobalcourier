@@ -25,19 +25,20 @@ const registerAdmin = async (req, res) => {
             throw new Error("Password is not strong enough")
         }
 
-        // hash password 
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(password, salt)
+        const userExists = await Admin.findOne({ email })
+
+        if(userExists) {
+            res.status(400)
+            throw new Error("Email already exists")
+        }
 
         const admin = await Admin.create({
             email,
-            password: hashedPassword
+            password
         })
 
         // generateToken
         const token = await generateToken(admin._id)
-
-        console.log("the token  is " + token)
 
         res.cookie("token", token, {
             path: "/",
@@ -105,7 +106,8 @@ const loginAdmin = async(req, res) => {
             path: "/",
             httpOnly: true,
             expires: new Date(Date.now() + 1000 * 86400), // 1 day
-            sameSite: "none"
+            sameSite: "none",
+            // secure: true
         }
 
         if(admin && hashedPassword) {
