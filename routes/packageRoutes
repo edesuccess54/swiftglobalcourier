@@ -10,5 +10,4 @@ router.delete("/delete/:id", protect, deletePackage)
 router.get("/", protect, getAllPackage)
 
 
-
 module.exports = router;

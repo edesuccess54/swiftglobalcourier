@@ -141,9 +141,23 @@ const logoutAdmin = async (req, res) => {
     return res.status(200).json({message: "Successfully Logged out"})
 }
 
+// change admin password 
+const changePassword = async (req, res) => {
+
+    try {
+        const admin = req.admin._id
+        
+        res.send(admin)
+        
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
 
 module.exports = {
     registerAdmin,
     loginAdmin,
-    logoutAdmin
+    logoutAdmin,
+    changePassword
 }
