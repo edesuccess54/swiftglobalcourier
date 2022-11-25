@@ -21,7 +21,6 @@ app.use('/api/user/admin',adminRoutes)
 app.use('/',mainRoutes)
 
 
-
  mongoose.connect(process.env.MONGO_URI).then((result) => {
     app.listen(process.env.PORT, () => {
         console.log(`Connected to dabase and now Listening on port ${process.env.PORT}`)
