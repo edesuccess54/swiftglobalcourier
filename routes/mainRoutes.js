@@ -11,9 +11,7 @@ router.get('/track-shipment', trackPage)
 router.get('/contact', contactPage)
 router.get('/quote', quotePage)
 
-router.get('/admin/dashboard', (req, res) => {
-    res.render('admin/dashboard')
-})
+
 
 
 

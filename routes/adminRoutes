@@ -9,6 +9,10 @@ router.post("/login", loginAdmin)
 router.get("/logout", logoutAdmin)
 router.post("/changepassword", protect, changePassword)
 
+router.get('/admin/dashboard', (req, res) => {
+    res.render('admin/dashboard')
+})
+
 
 
 module.exports = router
