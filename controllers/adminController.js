@@ -105,9 +105,9 @@ const loginAdmin = async(req, res) => {
         res.cookie("token", token),{
             path: "/",
             httpOnly: true,
-            expires: new Date(Date.now() + 1000 * 86400), // 1 day
+            expires: new Date(Date.now() + 1000 * 86400), 
             sameSite: "none",
-            // secure: true
+            secure: true
         }
 
         if(admin && hashedPassword) {
@@ -143,11 +143,49 @@ const logoutAdmin = async (req, res) => {
 
 // change admin password 
 const changePassword = async (req, res) => {
+    const {oldpassword, password, password2 } = req.body
+    const id = req.admin._id
 
     try {
-        const admin = req.admin._id
-        
-        res.send(admin)
+
+        const admin = await Admin.findById(id)
+
+        if(!admin) {
+            res.status(400)
+            throw new Error("you are not authorized")
+        }
+
+        if(!oldpassword || !password || !password2) {
+            res.status(400)
+            throw new Error("all fields are required")
+        }
+
+        if(password == oldpassword) {
+            res.status(400)
+            throw new Error("Password can not be same with old password")
+        }
+
+        if(password !== password2) {
+            res.status(400)
+            throw new Error("password does not match")
+        }
+
+        const hashedPassword = await bcrypt.compare(oldpassword, admin.password)
+
+        if(!hashedPassword) {
+            res.status(400)
+            throw new Error("old password is not correct")
+        }
+
+         if(admin && hashedPassword) {
+            admin.password = password
+            await admin.save()
+            res.status(200).json({message: "Password changed"})
+
+         } else {
+            res.status(400);
+            throw new Error("Password is not correct");
+         }
         
     } catch (error) {
         res.status(400).json({error: error.message})
