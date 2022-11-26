@@ -1,0 +1,99 @@
+<%- include('./partials/header') %> 
+
+    
+    <main>
+        <div class="mainWrapper">
+            <div class="leftContent">
+                <%- include("./partials/sideBar") %> 
+            </div>
+            <div class="rightContent">
+                <%- include('./partials/topBar') %> 
+                <div class="mainContent">
+                    <div class="formContainer">
+                        <form action="">
+                            <h2>Create Package</h2>
+                            <div class="formWrapper">
+                                <div class="inputGroup">
+                                    <label for="">Sender's Name:</label>
+                                    <input type="text" name="">
+                                </div>
+    
+                                <div class="inputGroup">
+                                    <label for="">Sender's Email:</label>
+                                    <input type="text" name="">
+                                </div>
+    
+                                <div class="inputGroup">
+                                    <label for="">Receiver's Name</label>
+                                    <input type="text" name="">
+                                </div>
+    
+                                <div class="inputGroup">
+                                    <label for="">Receiver's Email</label>
+                                    <input type="text" name="">
+                                </div>
+
+                                <div class="inputGroup">
+                                    <label for="">Receiver's Number</label>
+                                    <input type="text" name="">
+                                </div>
+    
+                                <div class="inputGroup">
+                                    <label for="">Destination Address</label>
+                                    <input type="text" name="">
+                                </div>
+
+                                <div class="inputGroup">
+                                    <label for="">package </label>
+                                    <input type="text" name="" placeholder="what are you sending to client?">
+                                </div>
+
+                                <div class="inputGroup">
+                                    <label for="">weight</label>
+                                    <input type="text" name="">
+                                </div>
+
+                                <div class="inputGroup">
+                                    <label for="">Current Location</label>
+                                    <input type="text" name="">
+                                </div>
+
+                                <div class="inputGroup">
+                                    <label for="">Depature Date</label>
+                                    <input type="date" name="">
+                                </div>
+
+                                <div class="inputGroup">
+                                    <label for="">Expected Delivery Date</label>
+                                    <input type="date" name="">
+                                </div>
+
+                                <div class="inputGroup">
+                                    <label for="">Shipment Method</label>
+                                    <select name="" id="">
+                                        <option selected disabled>--select shipment method--</option>
+                                        <option value="Express Delivery">Express Delivery</option>
+                                    </select>
+                                </div>
+
+                                <div class="inputGroup">
+                                    <label for="">Pickup Date & time</label>
+                                    <input type="date" name="">
+                                </div>
+
+                                <div class="inputGroup">
+                                    <label for="">Status of item</label>
+                                    <input type="text" name="">
+                                </div>
+                                
+                                <button class="btn">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+
+<%- include('./partials/footer') %> 

@@ -5,7 +5,8 @@
 
 :root {
     --primary: #2760b8;
-    --secondary: blue;
+    --primary-light: #2a7178; 
+    --secondary: rgb(83, 45, 148);
     --bgcolor: #f4f5ff;
     --content-bg: #fff;
     --border-color: #e5e7eb;
@@ -19,6 +20,18 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'DM Sans', 'Roboto', sans-serif;
+}
+
+.btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin: 10px 0;
 }
 
 body {
@@ -35,17 +48,11 @@ body {
     height: 100vh;
 }
 
-.rightContent {
-    width: 100%;
-    background: var(--content-bg);
-}
-
 .sideWrapper {
     background: var(--content-bg);
     width: 100%;
-    height: 100%;
+    height: 100vh;
     border: 1px solid var(--border-color);
-
 }
 
 .innerWrapper {
@@ -61,7 +68,7 @@ body {
     text-align: center;
     font-weight: 700;
     font-family: var(--font-poppins);
-    color: #2a7178;
+    color: var(--primary-light);
 }
 
 .innerWrapper ul li {
@@ -78,12 +85,115 @@ body {
     color: var(--primary);
 }
 
+.innerWrapper ul a.active {
+    background: var(--primary);
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.innerWrapper ul a:active {
+    background: var(--primary);
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
 .innerWrapper ul a:hover {
     background: var(--primary);
     color: #fff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
+
+
+/* right side begins here  */
+
+.rightContent {
+    width: 100%;
+    padding: 30px;
+    background: var(--content-bg);
+}
+
+.topSection {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    z-index: 111;
+}
+
+.topSection .profile {
+    display: flex;
+    gap: 10px;
+}
+
+.mainContent {
+    margin-top: 40px;
+}
+
+.formContainer {
+    max-width: 480px;
+    margin: 0 auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.formContainer form {
+    max-width: 400px;
+    padding: 10px 20px;
+    margin: 0 auto;
+    
+}
+
+.formContainer form h2{
+   text-align: center;
+   color: var(--primary-light);
+   margin-top: 20px;
+    
+}
+
+.formWrapper {
+    margin-top: 20px
+}
+
+.inputGroup {
+    margin-top: 10px;
+}
+
+.formContainer form label{
+    display: block;
+    margin: 5px 0;
+    font-size: 1em;
+    color: var(--primary);
+}
+
+.formContainer form input, select{
+   width: 100%;
+   padding: 8px 15px;
+   outline: none;
+   border: 1.5px solid var(--border-color);
+   border-radius: 5px;
+}
+
+.formContainer form input:focus{
+    border: 2px solid rgb(240, 240, 255);
+ }
+
+
+ /* dashboard page styles  */
+
+ .staics {
+    display: flex;
+    gap: 10px;
+ }
+
+ .staticsInner {
+    flex-grow: 1;
+    background: green;
+    flex-basis: 200px;
+ }
 
 
 

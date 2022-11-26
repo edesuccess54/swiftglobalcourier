@@ -1,14 +1,37 @@
 <%- include('./partials/header') %> 
-
+<% const state = "active" %>
     
     <main>
         <div class="mainWrapper">
             <div class="leftContent">
-                <!-- <h2>side bar</h2> -->
                 <%- include("./partials/sideBar") %> 
             </div>
             <div class="rightContent">
-                <!-- <h2>main content</h2> -->
+                <%- include('./partials/topBar') %> 
+                <div class="mainContent">
+                    <div class="staics">
+                        <div class="created">
+                            <div class="staticsInner">
+                                <span class="icon">icon</span>
+                                <span class="value">value</span>
+                            </div>
+                        </div>
+                        <div class="transit">
+                            <div class="staticsInner">
+                                <span class="icon">icon</span>
+                                <span class="value">value</span>
+                            </div>
+                        </div>
+                        <div class="delivered">
+                            <div class="staticsInner">
+                                <span class="icon">icon</span>
+                                <span class="value">value</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>main content</h2>
+                </div>
+                
             </div>
         </div>
     </main>
