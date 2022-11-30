@@ -214,7 +214,6 @@ body {
     max-width: 400px;
     padding: 10px 20px;
     margin: 0 auto;
-    
 }
 
 .formContainer form h2{
@@ -291,6 +290,18 @@ footer {
     }
 
     .greeting .destop-greet {
+        margin-left: auto;
         display: block;
     }
+
+    .formWrapper {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .formContainer form {
+        max-width: 800px;
+    }
+
 }
