@@ -6,6 +6,7 @@ const packageRoutes = require('./routes/packageRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const mainRoutes = require('./routes/mainRoutes')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 const app = express();
 app.set("view engine", 'ejs')
@@ -15,6 +16,7 @@ app.use(express.static('public'));
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
+app.use(cors())
 
 app.use('/api/package',packageRoutes)
 app.use('/api/user/admin',adminRoutes)
