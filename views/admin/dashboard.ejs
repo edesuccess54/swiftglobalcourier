@@ -7,29 +7,56 @@
             <div class="rightContent">
                 <%- include('./partials/topBar') %> 
                 <div class="mainContent">
-                    <div class="staics">
-                        <div class="created">
-                            <div class="staticsInner">
-                                <span class="icon">icon</span>
-                                <span class="value">value</span>
+                    <section>
+                        <div class="statistics">
+                            <div class="created">
+                                <div class="staticsInner">
+                                    <span class="icon"><i class="fa-solid fa-truck-fast"></i></span>
+                                    <span class="value">Total package&nbsp;250</span>
+                                </div>
+                            </div>
+                            <div class="transit">
+                                <div class="staticsInner">
+                                    <span class="icon"><i class="fa-solid fa-cart-flatbed-boxes"></i></span>
+                                    <span class="value">Delivered package&nbsp;100</span>
+                                </div>
+                            </div>
+                            <div class="delivered">
+                                <div class="staticsInner">
+                                    <span class="icon"><i class="fa-solid fa-truck-fast"></i></span>
+                                    <span class="value">transit package&nbsp;50</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="transit">
-                            <div class="staticsInner">
-                                <span class="icon">icon</span>
-                                <span class="value">value</span>
-                            </div>
+                    </section>
+
+                    <section>
+                        <div class="packageTable" style="overflow: scroll;">
+                            <table id="example" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>First name</th>
+                                        <th>Last name</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                        <th>Start date</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Onyekaozulu</td>
+                                        <td>Ede</td>
+                                        <td>Developer</td>
+                                        <td>Eze Global</td>
+                                        <td>10/24/22</td>
+                                        <td>$30000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="delivered">
-                            <div class="staticsInner">
-                                <span class="icon">icon</span>
-                                <span class="value">value</span>
-                            </div>
-                        </div>
-                    </div>
-                    <h2>main content</h2>
+                    </section>
                 </div>
-                
             </div>
         </div>
     </main>
