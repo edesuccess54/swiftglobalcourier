@@ -10,7 +10,8 @@ const {
     dashboardPage,
     createPage,
     viewPage,
-    settingsPage } = require('../controllers/mainController')
+    settingsPage,
+    editPage } = require('../controllers/mainController')
 
 const router = express.Router()
 
@@ -27,6 +28,7 @@ router.get('/admin/dashboard', dashboardPage)
 router.get('/admin/create', createPage)
 router.get('/admin/view', viewPage)
 router.get('/admin/settings', settingsPage)
+router.get('/admin/edit/:id', editPage)
 
 
 

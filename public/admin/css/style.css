@@ -294,6 +294,24 @@ body {
     margin-top: 40px;
  }
 
+ .actionColumn {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+ }
+
+ .actionColumn .trash{
+    color: rgb(198, 32, 32);
+    font-size: 1.2em;
+    cursor: pointer;
+ }
+
+ .actionColumn .edit{
+    color: var(--primary-light);
+    font-size: 1.2em;
+    cursor: pointer;
+ }
+
 
 
 

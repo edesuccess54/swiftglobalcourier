@@ -54,6 +54,11 @@ const settingsPage = async(req, res) => {
     res.render('./admin/settings')
 }
 
+// edit page 
+const editPage = async(req, res) => {
+    res.render('./admin/edit')
+}
+
 
 
 module.exports = {
@@ -67,6 +72,7 @@ module.exports = {
     dashboardPage,
     createPage,
     viewPage,
-    settingsPage
+    settingsPage,
+    editPage
 }
 
