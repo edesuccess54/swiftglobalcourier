@@ -205,6 +205,8 @@ body {
 }
 
 .mainContent {
+    max-width: 900px;
+    margin: auto;
     margin-top: 40px;
 }
 
