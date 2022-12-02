@@ -9,6 +9,7 @@ const navProfile = document.querySelector('.nav-profile')
 const navSecurity = document.querySelector('.nav-security')
 const editProfileBtn = document.querySelector('.edit-profile');
 const closeModalBtn = document.querySelector('.close-modal')
+const changePasswordBtn = document.querySelector('.pwd-btn')
 
 
 // function to open side nav 
@@ -48,28 +49,32 @@ destopTabs.addEventListener('click', switchTabs)
 // function to open modal 
 const openModal = (e) => {
     if(e.target.classList.contains('edit')) {    
-    const profileModel = document.querySelector('.profile-modal')
-    const modalOverlay = document.querySelector('.modal-overlay')
-    
-    modalOverlay.classList.add('active')
-    profileModel.classList.add('show')
-    }
-
-    if(e.target.classList.contains('pwd')) {    
         const profileModel = document.querySelector('.profile-modal')
         const modalOverlay = document.querySelector('.modal-overlay')
         
         modalOverlay.classList.add('active')
         profileModel.classList.add('show')
-        }
+    }
+
+    if(e.target.classList.contains('pwd-btn')) {    
+        const passwordModal = document.querySelector('.password-modal')
+        const modalOverlay = document.querySelector('.modal-overlay')
+        
+        modalOverlay.classList.add('active')
+        passwordModal.classList.add('show')
+    }
 }
 editProfileBtn.addEventListener('click', openModal)
+changePasswordBtn.addEventListener('click', openModal)
 
 // function to close edit profile modal 
 const closeModal = (e) => {
-    const profileModel = document.querySelector('.profile-modal')
-    document.querySelector('.modal-overlay').classList.remove('active')
-    profileModel.classList.remove('show')
+    if(e.target.classList.contains('m1')) {
+        const profileModel = document.querySelector('.profile-modal')
+        document.querySelector('.modal-overlay').classList.remove('active')
+        profileModel.classList.remove('show')
+    }
+    
 }
 closeModalBtn.addEventListener('click', closeModal)
 
