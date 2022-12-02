@@ -63,7 +63,7 @@ label {
     background: transparent;
     z-index: 999999999;
     transform: translateY(-3000px);
-    transition: transform 0.8s ease-in-out;
+    transition: transform 0.5s ease-in-out;
 }
 
 .modal.show {
@@ -151,6 +151,24 @@ body {
 
 .overlay.active {
     transform: translateX(0);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    transform: translateX(-1500px);
+    display: none;
+    /* transition: transform 0.5s ease-in-out; */
+    cursor: pointer;
+    z-index: 1111;
+}
+
+.modal-overlay.active {
+    display: block;
 }
 
 .innerWrapper {

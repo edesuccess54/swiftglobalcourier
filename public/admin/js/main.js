@@ -52,16 +52,16 @@ destopTabs.addEventListener('click', switchTabs)
 const openModal = (e) => {
     const profileModel = document.querySelector('.profile-modal')
     profileModel.classList.add('show')
-    overlay.classList.add('active')
 }
 editProfileBtn.addEventListener('click', openModal)
 
 // function to close edit profile modal 
 const closeModal = (e) => {
     const profileModel = document.querySelector('.profile-modal')
+    document.querySelector('.modal-overlay').classList.add('active')
     profileModel.classList.remove('show')
-
 }
+closeModalBtn.addEventListener('click', closeModal)
 
 
 
