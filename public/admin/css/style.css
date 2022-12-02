@@ -35,18 +35,71 @@
     margin: 10px 0;
 }
 
+label {
+    display: block;
+    margin: 5px 0;
+    font-size: 1em;
+    color: var(--primary);
+}
+
 .fa-xmark {
-    font-size: 35px;
+    font-size: 30px;
     margin-left: auto;
     color: var(--primary);
     cursor: pointer;
 }
 
-.fa-truck-fast, .fa-cart-flatbed-boxes {
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0 20px;
+    background: transparent;
+    z-index: 999999999;
+    transform: translateY(-3000px);
+    transition: transform 0.8s ease-in-out;
+}
+
+.modal.show {
+    transform: translateY(0);
+}
+
+.modal-content {
+    width: 450px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    margin: auto;
+    padding: 10px 20px 20px 20px;
+    background: #fff;
+    box-shadow: 0 10px 50px #1e1e1e;
+}
+
+.close-btn {
+    display: flex;
+    margin-right: auto;
+}
+
+.modal-content form input {
+    width: 100%;
+    padding: 8px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.modal-content .input-group {
+    margin: 20px 0;
+}
+
+.statistics i {
     font-size: 50px;
     color: var(--primary);
 }
-
 
 body {
     background-color: var(--bgcolor);
@@ -156,7 +209,6 @@ body {
 
 
 /* right side begins here  */
-
 .rightContent {
     width: 100%;
     padding: 10px 20px;
@@ -211,8 +263,6 @@ body {
 }
 
 .formContainer {
-    /* width: 600px; */
-    /* max-width: 450px; */
     margin: 0 auto;
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -261,10 +311,7 @@ body {
 
 
  /* dashboard page styles  */
-
  .statistics {
-    /* max-width: 100%;
-    margin: auto; */
     display: grid;
     gap: 10px;
  }
@@ -302,15 +349,148 @@ body {
 
  .actionColumn .trash{
     color: rgb(198, 32, 32);
-    font-size: 1.2em;
+    font-size: 1.1em;
     cursor: pointer;
  }
 
  .actionColumn .edit{
     color: var(--primary-light);
-    font-size: 1.2em;
+    font-size: 1.1em;
     cursor: pointer;
  }
+
+ /* settings page styles */
+ .setting-container {
+    margin-top: 20px;
+    display: flex;
+    height: 100vh;
+   
+ }
+
+ .tabs {
+    flex-basis: 250px;
+    border-right: 1px solid var(--border-color);
+ }
+
+ .mobile-tabs {
+    margin-top: 30px;
+ }
+
+ .mobile-tabs ul {
+    display: flex;
+    gap: 20px;
+ }
+
+ .mobile-tabs ul li {
+    list-style: none;
+    font-size: 1.2em;
+    color: rgb(64, 52, 78);
+    cursor: pointer;
+ }
+
+ .mobile-tabs ul li.active {
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 5px;
+ }
+
+ .tabs {
+    display: none;
+ }
+
+ .tabs ul li {
+    list-style: none;
+    margin: 20px 10px;
+    padding: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+ }
+
+ .tabs ul li.active {
+    background: var(--background);
+    color: rgb(64, 52, 78);
+    border-radius: 5px;
+ }
+
+ .tab-content {
+    padding: 10px ;
+    flex-grow: 1;
+ }
+
+ .tab-content h3 {
+    color: rgb(64, 52, 78);
+    font-size: 1.5em;
+    text-decoration: underline;
+ }
+
+ .single-content {
+    display: none;
+ }
+
+ .single-content.active {
+    display: block;
+ }
+
+ .security-details {
+    margin-top: 15px;
+ }
+
+ .profile-details {
+    display: flex;
+    flex-direction: column;
+ }
+
+ .profile-details p, .password-inner p {
+    margin: 5px 0;
+ }
+
+ .profile-details p span {
+    display: block;
+    margin: 5px 0;
+ }
+
+ .profile-details p span:nth-child(1) {
+    font-size: 1em;
+    font-weight: 700;
+ }
+
+ .profile-details p span:nth-child(2) {
+    font-size: 1.1em;
+    color: rgb(64, 52, 78);
+ }
+
+ .edit-profile {
+    width: 150px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: 1px solid rgb(64, 52, 78);;
+    color: rgb(64, 52, 78);
+    font-size: 1.2em;
+    outline: none;
+    border-radius: 5px;
+    background: transparent;
+    padding: 5px 20px;
+ }
+
+ .password-inner {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+ }
+
+
+ .password-inner button {
+    cursor: pointer;
+    border: 1px solid rgb(64, 52, 78);;
+    color: rgb(64, 52, 78);
+    font-size: 1.2em;
+    outline: none;
+    border-radius: 5px;
+    background: transparent;
+    padding: 5px 20px;
+ }
+
+
+ /* edit profile modal  */
 
 
 
@@ -362,5 +542,34 @@ footer {
     .statistics {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    .tabs {
+        display: block;
+     }
+
+     .mobile-tabs {
+        display: none;
+     }
+
+     .single-content {
+        margin: 0 30px;
+     }
+
+     .single-content {
+        display: none;
+     }
+
+     .single-content.active {
+        display: block;
+     }
+
+     .profile-details {
+        flex-direction: row;
+        justify-content: space-between;
+     }
+
+     .tab-content {
+        max-width: 600px;
+     }
 
 }

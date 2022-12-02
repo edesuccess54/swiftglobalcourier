@@ -6,7 +6,103 @@
             <%- include("./partials/sideBar") %> 
             <div class="rightContent">
                 <%- include('./partials/topBar') %> 
-                <h2>Settings content</h2>
+                <section>
+                    <div class="mobile-tabs">
+                        <ul>
+                            <li class="active nav-profile">Profile</li>
+                            <li class="nav-security">Security</li>
+                        </ul>
+                    </div>
+                    <div class="setting-container">
+                        <div class="tabs">
+                            <ul>
+                                <li class="active nav-profile">Profile</li>
+                                <li class="active nav-security">Security</li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="single-content profile active">
+                                <h3>Profile</h3>
+                                <div class="security-details">
+                                    <div class="profile-details">
+                                        <p>
+                                            <span>Full Name</span> 
+                                            <span> Ede Onyekaozulu Success</span>
+                                        </p>
+
+                                        <p>
+                                            <span>Email</span> 
+                                            <span>edesuccess54@gmail.com</span>
+                                        </p>
+                                    </div>
+                                    <button class="edit-profile">Edit Profile</button>
+                                </div>
+                            </div>
+                            <div class="single-content security">
+                                <h3>Security</h3>
+                                <div class="security-details">
+                                    <div class="password-inner">
+                                        <p>
+                                            <span>Change password</span>
+                                        </p>
+                                        <button>Change Password</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <!-- edit profile modal  -->
+                    <div class="modal profile-modal">
+                        <div class="modal-content">
+                            <div class="close-btn">
+                                <i class="fa-solid fa-xmark "></i>
+                            </div>
+                            <form action="">
+                                <div class="input-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" id="email" name="email" value="edesuccess54@gmail.com" disabled>
+                                </div>
+                                
+                                <button class="btn">Update Info</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- change password modal  -->
+                    <div class="modal password-modal">
+                        <div class="modal-content">
+                            <div class="close-btn">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <form action="">
+                                <div class="input-group">
+                                    <label for="name">Old Password</label>
+                                    <input type="text" id="name" name="name">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="email">New Password</label>
+                                    <input type="text" id="email" name="email"  >
+                                </div>
+                                <div class="input-group">
+                                    <label for="email">Confirm Password</label>
+                                    <input type="text" id="email" name="email"  >
+                                </div>
+                                <button class="btn">Change Password</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </section>
+
             </div>
         </div>
     </main>
