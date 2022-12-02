@@ -63,7 +63,7 @@ label {
     background: transparent;
     z-index: 999999999;
     transform: translateY(-3000px); 
-    transition: transform 0.3s ease-in-out; 
+    transition: transform 0s ease-in-out; 
 }
 
 .modal.show {

@@ -74,9 +74,16 @@ const closeModal = (e) => {
         document.querySelector('.modal-overlay').classList.remove('active')
         profileModel.classList.remove('show')
     }
+
+    if(e.target.classList.contains('m2')) {
+        const passwordModal = document.querySelector('.password-modal')
+        document.querySelector('.modal-overlay').classList.remove('active')
+        passwordModal.classList.remove('show')
+    }
     
 }
 closeModalBtn.addEventListener('click', closeModal)
+document.querySelector('.close-modal2').addEventListener('click', closeModal)
 
 
 
