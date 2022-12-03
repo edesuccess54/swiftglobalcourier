@@ -1,3 +1,4 @@
+const sidebar = document.querySelector('.mobileMenu')
 const hamburger = document.querySelector('.openNav')
 const closeNav = document.querySelector('.closeNav')
 const overlay = document.querySelector('.overlay')

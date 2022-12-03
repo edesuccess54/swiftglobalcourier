@@ -42,6 +42,11 @@ label {
     color: var(--primary);
 }
 
+input {
+    font-size: 1.1em;
+    color: #1e1e1e;
+}
+
 .fa-xmark {
     font-size: 30px;
     margin-left: auto;
