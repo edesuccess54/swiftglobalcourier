@@ -2,8 +2,8 @@ const sidebar = document.querySelector('.mobileMenu')
 const hamburger = document.querySelector('.openNav')
 const closeNav = document.querySelector('.closeNav')
 const overlay = document.querySelector('.overlay')
-const destopTabs = document.querySelector('.tabs')
-const mobileTabs = document.querySelector('.mobile-tabs')
+const destopTabs = document.querySelector('.tabs ul')
+const mobileTabs = document.querySelector('.mobile-tabs ul')
 const profileTabContent = document.querySelector('.single-content')
 const securityTabContent = document.querySelector('.security')
 const navProfile = document.querySelector('.nav-profile')
@@ -28,24 +28,41 @@ const closeSideNav = (e) => {
 overlay.addEventListener('click', closeSideNav)
 closeNav.addEventListener('click', closeSideNav)
 
-// function to switch tabs 
-const switchTabs = (e) => {
+// function to switch tabs on destop 
+const switchDesktopTabs = (e) => {
     if(e.target.textContent === 'Profile') {
         securityTabContent.classList.remove('active')
         profileTabContent.classList.add('active')
-        navSecurity.classList.remove('active')
+        document.querySelector('.nav-security2').classList.remove('active')
         e.target.classList.add('active')
     }
 
     if(e.target.textContent === 'Security') {
         profileTabContent.classList.remove('active')
         securityTabContent.classList.add('active')
-        navProfile.classList.remove('active')
+        document.querySelector('.nav-profile2').classList.remove('active')
         e.target.classList.add('active')
     }
 }
-mobileTabs.addEventListener('click', switchTabs)
-destopTabs.addEventListener('click', switchTabs)
+destopTabs.addEventListener('click', switchDesktopTabs)
+
+// function to switch tabs on mobile 
+const switchMobileTabs = (e) => {
+    if(e.target.textContent === 'Profile') {
+        securityTabContent.classList.remove('active')
+        profileTabContent.classList.add('active')
+        document.querySelector('.nav-security2').classList.remove('active')
+        e.target.classList.add('active')
+    }
+
+    if(e.target.textContent === 'Security') {
+        profileTabContent.classList.remove('active')
+        securityTabContent.classList.add('active')
+        document.querySelector('.nav-profile2').classList.remove('active')
+        e.target.classList.add('active')
+    }
+}
+mobileTabs.addEventListener('click', switchMobileTabs)
 
 // function to open modal 
 const openModal = (e) => {
