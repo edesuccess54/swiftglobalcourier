@@ -48,7 +48,7 @@ input {
 }
 
 .fa-xmark {
-    font-size: 30px;
+    font-size: 25px;
     margin-left: auto;
     color: var(--primary);
     cursor: pointer;
@@ -544,6 +544,7 @@ footer {
     }
 
     .greeting .destop-greet {
+        margin-left: auto;
         display: block;
     }
 

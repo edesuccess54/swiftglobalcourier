@@ -51,14 +51,14 @@ const switchMobileTabs = (e) => {
     if(e.target.textContent === 'Profile') {
         securityTabContent.classList.remove('active')
         profileTabContent.classList.add('active')
-        document.querySelector('.nav-security2').classList.remove('active')
+        document.querySelector('.nav-security').classList.remove('active')
         e.target.classList.add('active')
     }
 
     if(e.target.textContent === 'Security') {
         profileTabContent.classList.remove('active')
         securityTabContent.classList.add('active')
-        document.querySelector('.nav-profile2').classList.remove('active')
+        document.querySelector('.nav-profile').classList.remove('active')
         e.target.classList.add('active')
     }
 }
