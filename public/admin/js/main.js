@@ -11,6 +11,7 @@ const navSecurity = document.querySelector('.nav-security')
 const editProfileBtn = document.querySelector('.edit-profile');
 const closeModalBtn = document.querySelector('.close-modal')
 const changePasswordBtn = document.querySelector('.pwd-btn')
+const topNavToggle = document.querySelector('greeting span.destop-greet')
 
 
 // function to open side nav 
@@ -102,6 +103,14 @@ const closeModal = (e) => {
 }
 closeModalBtn.addEventListener('click', closeModal)
 document.querySelector('.close-modal2').addEventListener('click', closeModal)
+
+// function to togle topnav modal 
+const topNavModal = () => {
+    console.log('yeah')
+    const topnavModal = document.querySelector('.topnav-modal')
+    topnavModal.classList.toggle('active')
+}
+topNavToggle.addEventListener('click', topNavModal)
 
 
 

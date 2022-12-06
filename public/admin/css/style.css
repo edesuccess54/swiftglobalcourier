@@ -242,6 +242,7 @@ body {
     display: flex;
     align-items: center;
     padding-bottom: 10px;
+    width: 100%;
     border-bottom: 1px solid var(--border-color);
     z-index: 111;
 }
@@ -251,6 +252,7 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+    flex-grow: 1;
 }
 
 .greeting .destop-greet {
@@ -263,6 +265,37 @@ body {
     font-size: 20px;
     margin-left: auto;
     gap: 20px;
+}
+
+.topnav-modal {
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    width: 250px;
+    display: none;
+    box-shadow: 0 20px 40px #ccc;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.topnav-modal.active {
+    display: block
+}
+
+.topnav-modal ul li {
+    list-style: none;
+}
+
+.topnav-modal ul li a{
+    display: block;
+    color: #1e1e1e;
+    padding: 10px;
+    text-decoration: none
+}
+
+.topnav-modal ul li a:hover {
+    color: #fff;
+    background: var(--primary);
 }
 
 .profile .fa-bars {
@@ -545,6 +578,7 @@ footer {
 
     .greeting .destop-greet {
         margin-left: auto;
+        cursor: pointer;
         display: block;
     }
 
