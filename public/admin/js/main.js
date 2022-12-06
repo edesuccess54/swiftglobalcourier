@@ -108,11 +108,15 @@ document.querySelector('.close-modal2').addEventListener('click', closeModal)
 const topNavModal = () => {
     const topnavModal = document.querySelector('.topnav-modal')
     const angleDown = document.querySelector('.fa-angle-down')
+     const angleUp = document.querySelector('.fa-angle-up')
     topnavModal.classList.toggle('active')
 
     if(topnavModal.classList.contains('active')) {
         angleDown.classList.remove('fa-angle-down')
-        angleDown.classList.remove('fa-angle-up')
+        angleDown.classList.add('fa-angle-up')
+    } else {
+        angleUp.classList.add('fa-angle-down')
+        angleUp.classList.remove('fa-angle-up')
     }
 }
 topNavToggle.addEventListener('click', topNavModal)
