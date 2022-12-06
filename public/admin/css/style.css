@@ -215,13 +215,13 @@ body {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
-
+/* 
 .innerWrapper ul a:active {
     background: var(--primary);
     color: #fff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-}
+} */
 
 .innerWrapper ul a:hover {
     background: var(--primary);
