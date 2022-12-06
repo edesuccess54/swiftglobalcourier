@@ -34,6 +34,11 @@ const quotePage = async(req, res) => {
     res.render('request-qoute')
 }
 
+// tracking page 
+const trackingPage = async(req, res) => {
+    res.render('tracking')
+}
+
 // admin dashboard page 
 const dashboardPage = async(req, res) => {
     res.render('./admin/dashboard')
@@ -61,6 +66,9 @@ const editPage = async(req, res) => {
 
 
 
+
+
+
 module.exports = {
     homePage,
     quotePage,
@@ -73,6 +81,7 @@ module.exports = {
     createPage,
     viewPage,
     settingsPage,
-    editPage
+    editPage,
+    trackingPage
 }
 
