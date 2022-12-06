@@ -11,7 +11,7 @@ const navSecurity = document.querySelector('.nav-security')
 const editProfileBtn = document.querySelector('.edit-profile');
 const closeModalBtn = document.querySelector('.close-modal')
 const changePasswordBtn = document.querySelector('.pwd-btn')
-const topNavToggle = document.querySelector('greeting span.destop-greet')
+const topNavToggle = document.querySelector('.destop-greet')
 
 
 // function to open side nav 
@@ -106,9 +106,14 @@ document.querySelector('.close-modal2').addEventListener('click', closeModal)
 
 // function to togle topnav modal 
 const topNavModal = () => {
-    console.log('yeah')
     const topnavModal = document.querySelector('.topnav-modal')
+    const angleDown = document.querySelector('.fa-angle-down')
     topnavModal.classList.toggle('active')
+
+    if(topnavModal.classList.contains('active')) {
+        angleDown.classList.remove('fa-angle-down')
+        angleDown.classList.remove('fa-angle-up')
+    }
 }
 topNavToggle.addEventListener('click', topNavModal)
 
