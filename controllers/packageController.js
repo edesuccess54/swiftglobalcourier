@@ -1,7 +1,7 @@
 const Package = require("../models/package")
 
 // create package fucntion 
-const createPackage = async (req, res) => {
+const packages_post = async (req, res) => {
     const {sendersName, sendersEmail, receiverName, receiversAddress, receiversNumber, description, weight, location, status, worth  } = req.body
 
     try {
@@ -37,7 +37,7 @@ const createPackage = async (req, res) => {
 }
 
 // update package 
-const updatePackage = async (req, res) => {
+const packages_put = async (req, res) => {
     const { id } = req.params
 
     try {
@@ -84,7 +84,7 @@ const updatePackage = async (req, res) => {
 }
 
 // delete package 
-const deletePackage = async (req, res) => {
+const packages_delete = async (req, res) => {
     const{ id } = req.params
     try {
         const package = await Package.findById(id)
@@ -110,7 +110,7 @@ const deletePackage = async (req, res) => {
 }
 
 // get all package
-const getAllPackage = async (req, res) => {
+const packages_get = async (req, res) => {
 
     try {
         const package = await Package.find()
@@ -135,9 +135,4 @@ const getAllPackage = async (req, res) => {
 
 
 
-module.exports = {
-    createPackage,
-    updatePackage,
-    deletePackage,
-    getAllPackage
-}
+module.exports = { packages_get,packages_post,packages_put, packages_delete}

@@ -68,40 +68,42 @@ const registerAdmin = async (req, res) => {
 
 
 // login admin 
-const loginAdmin = async(req, res) => {
+const loginAdmin = async(req, res, next) => {
     const { email, password } = req.body
+    console.log(1)
 
     try {
         // validation
         if(!email || !password) {
-            res.status(400)
-            throw new Error("Fill all fields")
+            next(new ErrorResponse("Fill all fields",400));
+            return;
         }
-
+        console.log(2)
         // check if email is valid email address
         if(!validator.isEmail(email)) {
-            res.status(400)
-            throw new Error("Not a valid email address")
+            next(new ErrorResponse("Not a valid email address",400));
+            return;
         }
-
+        console.log(3)
         // check if password is strong enough
         if(!validator.isStrongPassword(password)) {
-            res.status(400)
-            throw new Error("Password is not strong enough")
+            next(new ErrorResponse("Password is not strong enough",400));
+            return;
         }
-
+        console.log(4)
         // check if details are correct 
         const admin = await Admin.findOne({ email })
-
+        console.log(5)
         if(!admin) {
-            res.status(400)
-            throw new Error("Invalid email or password")
+            next(new ErrorResponse("Invalid email or password",400));
+            return;
         }
 
+        console.log(6)
         const hashedPassword = await bcrypt.compare(password, admin.password)
-
+        console.log(7)
         const token = await generateToken(admin._id)
-
+        console.log(8)
         res.cookie("token", token),{
             path: "/",
             httpOnly: true,
@@ -109,7 +111,7 @@ const loginAdmin = async(req, res) => {
             sameSite: "none",
             secure: true
         }
-
+        console.log(9)
         if(admin && hashedPassword) {
             const { _id, email: adminEmail, password: adminPassword } = admin
             res.status(200).json({
@@ -120,12 +122,12 @@ const loginAdmin = async(req, res) => {
             })
 
         } else {
-            res.status(400)
-            throw new Error("Invalid email or password")
+            next(new ErrorResponse("Invalid email or password",400));
+            return;
         }
-        
+        console.log(10)
     } catch (error) {
-        res.status(400).json({error: error.message})
+        next(new ErrorResponse(error.message,400));
     }
 }
 
