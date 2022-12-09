@@ -12,7 +12,8 @@ const {
     viewPage,
     settingsPage,
     editPage,
-    trackingPage } = require('../controllers/mainController');
+    trackingPage,
+    loginPage } = require('../controllers/mainController');
 const proctect = require('../middleware/auth');
 
 const router = express.Router()
@@ -34,6 +35,7 @@ router.get('/admin/create', createPage)
 router.get('/admin/view', viewPage)
 router.get('/admin/settings', settingsPage)
 router.get('/admin/edit/:id', editPage)
+router.get('/admin/login', loginPage)
 
 
 

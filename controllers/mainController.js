@@ -64,6 +64,11 @@ const editPage = async(req, res) => {
     res.render('./admin/edit')
 }
 
+// login page 
+const loginPage = async(req, res) => {
+    res.render('./admin/login')
+}
+
 
 
 
@@ -82,6 +87,7 @@ module.exports = {
     viewPage,
     settingsPage,
     editPage,
-    trackingPage
+    trackingPage,
+    loginPage
 }
 

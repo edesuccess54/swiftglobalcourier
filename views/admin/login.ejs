@@ -1,136 +1,30 @@
-<%- include('./partials/head')  %> 
+<%- include('../partials/head')  %> 
 <body>
 
 <!-- include the main navigation  -->
-<%- include('./partials/nav')  %> 
-
-<!-- <section class="inner-banner">
-	<div class="thm-container">
-		<h2>Company History</h2>
-		<ul class="breadcumb">
-			<li><a href="index-2.html"><i class="fa fa-home"></i> Home</a></li>
-			<li><span>Company History</span></li>
-		</ul>
-	</div>
-</section> -->
-
-<style>
-
-    .tracking-container h2 {
-        text-transform: uppercase;
-        text-align: center;
-        margin: 40px 0;
-    }
-    thead.active {
-        background: #f2f2f2;
-        font-weight: bold;
-    }
-
-    th {
-        padding: 15px!important;
-    }
-
-    td {
-        padding: 20px !important;
-        font-size: 1.2em;
-    }
-</style>
-
+<%- include('../partials/nav')  %> 
 
 <section class="sec-padding single-service-page">
 	<div class="thm-container">
 		<div class="row">
 			<div class="col-md-12 tracking-container" style="margin: auto; overflow: auto;">
-                <h2>track your product</h2>
-                <div class="barcode-contaiiner" style="text-align: center; margin-top: 10px;">
-                    <img src="/images/barcode.png" alt="" style="width:30%; object-fit: contain">
-                    <h3 style="color: green; text-transform: uppercase">tc202243432-v3</h3>
+               
+                <div class="loginForm-wrapper">
+                    <form>
+                        <h2>Admin Login</h2>
+                        <label for="email">Email</label>
+                        <input id="email" type="text" name="email">
+
+                        <label for="pwd">Password</label>
+                        <input id="pwd" type="password" name="Password">
+                        <button class="btn">Login</button>
+                    </form>
                 </div>
-                <div style="margin: 30px 0;">
-                    <h3 style="font-size: 2.5em;">Tracking Code: TC202243432-V3</h3>
-                </div>
-				<table class="table">
-                    <thead>
-                        <tr>
-                            <th>Current Location</th>
-                            <th>Destination Address</th>
-                            <th>Status of Item</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>UK</td>
-                            <td>1300 MERCHANTS DR APT k58 DALLAS USA 30213</td>
-                            <td>Pending</td>
-                        </tr>
-                    </tbody>
-
-                    <thead>
-                        <tr>
-                            <th>Sender Name</th>
-                            <th>Sender Email</th>
-                            <th>Package</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="width: 100%;">
-                            <td>Stjepan Hauser</td>
-                            <td>Sharon Britt</td>
-                            <td>BriefCase</td>
-                        </tr>
-                    </tbody>
-
-                    <thead class="active">
-                        <tr>
-                            <th>Receiver Name</th>
-                            <th>Receiver Email</th>
-                            <th>Receiver Number</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mary Johson</td>
-                            <td>Maryjohnson@gmail.com</td>
-                            <td>+1(893)023-2567</td>
-                        </tr>
-                    </tbody>
-
-                    <thead class="active">
-                        <tr>
-                            <th>Destination Address</th>
-                            <th>Depature Date</th>
-                            <th>Expected Delivery Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1300 MERCHANTS DR APT k58 DALLAS USA 30213</td>
-                            <td>06/09/2022</td>
-                            <td>12/12/2022</td>
-                        </tr>
-                    </tbody>
-
-                    <thead class="active">
-                        <tr>
-                            <th>Shipment Method</th>
-                            <th>Pickup Date & Time</th>
-                            <th>Weight</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1300 MERCHANTS DR APT k58 DALLAS USA 30213</td>
-                            <td>27/11/2022</td>
-                            <td>180kg</td>
-                    </tbody>
-                    
-                </table>
 
 			</div>
 		</div>
 	</div>
 </section>
-
 
 
 <section class="footer-top">
@@ -150,4 +44,4 @@
 </section>
 
 <!-- include footer  -->
-<%- include('./partials/footer.ejs')  %> 
+<%- include('../partials/footer.ejs')  %> 

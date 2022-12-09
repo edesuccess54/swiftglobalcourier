@@ -7,7 +7,7 @@
     --primary: #2760b8;
     --primary-light: #2a7178; 
     --secondary: rgb(83, 45, 148);
-    --bgcolor: #f4f5ff;
+    --bgcolor: #f4f2f2;
     --content-bg: #fff;
     --background: #f2f2f2;
     --border-color: #e5e7eb;
@@ -26,13 +26,21 @@
 .btn {
     background: var(--primary);
     color: #fff;
-    border: none;
+    border: 1px solid var(--primary);
+    /* border: none; */
     outline: none;
     border-radius: 5px;
     padding: 8px 10px;
     cursor: pointer;
     font-size: 1.1em;
     margin: 10px 0;
+    min-width: 150px;
+}
+
+.btn:hover {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
 }
 
 label {
@@ -215,13 +223,6 @@ body {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
-/* 
-.innerWrapper ul a:active {
-    background: var(--primary);
-    color: #fff;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-} */
 
 .innerWrapper ul a:hover {
     background: var(--primary);
@@ -546,7 +547,32 @@ body {
  }
 
 
- /* edit profile modal  */
+ /* admin login form styles  */
+
+ .loginForm-wrapper {
+    max-width: 400px;
+    background: #fff;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1);
+ }
+
+ .loginForm-wrapper h2 {
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 10px;
+ }
+
+ .loginForm-wrapper input {
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+ }
+
+
 
 
 
@@ -628,6 +654,11 @@ footer {
 
      .tab-content {
         max-width: 600px;
+     }
+     
+     .loginForm-wrapper {
+        max-width: 500px;
+        padding: 25px;
      }
 
 }
