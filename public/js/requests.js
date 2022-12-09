@@ -19,10 +19,7 @@ const loginAdmin = async (e) => {
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(formData)
         })
-        if(response.error){
-            console.log(response.error)
-            // document.querySelector(".class").textContent = "response.error";
-        }
+
         if(!response.ok){
             throw new Error('Login failed')
         }
@@ -32,8 +29,9 @@ const loginAdmin = async (e) => {
         const result = await response.json();
         loginBtn.textContent = 'Login';
 
-        console.log(result)
-        location.assign("/admin/dashboard")
+        // console.log(result.message)
+        document.querySelector('.message').textContent = result.message
+        // location.assign("/admin/dashboard")
 
     } catch (error) {
         loginBtn.textContent = 'Login';

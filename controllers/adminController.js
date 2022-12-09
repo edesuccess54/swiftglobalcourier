@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../models/adminModel')
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
+const ErrorResponse = require("../utils/errorResponse")
 
 
 // generateToken
