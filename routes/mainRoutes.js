@@ -25,7 +25,7 @@ router.get('/faq', faqPage)
 router.get('/track-shipment', trackPage)
 router.get('/contact', contactPage)
 router.get('/quote', quotePage)
-router.get('/tracking', trackingPage)
+router.get('/shipment/tracking', trackingPage)
 
 
 
