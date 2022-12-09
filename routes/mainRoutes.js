@@ -12,7 +12,8 @@ const {
     viewPage,
     settingsPage,
     editPage,
-    trackingPage } = require('../controllers/mainController')
+    trackingPage } = require('../controllers/mainController');
+const proctect = require('../middleware/auth');
 
 const router = express.Router()
 
