@@ -548,7 +548,6 @@ body {
 
 
  /* admin login form styles  */
-
  .loginForm-wrapper {
     max-width: 400px;
     background: #fff;
@@ -571,6 +570,25 @@ body {
     border-radius: 5px;
     border: 1px solid var(--border-color);
  }
+
+ .tracking-container h2 {
+    text-transform: uppercase;
+    text-align: center;
+    margin: 40px 0;
+}
+ thead.active {
+    background: #f2f2f2;
+    font-weight: bold;
+}
+
+.tracking-container th {
+    padding: 15px!important;
+}
+
+.tracking-container td {
+    padding: 20px !important;
+    font-size: 1.2em;
+}
 
 
 
