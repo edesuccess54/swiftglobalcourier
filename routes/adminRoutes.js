@@ -1,5 +1,5 @@
 const express = require("express")
-const {registerAdmin, loginAdmin, logoutAdmin, changePassword} = require("../controllers/adminController")
+const {registerAdmin, loginAdmin, logoutAdmin, changePassword,dashboardPage,createPage,viewPage,settingsPage,editPage,loginPage} = require("../controllers/adminController")
 const { packages_get,packages_post,packages_put, packages_delete} = require("../controllers/packageController")
 
 const auth = require("../middleware/auth.js")
@@ -10,6 +10,8 @@ router.post("/register", registerAdmin)
 router.post("/login", loginAdmin)
 router.get("/logout", logoutAdmin)
 router.post("/changepassword", auth, changePassword)
+
+// packages 
 router.get("/packages", auth, packages_get)
 router.post("/packages", auth, packages_post)
 router.put("/packages/:id", auth, packages_put)

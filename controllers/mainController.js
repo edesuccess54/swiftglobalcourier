@@ -39,35 +39,7 @@ const trackingPage = async(req, res) => {
     res.render('tracking')
 }
 
-// admin dashboard page 
-const dashboardPage = async(req, res) => {
-    res.render('./admin/dashboard')
-}
 
-// create package page 
-const createPage = async(req, res) => {
-    res.render('./admin/create')
-}
-
-// view package page 
-const viewPage = async(req,res) => {
-    res.render('./admin/view')
-}
-
-// settings page 
-const settingsPage = async(req, res) => {
-    res.render('./admin/settings')
-}
-
-// edit page 
-const editPage = async(req, res) => {
-    res.render('./admin/edit')
-}
-
-// login page 
-const loginPage = async(req, res) => {
-    res.render('./admin/login')
-}
 
 
 
@@ -82,12 +54,6 @@ module.exports = {
     faqPage,
     servicePage,
     aboutPage,
-    dashboardPage,
-    createPage,
-    viewPage,
-    settingsPage,
-    editPage,
     trackingPage,
-    loginPage
 }
 
