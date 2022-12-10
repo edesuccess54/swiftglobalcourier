@@ -29,13 +29,7 @@ router.get('/shipment/tracking', trackingPage)
 
 
 
-// admin routes 
-router.get('/admin/dashboard', dashboardPage)
-router.get('/admin/create', createPage)
-router.get('/admin/view', viewPage)
-router.get('/admin/settings', settingsPage)
-router.get('/admin/edit/:id', editPage)
-router.get('/admin/login', loginPage)
+
 
 
 

@@ -15,6 +15,14 @@ router.post("/packages", auth, packages_post)
 router.put("/packages/:id", auth, packages_put)
 router.delete("/packages/:id", auth, packages_delete)
 
+// admin routes 
+router.get('/dashboard', dashboardPage)
+router.get('/create', auth, createPage)
+router.get('/admin/view', auth, viewPage)
+router.get('/admin/settings', auth, settingsPage)
+router.get('/admin/edit/:id', auth, editPage)
+router.get('/admin/login', loginPage)
+
 
 
 module.exports = router

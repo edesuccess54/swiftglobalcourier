@@ -28,11 +28,10 @@ const loginAdmin = async (e) => {
         loginBtn.textContent = 'Login';
 
         document.querySelector('.message').textContent = result.message
-        // location.assign("/admin/dashboard")
+        location.assign("/admin/dashboard")
 
     } catch (error) {
         loginBtn.textContent = 'Login';
-        // console.error(error.message)
     }
     
     
