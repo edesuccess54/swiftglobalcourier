@@ -19,7 +19,7 @@ app.use(cookieParser())
 app.use(cors())
 
 app.use(mainRoutes)
-app.use('/admin',adminRoutes)
+app.use('/',adminRoutes)
 
 app.use(errorHandler)
 

@@ -13,7 +13,7 @@ const loginAdmin = async (e) => {
     loginBtn.textContent = 'processing...';
 
     try {
-        const url =`http://localhost:3000/admin/login`
+        const url =`http://localhost:3000/api/admin/login`
         const response = await fetch(url,{
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
@@ -27,10 +27,12 @@ const loginAdmin = async (e) => {
         const result = await response.json();
         loginBtn.textContent = 'Login';
 
+        console.log(result)
         document.querySelector('.message').textContent = result.message
-        location.assign("/admin/dashboard")
+        // location.assign("/admin/dashboard")
 
     } catch (error) {
+        console.log(error.message)
         loginBtn.textContent = 'Login';
     }
     

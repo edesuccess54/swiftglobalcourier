@@ -69,26 +69,32 @@ const registerAdmin = async (req, res) => {
 
 
 // login admin 
-const loginAdmin = async(req, res, next) => {
+const loginAdmin = async(req, res) => {
     const { email, password } = req.body
     console.log(1)
 
     try {
         // validation
         if(!email || !password) {
-            next(new ErrorResponse("Fill all fields",400));
+            res.status(400)
+            throw new Error("Fill all fields")
+            // next(new ErrorResponse("Fill all fields",400));
             return;
         }
         console.log(2)
         // check if email is valid email address
         if(!validator.isEmail(email)) {
-            next(new ErrorResponse("Not a valid email address",400));
+            res.status(400)
+            throw new Error("Not a valid email address")
+            // next(new ErrorResponse("Not a valid email address",400));
             return;
         }
         console.log(3)
         // check if password is strong enough
         if(!validator.isStrongPassword(password)) {
-            next(new ErrorResponse("Password is not strong enough",400));
+            res.status(400)
+            throw new Error("Password is not strong enough")
+            // next(new ErrorResponse("Password is not strong enough",400));
             return;
         }
         console.log(4)
@@ -96,7 +102,9 @@ const loginAdmin = async(req, res, next) => {
         const admin = await Admin.findOne({ email })
         console.log(5)
         if(!admin) {
-            next(new ErrorResponse("Invalid email or password",400));
+            res.status(400)
+            throw new Error("Invalid email or password")
+            // next(new ErrorResponse("Invalid email or password",400));
             return;
         }
 
@@ -123,12 +131,14 @@ const loginAdmin = async(req, res, next) => {
             })
 
         } else {
-            next(new ErrorResponse("Invalid email or password",400));
+            res.status(400)
+            throw new Error("Invalid email or password")
+            // next(new ErrorResponse("Invalid email or password",400));
             return;
         }
         console.log(10)
     } catch (error) {
-        next(new ErrorResponse(error.message,400));
+        res.status(400).json(error.message)
     }
 }
 
