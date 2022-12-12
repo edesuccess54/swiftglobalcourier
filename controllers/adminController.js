@@ -69,7 +69,7 @@ const registerAdmin = async (req, res) => {
 
 
 // login admin 
-const loginAdmin = async(req, res) => {
+const loginAdmin = async(req, res, next) => {
     const { email, password } = req.body
     console.log(1)
 
@@ -104,8 +104,8 @@ const loginAdmin = async(req, res) => {
         if(!admin) {
             res.status(400)
             console.log('Invalid email or password 11')
-            throw new Error("Invalid email or password")
-            // next(new ErrorResponse("Invalid email or password",400));
+            // throw new Error("Invalid email or password")
+            next(new ErrorResponse("Invalid email or password",400));
 
         }
 
