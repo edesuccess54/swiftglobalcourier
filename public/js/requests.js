@@ -21,7 +21,7 @@ const loginAdmin = async (e) => {
         })
 
         if(!response.ok){
-            throw new Error(response.text)
+            throw new Error("something went wrong")
         }
 
         const result = await response.json();
