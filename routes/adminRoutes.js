@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.post("/register", registerAdmin)
 router.post("/api/admin/login", loginAdmin)
-router.get("/logout", logoutAdmin)
+router.get("/api/admin/logout", logoutAdmin)
 router.post("/changepassword", auth, changePassword)
 
 

@@ -17,7 +17,8 @@ const loginAdmin = async (e) => {
         const url =`http://localhost:3000/api/admin/login`
         const response = await fetch(url,{
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
+            headers: { 
+                'Content-Type': 'application/json'},
             body: JSON.stringify(formData)
         })
 
@@ -30,7 +31,7 @@ const loginAdmin = async (e) => {
 
         console.log(result)
         document.querySelector('.message').textContent = result.error
-        location.assign("/admin/dashboard")
+        // location.assign("/admin/dashboard")
 
     } catch (error) {
         // console.log(error.message)
@@ -40,11 +41,26 @@ const loginAdmin = async (e) => {
     
     
 }
-loginForm.addEventListener('submit', loginAdmin)
-
 
 const logout = async (e) => {
     e.preventDefault();
-    alert('logout')
+    
+    try {
+        const response = await fetch('http://localhost:3000/api/admin/logout')
+
+        if(!response.ok) {
+            throw new Error("something went wrong")
+        }
+        const json = await response.json()
+
+        if(json.message == 'Successfully Logged out') {
+            location.assign("/admin/login")
+        }
+        console.log(json)
+    } catch (error) {
+        console.log(error.message)
+    }
+    
 }
 logOutBtn.forEach(btn => btn.addEventListener('click', logout))
+loginForm.addEventListener('submit', loginAdmin)
