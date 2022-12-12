@@ -47,4 +47,4 @@ const logout = async (e) => {
     e.preventDefault();
     alert('logout')
 }
-logOutBtn.foreach(btn => btn.addEventListener('click', logout))
+logOutBtn.forEach(btn => btn.addEventListener('click', logout))
