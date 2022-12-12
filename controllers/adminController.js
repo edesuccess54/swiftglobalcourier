@@ -80,19 +80,16 @@ const loginAdmin = async(req, res, next) => {
             return;
         }
         console.log(2)
-        // check if email is valid email address
         if(!validator.isEmail(email)) {
             next(new ErrorResponse("Not a valid email address",400));
             return;
         }
         console.log(3)
-        // check if password is strong enough
         if(!validator.isStrongPassword(password)) {
             next(new ErrorResponse("Password is not strong enough",400));
             return;
         }
         console.log(4)
-        // check if details are correct 
         const admin = await Admin.findOne({ email })
         console.log(5)
         if(!admin) {

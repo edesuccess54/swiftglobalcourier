@@ -13,8 +13,8 @@ router.post("/changepassword", auth, changePassword)
 
 
 // admin routes 
-router.get('/dashboard', dashboardPage)
-router.get('/create', auth, createPage)
+router.get('/admin/dashboard', auth, dashboardPage)
+router.get('/admin/create', auth, createPage)
 router.get('/admin/view', auth, viewPage)
 router.get('/admin/settings', auth, settingsPage)
 router.get('/admin/edit/:id', auth, editPage)

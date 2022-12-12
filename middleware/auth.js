@@ -12,6 +12,11 @@ const proctect = async (req, res, next) => {
         // verify token 
         const verified = jwt.verify(token, process.env.JWT_SECRET)
 
+        if(!verified) {
+            res.status(400)
+            throw new Error('Invalid token')
+        }
+
         // get admin 
         const admin = await Admin.findById(verified.id).select('-password')
 
