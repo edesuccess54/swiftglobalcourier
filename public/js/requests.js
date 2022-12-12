@@ -1,4 +1,5 @@
 const loginForm = document.querySelector('.login-form');
+const logOutBtn = document.querySelector('.logout-btn');
 
 
 const loginAdmin = async (e) => {
@@ -29,7 +30,7 @@ const loginAdmin = async (e) => {
 
         console.log(result)
         document.querySelector('.message').textContent = result.error
-        location.assign("/dashboard")
+        location.assign("/admin/dashboard")
 
     } catch (error) {
         // console.log(error.message)
@@ -39,5 +40,11 @@ const loginAdmin = async (e) => {
     
     
 }
-
 loginForm.addEventListener('submit', loginAdmin)
+
+
+const logout = async (e) => {
+    e.preventDefault();
+    alert('logout')
+}
+logOutBtn.addEventListener('click', logout)
