@@ -103,9 +103,10 @@ const loginAdmin = async(req, res) => {
         console.log(5)
         if(!admin) {
             res.status(400)
+            console.log('Invalid email or password 11')
             throw new Error("Invalid email or password")
             // next(new ErrorResponse("Invalid email or password",400));
-            return;
+
         }
 
         console.log(6)

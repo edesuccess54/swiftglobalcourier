@@ -21,18 +21,19 @@ const loginAdmin = async (e) => {
         })
 
         if(!response.ok){
-            throw new Error('Login failed')
+            throw new Error(response)
         }
 
         const result = await response.json();
         loginBtn.textContent = 'Login';
 
         console.log(result)
-        document.querySelector('.message').textContent = result.message
+        
         // location.assign("/admin/dashboard")
 
     } catch (error) {
         console.log(error.message)
+        document.querySelector('.message').textContent = result.message
         loginBtn.textContent = 'Login';
     }
     
