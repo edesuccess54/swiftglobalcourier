@@ -1,5 +1,5 @@
 const loginForm = document.querySelector('.login-form');
-const logOutBtn = document.querySelector('.logout-btn');
+const logOutBtn = document.querySelectorAll('.logout-btn');
 
 
 const loginAdmin = async (e) => {
@@ -47,4 +47,4 @@ const logout = async (e) => {
     e.preventDefault();
     alert('logout')
 }
-logOutBtn.addEventListener('click', logout)
+logOutBtn.foreach(btn => btn.addEventListener('click', logout))
