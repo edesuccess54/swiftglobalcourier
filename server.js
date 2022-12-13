@@ -2,6 +2,7 @@ const express = require('express');
 const env = require('dotenv').config()
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const adminRoutes = require('./routes/adminRoutes');
 const mainRoutes = require('./routes/mainRoutes')
 const cookieParser = require('cookie-parser')
@@ -19,8 +20,16 @@ app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 app.use(cors())
 
+app.use(morgan('dev'))
+
 app.use(mainRoutes)
 app.use('/',adminRoutes)
+
+app.use((req, res, next) => {
+   const error = new Error("Not Found");
+   error.status = 404;
+   next(error);
+})
 
 app.use(errorHandler)
 
