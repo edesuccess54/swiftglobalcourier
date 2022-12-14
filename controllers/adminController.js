@@ -194,27 +194,32 @@ const changePassword = async (req, res) => {
 
 // admin dashboard page 
 const dashboardPage = async(req, res) => {
-    res.render('./admin/dashboard')
+    const admin = req.admin
+    res.render('./admin/dashboard', {admin})
 }
 
 // create package page 
 const createPage = async(req, res) => {
-    res.render('./admin/create')
+    const admin = req.admin
+    res.render('./admin/create', {admin})
 }
 
 // view package page 
 const viewPage = async(req,res) => {
-    res.render('./admin/view')
+    const admin = req.admin
+    res.render('./admin/view', {admin})
 }
 
 // settings page 
 const settingsPage = async(req, res) => {
-    res.render('./admin/settings')
+    const admin = req.admin
+    res.render('./admin/settings', {admin})
 }
 
 // edit page 
 const editPage = async(req, res) => {
-    res.render('./admin/edit')
+    const admin = req.admin
+    res.render('./admin/edit', {admin})
 }
 
 // login page 

@@ -17,8 +17,7 @@ const loginAdmin = async (e) => {
         const url =`http://localhost:3000/api/admin/login`
         const response = await fetch(url,{
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(formData)
         })
 
@@ -29,12 +28,13 @@ const loginAdmin = async (e) => {
         const result = await response.json();
         loginBtn.textContent = 'Login';
 
-        console.log(result)
-        document.querySelector('.message').textContent = result.error
-        // location.assign("/admin/dashboard")
+        if(result.error) {
+            document.querySelector('.message').textContent = result.error
+            return
+        }
+        location.assign("/admin/dashboard")
 
     } catch (error) {
-        // console.log(error.message)
         document.querySelector('.message').textContent = result.error
         loginBtn.textContent = 'Login';
     }
