@@ -38,6 +38,7 @@
                         <div class="packageTable" style="overflow: scroll;">
                             <table id="myTable" class="hover row-border table is-striped" style="width:100%" >
                                 <thead>
+                                 
                                     <tr style="white-space: nowrap;">
                                         <th>Sender Name</th>
                                         <th>Sender Email</th>
@@ -49,69 +50,24 @@
                                     </tr>
                                 </thead>
                                 <tbody style="white-space: nowrap;">
+                                    <% for(let i = 0; i < packages.length; i++) { %>
                                     <tr>
-                                        <td>Onyekaozulu</td>
-                                        <td>Ede</td>
-                                        <td>Developer</td>
-                                        <td>Eze Global</td>
-                                        <td>10/24/22</td>
-                                        <td>$30000</td>
+                                        <td><%= packages[i].sendersName %></td>
+                                        <td><%= packages[i].sendersEmail %></td>
+                                        <td><%= packages[i].receiverName %></td>
+                                        <td><%= packages[i].receiversAddress %></td>
+                                      
+                                        <td><%= packages[i].location %></td>
+                                        <td><%= packages[i].status %></td>
                                         <td class="actionColumn">
                                             <span>
-                                                <a href="../admin/edit/32655215351341"><i class="fa-solid fa-pen-to-square edit"></i></a>
+                                                <a href="../admin/edit/<%- packages[i]._id %>"><i class="fa-solid fa-pen-to-square edit"></i></a>
                                             </span>
 
-                                            <span><i class="fa-solid fa-trash trash"></i></span>
+                                            <span><i class="fa-solid fa-trash trash" data-id="<%- packages[i]._id %>"></i></span>
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>Onyekaozulu</td>
-                                        <td>Ede</td>
-                                        <td>Developer</td>
-                                        <td>Eze Global</td>
-                                        <td>10/24/22</td>
-                                        <td>$30000</td>
-                                        <td class="actionColumn">
-                                            <span>
-                                                <a href="../admin/edit/32655215351341"><i class="fa-solid fa-pen-to-square edit"></i></a>
-                                            </span>
-                                            
-                                            <span><i class="fa-solid fa-trash trash"></i></span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Onyekaozulu</td>
-                                        <td>Ede</td>
-                                        <td>Developer</td>
-                                        <td>Eze Global</td>
-                                        <td>10/24/22</td>
-                                        <td>$30000</td>
-                                        <td class="actionColumn">
-                                            <span>
-                                                <a href="../admin/edit/32655215351341"><i class="fa-solid fa-pen-to-square edit"></i></a>
-                                            </span>
-                                            
-                                            <span><i class="fa-solid fa-trash trash"></i></span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Onyekaozulu</td>
-                                        <td>Ede</td>
-                                        <td>Developer</td>
-                                        <td>Eze Global</td>
-                                        <td>10/24/22</td>
-                                        <td>$30000</td>
-                                        <td class="actionColumn">
-                                            <span>
-                                                <a href="../admin/edit/32655215351341"><i class="fa-solid fa-pen-to-square edit"></i></a>
-                                            </span>
-                                            
-                                            <span><i class="fa-solid fa-trash trash"></i></span>
-                                        </td>
-                                    </tr>
+                                    <% } %>
                                 </tbody>
                             </table>
                         </div>

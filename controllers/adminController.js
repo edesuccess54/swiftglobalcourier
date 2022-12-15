@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/adminModel')
+const Package = require('../models/package')
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
 const ErrorResponse = require("../utils/errorResponse")
@@ -194,8 +195,9 @@ const changePassword = async (req, res) => {
 
 // admin dashboard page 
 const dashboardPage = async(req, res) => {
+    const packages = await Package.find()
     const admin = req.admin
-    res.render('./admin/dashboard', {admin})
+    res.render('./admin/dashboard', {admin, packages})
 }
 
 // create package page 
@@ -217,9 +219,17 @@ const settingsPage = async(req, res) => {
 }
 
 // edit page 
-const editPage = async(req, res) => {
+const editPage = async(req, res, next) => {
+    const {id} = req.params
+
+    const singlepackage = await Package.findById(id)
+
+    if(!singlepackage) {
+        next(new ErrorResponse("package not found", 404))
+        return
+    }
     const admin = req.admin
-    res.render('./admin/edit', {admin})
+    res.render('./admin/edit', {admin, singlepackage})
 }
 
 // login page 
