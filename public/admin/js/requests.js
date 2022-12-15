@@ -1,7 +1,8 @@
 const loginForm = document.querySelector('.login-form');
 const logOutBtn = document.querySelectorAll('.logout-btn');
+const changePasswordBtn = document.querySelector('.change-password');
 
-
+// lgin request 
 const loginAdmin = async (e) => {
     e.preventDefault();
 
@@ -42,6 +43,7 @@ const loginAdmin = async (e) => {
     
 }
 
+// logout request 
 const logout = async (e) => {
     e.preventDefault();
     
@@ -64,3 +66,10 @@ const logout = async (e) => {
 }
 logOutBtn.forEach(btn => btn.addEventListener('click', logout))
 loginForm.addEventListener('submit', loginAdmin)
+
+// change password request 
+const changePassword = async (e) => {
+    e.preventDefault();
+    alert('change password')
+}
+changePasswordBtn.addEventListener('click', changePassword)
