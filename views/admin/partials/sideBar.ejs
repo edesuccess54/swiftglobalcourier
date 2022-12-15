@@ -8,19 +8,20 @@
         </div>
         <ul>
             <li>
-                <a href="/admin/dashboard" class="<%- status %> ">
+                
+                <a href="/admin/dashboard" class="<%- status ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-life-ring"></i>&nbsp; Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="/admin/create">
+                <a href="/admin/create" class="<%= status %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-plus"></i>&nbsp; Create package</span>
                 </a>
             </li>
             <li>
-                <a href="/admin/view">
+                <a href="/admin/view" class="<%= status %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-eye"></i>&nbsp; View packages</span>
                 </a>
