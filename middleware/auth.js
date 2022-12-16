@@ -29,8 +29,8 @@ const proctect = async (req, res, next) => {
         next()
         
     } catch (error) {
-        console.log(error)
-        return res.status(401).json({error: error.message})
+        res.redirect("/admin/login")
+        return 
     }
 }
 

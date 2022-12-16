@@ -1,6 +1,6 @@
 const loginForm = document.querySelector('.login-form');
 const logOutBtn = document.querySelectorAll('.logout-btn');
-const changePasswordBtn = document.querySelector('.change-password');
+const changePasswordForm = document.querySelector('.change-password');
 
 // lgin request 
 const loginAdmin = async (e) => {
@@ -65,11 +65,47 @@ const logout = async (e) => {
     
 }
 logOutBtn.forEach(btn => btn.addEventListener('click', logout))
-loginForm.addEventListener('submit', loginAdmin)
+// loginForm.addEventListener('submit', loginAdmin)
 
 // change password request 
 const changePassword = async (e) => {
     e.preventDefault();
-    alert('change password')
+    const oldpassword = changePasswordForm.oldPwd.value
+    const newpassword = changePasswordForm.newPwd.value
+    const confirmpassword = changePasswordForm.cPwd.value
+
+    const formData = {
+        oldpassword,
+        newpassword,
+        confirmpassword
+    }
+
+    if(!oldpassword || !newpassword || !confirmpassword) {
+        throw new Error("Fields cannot be empty")
+        return
+    }
+
+    if(newpassword != confirmpassword) {
+        throw new Error("Password does not match")
+        return
+    }
+
+    try {
+        const response = await fetch('/api/admin/changepassword', {
+        method:'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(formData)
+        })
+
+        if(!response.ok) {
+            throw new Error("could not change password")
+        }
+        const json = await response.json()
+        
+    } catch (error) {
+        console.log(error.message)
+    }
+
+    
 }
-changePasswordBtn.addEventListener('click', changePassword)
+changePasswordForm.addEventListener('submit', changePassword)

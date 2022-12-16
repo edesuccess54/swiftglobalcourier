@@ -144,7 +144,7 @@ const logoutAdmin = async (req, res) => {
 
 // change admin password 
 const changePassword = async (req, res) => {
-    const {oldpassword, password, password2 } = req.body
+    const {oldpassword, newpassword, confirmpassword } = req.body
     const id = req.admin._id
 
     try {
