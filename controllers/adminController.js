@@ -147,6 +147,7 @@ const changePassword = async (req, res) => {
     const {oldpassword, newpassword, confirmpassword } = req.body
     const id = req.admin._id
 
+    console.log(1)
     try {
 
         const admin = await Admin.findById(id)
@@ -156,17 +157,17 @@ const changePassword = async (req, res) => {
             throw new Error("you are not authorized")
         }
 
-        if(!oldpassword || !password || !password2) {
+        if(!oldpassword || !newpassword || !confirmpassword) {
             res.status(400)
             throw new Error("all fields are required")
         }
 
-        if(password == oldpassword) {
+        if(newpassword == oldpassword) {
             res.status(400)
             throw new Error("Password can not be same with old password")
         }
 
-        if(password !== password2) {
+        if(newpassword !== confirmpassword) {
             res.status(400)
             throw new Error("password does not match")
         }
@@ -179,7 +180,7 @@ const changePassword = async (req, res) => {
         }
 
          if(admin && hashedPassword) {
-            admin.password = password
+            admin.password = newpassword
             await admin.save()
             res.status(200).json({message: "Password changed"})
 
