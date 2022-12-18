@@ -149,36 +149,36 @@ const changePassword = async (req, res) => {
 
     console.log(1)
     try {
-
+        console.log(2)
         const admin = await Admin.findById(id)
-
+        console.log(3)
         if(!admin) {
             res.status(400)
             throw new Error("you are not authorized")
         }
-
+        console.log(4)
         if(!oldpassword || !newpassword || !confirmpassword) {
             res.status(400)
             throw new Error("all fields are required")
         }
-
+        console.log(5)
         if(newpassword == oldpassword) {
             res.status(400)
             throw new Error("Password can not be same with old password")
         }
-
+        console.log(6)
         if(newpassword !== confirmpassword) {
             res.status(400)
             throw new Error("password does not match")
         }
-
+        console.log(7)
         const hashedPassword = await bcrypt.compare(oldpassword, admin.password)
 
         if(!hashedPassword) {
             res.status(400)
             throw new Error("old password is not correct")
         }
-
+        console.log(8)
          if(admin && hashedPassword) {
             admin.password = newpassword
             await admin.save()

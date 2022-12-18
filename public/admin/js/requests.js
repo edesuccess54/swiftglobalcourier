@@ -80,26 +80,29 @@ const changePassword = async (e) => {
         confirmpassword
     }
 
+    console.log(1)
     if(!oldpassword || !newpassword || !confirmpassword) {
         throw new Error("Fields cannot be empty")
-        return
+    
     }
-
+    console.log(2)
     if(newpassword != confirmpassword) {
         throw new Error("Password does not match")
         return
     }
 
+    console.log(3)
     try {
         const response = await fetch('/api/admin/changepassword', {
         method:'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(formData)
         })
-
+        console.log(4)
         if(!response.ok) {
             throw new Error("could not change password")
         }
+        console.log(4)
         const json = await response.json()
         
     } catch (error) {
