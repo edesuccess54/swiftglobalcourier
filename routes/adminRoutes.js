@@ -13,12 +13,12 @@ router.post("/api/admin/changepassword", auth, changePassword)
 
 
 // admin routes 
-router.get('/admin/dashboard', auth, dashboardPage)
-router.get('/admin/create', auth, createPage)
-router.get('/admin/view', auth, viewPage)
-router.get('/admin/settings', auth, settingsPage)
-router.get('/admin/edit/:id', auth, editPage)
-router.get('/admin/login', loginPage)
+router.get('/dashboard', auth, dashboardPage)
+router.get('/create', auth, createPage)
+router.get('/view', auth, viewPage)
+router.get('/settings', auth, settingsPage)
+router.get('/edit/:id', auth, editPage)
+router.get('/login', loginPage)
 
 // packages 
 router.get("/packages", auth, packages_get)

@@ -22,8 +22,8 @@ app.use(cors())
 
 app.use(morgan('dev'))
 
-app.use(mainRoutes)
-app.use('/',adminRoutes)
+app.use('/',mainRoutes)
+app.use('/admin',adminRoutes)
 
 app.use((req, res, next) => {
    const error = new Error("Not Found");
