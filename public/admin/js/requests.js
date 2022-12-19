@@ -27,6 +27,7 @@ const loginAdmin = async (e) => {
         }
 
         const result = await response.json();
+        console.log(result)
         loginBtn.textContent = 'Login';
 
         if(result.error) {
@@ -36,7 +37,7 @@ const loginAdmin = async (e) => {
         location.assign("/admin/dashboard")
 
     } catch (error) {
-        document.querySelector('.message').textContent = result.error
+        // document.querySelector('.message').textContent = result.error
         loginBtn.textContent = 'Login';
     }
     
@@ -65,7 +66,7 @@ const logout = async (e) => {
     
 }
 logOutBtn.forEach(btn => btn.addEventListener('click', logout))
-// loginForm.addEventListener('submit', loginAdmin)
+loginForm.addEventListener('submit', loginAdmin)
 
 // change password request 
 const changePassword = async (e) => {
@@ -111,4 +112,4 @@ const changePassword = async (e) => {
 
     
 }
-changePasswordForm.addEventListener('submit', changePassword)
+// changePasswordForm.addEventListener('submit', changePassword)

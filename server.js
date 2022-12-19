@@ -25,11 +25,11 @@ app.use(morgan('dev'))
 app.use('/',mainRoutes)
 app.use('/admin',adminRoutes)
 
-app.use((req, res, next) => {
-   const error = new Error("Not Found");
-   error.status = 404;
-   next(error);
-})
+// app.use((req, res, next) => {
+//    const error = new Error("Not Found");
+//    error.status = 404;
+//    next(error);
+// })
 
 app.use(errorHandler)
 
