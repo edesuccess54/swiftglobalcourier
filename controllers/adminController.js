@@ -71,6 +71,7 @@ const registerAdmin = async (req, res) => {
 
 // login admin 
 const loginAdmin = async(req, res, next) => {
+    console.log('yesssssssss')
     const { email, password } = req.body
     console.log(1)
 

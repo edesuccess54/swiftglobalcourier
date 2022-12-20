@@ -8,9 +8,9 @@ const router = express.Router()
 
 // Admin APIS 
 router.post("/register", registerAdmin)
-router.post("/api/admin/login", loginAdmin)
-router.get("/api/admin/logout", logoutAdmin)
-router.post("/api/admin/changepassword", auth, changePassword)
+router.post("/login", loginAdmin)
+router.get("/logout", logoutAdmin)
+router.post("/changepassword", auth, changePassword)
 
 
 // Admin Routes 

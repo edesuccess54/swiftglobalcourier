@@ -25,17 +25,12 @@ app.use(cors())
 app.use('/',mainRoutes)
 app.use('/admin',adminRoutes)
 
-// app.use((req, res, next) => {
-//    const error = new Error("Not Found");
-//    error.status = 404;
-//    next(error);
-// })
 
-app.use(errorHandler)
+// app.use(errorHandler)
 
 mongoose.connect(process.env.MONGO_URI).then((result) => {
    app.listen(process.env.PORT, () => {
-      console.log(`Connected to dabase and now Listening on port ${process.env.PORT}`)
+      console.log(`Connected to database and now Listening on port ${process.env.PORT}`)
    })
 }).catch((error) => {
    console.log(error.message)

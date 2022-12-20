@@ -17,7 +17,7 @@ const loginAdmin = async (e) => {
     loginBtn.textContent = 'processing...';
     console.log(13)
     try {
-        const url = '/api/admin/login'
+        const url = '/admin/login'
         const response = await fetch(url, {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json'},
@@ -29,7 +29,6 @@ const loginAdmin = async (e) => {
         }
 
         const result = await response.json();
-        console.log(result)
         loginBtn.textContent = 'Login';
 
         if(result.error) {
@@ -45,14 +44,14 @@ const loginAdmin = async (e) => {
     
     
 }
-loginForm.addEventListener('submit', loginAdmin)
+// loginForm.addEventListener('submit', loginAdmin)
 
 // logout request 
 const logout = async (e) => {
     e.preventDefault();
     
     try {
-        const response = await fetch('http://localhost:3000/api/admin/logout')
+        const response = await fetch('/admin/logout')
 
         if(!response.ok) {
             throw new Error("something went wrong")
