@@ -1,50 +1,6 @@
-const loginForm = document.querySelector('.login-form');
+
 const logOutBtn = document.querySelectorAll('.logout-btn');
 const changePasswordForm = document.querySelector('.change-password');
-
-// lgin request 
-const loginAdmin = async (e) => {
-    e.preventDefault();
-
-    console.log(11)
-    const email = loginForm.email.value;
-    const password = loginForm.password.value;
-    const loginBtn = loginForm.submit;
-    console.log(12)
-
-    const formData = { email, password };
-
-    loginBtn.textContent = 'processing...';
-    console.log(13)
-    try {
-        const url = '/admin/login'
-        const response = await fetch(url, {
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(formData)
-        })
-        console.log(14)
-        if(!response.ok){
-            throw new Error("something went wrong")
-        }
-
-        const result = await response.json();
-        loginBtn.textContent = 'Login';
-
-        if(result.error) {
-            document.querySelector('.message').textContent = result.error
-            return
-        }
-        location.assign("/admin/dashboard")
-
-    } catch (error) {
-        // document.querySelector('.message').textContent = result.error
-        loginBtn.textContent = 'Login';
-    }
-    
-    
-}
-// loginForm.addEventListener('submit', loginAdmin)
 
 // logout request 
 const logout = async (e) => {

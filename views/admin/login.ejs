@@ -44,6 +44,52 @@
 	</div>
 </section>
 
+<script>
+	const loginForm = document.querySelector('.login-form');
+
+	// lgin request 
+	const loginAdmin = async (e) => {
+		e.preventDefault();
+
+		const email = loginForm.email.value;
+		const password = loginForm.password.value;
+		const loginBtn = loginForm.submit;
+
+		const formData = { email, password };
+
+		loginBtn.textContent = 'processing...';
+
+		try {
+			const url = '/admin/login'
+			const response = await fetch(url, {
+				method: 'POST', 
+				headers: { 'Content-Type': 'application/json'},
+				body: JSON.stringify(formData)
+			})
+
+			if(!response.ok){
+				throw new Error("something went wrong")
+			}
+
+			const result = await response.json();
+			loginBtn.textContent = 'Login';
+
+			if(result.error) {
+				document.querySelector('.message').textContent = result.error
+				return
+			}
+			location.assign("/admin/dashboard")
+
+		} catch (error) {
+			// document.querySelector('.message').textContent = result.error
+			loginBtn.textContent = 'Login';
+		}
+	}
+
+ 	loginForm.addEventListener('submit', loginAdmin)
+</script>
+
+
 <!-- include footer  -->
 <%- include('../partials/footer.ejs')  %>
 
