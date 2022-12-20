@@ -1,5 +1,5 @@
 const express = require("express")
-const {registerAdmin, loginAdmin, logoutAdmin, changePassword,dashboardPage,createPage,viewPage,settingsPage,editPage,loginPage} = require("../controllers/adminController")
+const {registerAdmin, loginAdmin, logoutAdmin, changePassword,dashboardPage,createPage,viewPage,settingsPage,editPage,loginPage, displayName} = require("../controllers/adminController")
 const { packages_get,packages_post,packages_put, packages_delete} = require("../controllers/packageController")
 
 const auth = require("../middleware/auth.js")
@@ -10,7 +10,8 @@ const router = express.Router()
 router.post("/register", registerAdmin)
 router.post("/login", loginAdmin)
 router.get("/logout", logoutAdmin)
-router.post("/changepassword", auth, changePassword)
+router.put("/changepassword", auth, changePassword)
+router.put("/displayName", auth, displayName)
 
 
 // Admin Routes 

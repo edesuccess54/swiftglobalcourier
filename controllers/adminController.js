@@ -13,7 +13,7 @@ generateToken = async (id) => {
 
 // register admin 
 const registerAdmin = async (req, res) => {
-    const {email, password} = req.body
+    const {email, password, adminName} = req.body
 
     try {
         // validation 
@@ -36,6 +36,7 @@ const registerAdmin = async (req, res) => {
 
         const admin = await Admin.create({
             email,
+            adminName,
             password
         })
 
@@ -54,7 +55,8 @@ const registerAdmin = async (req, res) => {
             const { _id, email, password } = admin
             res.status(200).json({
                 _id, 
-                email, 
+                email,
+                adminName, 
                 password,
                 token
             })
@@ -66,12 +68,13 @@ const registerAdmin = async (req, res) => {
     } catch (error) {
         res.status(400).json({error: error.message})
     }
+
+    
 }
 
 
 // login admin 
 const loginAdmin = async(req, res, next) => {
-    console.log('yesssssssss')
     const { email, password } = req.body
     console.log(1)
 
@@ -87,10 +90,10 @@ const loginAdmin = async(req, res, next) => {
             return;
         }
         console.log(3)
-        if(!validator.isStrongPassword(password)) {
-            next(new ErrorResponse("Password is not strong enough",400));
-            return;
-        }
+        // if(!validator.isStrongPassword(password)) {
+        //     next(new ErrorResponse("Password is not strong enough",400));
+        //     return;
+        // }
         console.log(4)
         const admin = await Admin.findOne({ email })
         console.log(5)
@@ -130,6 +133,27 @@ const loginAdmin = async(req, res, next) => {
         res.status(400).json(error.message)
     }
 }
+
+// update Display Name 
+ const displayName = async (req, res, next) => {
+    const {adminName} = req.body
+    const id = req.admin._id
+
+    try {
+        const admin = await Admin.findByIdAndUpdate(id, {adminName})
+
+        if(!admin) {
+            next(new ErrorResponse("Not Authorized", 400))
+            return
+        }
+
+        res.status(200).json({message: "Display changed successfuly"})
+        
+    } catch (error) {
+        console.log(error.message)
+    }
+
+ }
 
 // const logout admin 
 const logoutAdmin = async (req, res) => {
@@ -250,5 +274,6 @@ module.exports = {
     viewPage,
     settingsPage,
     editPage,
-    loginPage
+    loginPage,
+    displayName
 }

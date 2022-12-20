@@ -1,6 +1,7 @@
 
 const logOutBtn = document.querySelectorAll('.logout-btn');
 const changePasswordForm = document.querySelector('.change-password');
+const changeDisplayForm = document.querySelector('.change-disPlayName');
 
 // logout request 
 const logout = async (e) => {
@@ -31,6 +32,7 @@ const changePassword = async (e) => {
     const oldpassword = changePasswordForm.oldPwd.value
     const newpassword = changePasswordForm.newPwd.value
     const confirmpassword = changePasswordForm.cPwd.value
+    const message = document.querySelector('.message')
 
     const formData = {
         oldpassword,
@@ -40,33 +42,69 @@ const changePassword = async (e) => {
 
     console.log(1)
     if(!oldpassword || !newpassword || !confirmpassword) {
-        throw new Error("Fields cannot be empty")
-    
+        message.textContent = "Fields cannot be empty"
+        return
     }
     console.log(2)
     if(newpassword != confirmpassword) {
-        throw new Error("Password does not match")
+        message.textContent = "Password does not match"
         return
     }
 
     console.log(3)
     try {
-        const response = await fetch('/api/admin/changepassword', {
+        const response = await fetch('/admin/changepassword', {
         method:'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(formData)
         })
         console.log(4)
         if(!response.ok) {
-            throw new Error("could not change password")
+            message.textContent = "Password failed to change"
+            return
         }
         console.log(4)
         const json = await response.json()
+        message.textContent = json.message
         
     } catch (error) {
+        // message.textContent = error.message
         console.log(error.message)
     }
 
     
 }
 changePasswordForm.addEventListener('submit', changePassword)
+
+// change display name 
+const changeDisplayName = async (e) => {
+    e.preventDefault()
+    const adminName = changeDisplayForm.dname.value
+    const message = document.querySelector('.message')
+    
+    if(!adminName) {
+        message.textContent = "Please enter a display name";
+        return
+    }
+
+    try {
+        const response = await fetch('/admin/displayName', {
+            method: "PUT",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({adminName})
+        })
+
+        if(!response.ok) {
+            message.textContent = "Display name failed to change"
+            return
+        }
+
+        const json = await response.json()
+
+        message.textContent = json.message
+
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+changeDisplayForm.addEventListener('submit', changeDisplayName)
