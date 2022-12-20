@@ -6,13 +6,14 @@ const auth = require("../middleware/auth.js")
 
 const router = express.Router()
 
+// Admin APIS 
 router.post("/register", registerAdmin)
 router.post("/api/admin/login", loginAdmin)
 router.get("/api/admin/logout", logoutAdmin)
 router.post("/api/admin/changepassword", auth, changePassword)
 
 
-// admin routes 
+// Admin Routes 
 router.get('/dashboard', auth, dashboardPage)
 router.get('/create', auth, createPage)
 router.get('/view', auth, viewPage)
@@ -20,7 +21,7 @@ router.get('/settings', auth, settingsPage)
 router.get('/edit/:id', auth, editPage)
 router.get('/login', loginPage)
 
-// packages 
+// Packages Routes
 router.get("/packages", auth, packages_get)
 router.post("/packages", auth, packages_post)
 router.put("/packages/:id", auth, packages_put)

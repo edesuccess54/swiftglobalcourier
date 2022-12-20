@@ -6,22 +6,24 @@ const changePasswordForm = document.querySelector('.change-password');
 const loginAdmin = async (e) => {
     e.preventDefault();
 
+    console.log(11)
     const email = loginForm.email.value;
     const password = loginForm.password.value;
     const loginBtn = loginForm.submit;
+    console.log(12)
 
     const formData = { email, password };
 
     loginBtn.textContent = 'processing...';
-
+    console.log(13)
     try {
-        const url =`http://localhost:3000/api/admin/login`
-        const response = await fetch(url,{
-            method: 'POST',
+        const url = '/api/admin/login'
+        const response = await fetch(url, {
+            method: 'POST', 
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(formData)
         })
-
+        console.log(14)
         if(!response.ok){
             throw new Error("something went wrong")
         }
@@ -43,6 +45,7 @@ const loginAdmin = async (e) => {
     
     
 }
+loginForm.addEventListener('submit', loginAdmin)
 
 // logout request 
 const logout = async (e) => {
@@ -66,7 +69,6 @@ const logout = async (e) => {
     
 }
 logOutBtn.forEach(btn => btn.addEventListener('click', logout))
-loginForm.addEventListener('submit', loginAdmin)
 
 // change password request 
 const changePassword = async (e) => {
@@ -112,4 +114,4 @@ const changePassword = async (e) => {
 
     
 }
-// changePasswordForm.addEventListener('submit', changePassword)
+changePasswordForm.addEventListener('submit', changePassword)
