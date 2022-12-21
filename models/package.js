@@ -11,7 +11,7 @@ const packageSchema = new Schema({
         type: String,
         require: true
     },
-    receiverName: {
+    receiversName: {
         type: String,
         require: true
     },
@@ -27,7 +27,7 @@ const packageSchema = new Schema({
         type: String,
         require: true
     },
-    package: {
+    item: {
         type: String,
         require: true
     },

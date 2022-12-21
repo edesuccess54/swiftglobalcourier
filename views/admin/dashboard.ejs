@@ -14,21 +14,21 @@
                             <div class="created">
                                 <div class="staticsInner">
                                     <span class="icon"><i class="fa-solid fa-truck-fast"></i></span>
-                                    <span class="value">Total&nbsp;250</span>
+                                    <span class="value">Total&nbsp; <%= packageOverview.total_package %> </span>
                                 </div>
                             </div>
 
                             <div class="transit">
                                 <div class="staticsInner">
                                     <span class="icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                                    <span class="value">Delivered &nbsp;100</span>
+                                    <span class="value">Delivered &nbsp;<%= packageOverview.completed %></span>
                                 </div>
                             </div>
 
                             <div class="delivered">
                                 <div class="staticsInner">
                                     <span class="icon"><i class="fa-solid fa-truck"></i></i></span>
-                                    <span class="value">transit package&nbsp;50</span>
+                                    <span class="value">transit package&nbsp; <%= packageOverview.uncompleted %></span>
                                 </div>
                             </div>
 
@@ -55,7 +55,7 @@
                                     <tr>
                                         <td><%= packages[i].sendersName %></td>
                                         <td><%= packages[i].sendersEmail %></td>
-                                        <td><%= packages[i].receiverName %></td>
+                                        <td><%= packages[i].receiversName %></td>
                                         <td><%= packages[i].receiversAddress %></td>
                                       
                                         <td><%= packages[i].location %></td>

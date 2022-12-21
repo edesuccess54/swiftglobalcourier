@@ -5,14 +5,14 @@ const packages_post = async (req, res) => {
     const {
         sendersName,
         sendersEmail,
-        receiverName,
+        receiversName,
         receiversEmail,
         receiversNumber,
         receiversAddress,
         item,
         weight,
         location,
-        departureDate,
+        depatureDate,
         deliveryDate,
         shipmentMethod,
         pickupDate,
@@ -20,7 +20,7 @@ const packages_post = async (req, res) => {
 
     try {
         // validations
-        if(!sendersName || !sendersEmail || !receiverName || !receiversEmail || !receiversAddress || !receiversNumber || !item || !weight || !location || !deliveryDate || !shipmentMethod || !status || !departureDate) {
+        if(!sendersName || !sendersEmail || !receiversName || !receiversEmail || !receiversAddress || !receiversNumber || !item || !weight || !location || !deliveryDate || !shipmentMethod || !status || !depatureDate || !pickupDate) {
             res.status(400)
             throw new Error("Fill all field")
         }
@@ -30,19 +30,19 @@ const packages_post = async (req, res) => {
         const package = await Package.create({
             sendersName,
             sendersEmail,
-            receiverName,
+            receiversName,
             receiversEmail,
             receiversNumber,
             receiversAddress,
             item,
             weight,
             location,
-            departureDate,
+            depatureDate,
             deliveryDate,
             shipmentMethod,
             pickupDate,
             trackingId,
-            completed: false,
+            completed: true,
             status
         })
 
@@ -70,11 +70,25 @@ const packages_put = async (req, res) => {
             throw new Error("Product not found")
         }
 
-        const {sendersName, sendersEmail, receiverName, receiversAddress, receiversNumber, description, weight, location, status, worth} = package
+        const {sendersName,
+                sendersEmail,
+                receiversName,
+                receiversEmail,
+                receiversNumber,
+                receiversAddress,
+                item,
+                weight,
+                location,
+                depatureDate,
+                deliveryDate,
+                shipmentMethod,
+                pickupDate,
+                status
+        } = package
 
         package.sendersName = req.body.sendersName || sendersName
         package.sendersEmail = req.body.sendersEmail || sendersEmail
-        package.receiverName = req.body.receiverName || receiverName
+        package.receiversName = req.body.receiversName || receiversName
         package.receiversAddress = req.body.receiversAddress || receiversAddress
         package.receiversNumber = req.body.receiversNumber || receiversNumber
         package.description = req.body.description || description

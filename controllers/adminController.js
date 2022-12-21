@@ -222,8 +222,16 @@ const changePassword = async (req, res) => {
 // admin dashboard page 
 const dashboardPage = async(req, res) => {
     const packages = await Package.find()
+    const total_package = await Package.countDocuments()
+    const uncompleted = await Package.countDocuments({completed:false})
+    const completed = await Package.countDocuments({completed:true})
     const admin = req.admin
-    res.render('./admin/dashboard', {admin, packages})
+    const packageOverview = {
+        total_package,
+        uncompleted,
+        completed
+    }
+    res.render('./admin/dashboard', {admin, packages, packageOverview})
 }
 
 // create package page 
