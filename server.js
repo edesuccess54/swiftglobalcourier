@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 // const morgan = require('morgan');
 const adminRoutes = require('./routes/adminRoutes');
 const mainRoutes = require('./routes/mainRoutes')
+const packageRoutes = require('./routes/packageRoutes')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const errorHandler = require("./middleware/error")
@@ -24,9 +25,10 @@ app.use(cors())
 
 app.use('/',mainRoutes)
 app.use('/admin',adminRoutes)
+app.use('/packages',packageRoutes)
 
 
-// app.use(errorHandler)
+app.use(errorHandler)
 
 mongoose.connect(process.env.MONGO_URI).then((result) => {
    app.listen(process.env.PORT, () => {

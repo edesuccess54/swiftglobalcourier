@@ -2,27 +2,48 @@ const Package = require("../models/package")
 
 // create package fucntion 
 const packages_post = async (req, res) => {
-    const {sendersName, sendersEmail, receiverName, receiversAddress, receiversNumber, description, weight, location, status, worth  } = req.body
+    const {
+        sendersName,
+        sendersEmail,
+        receiverName,
+        receiversEmail,
+        receiversNumber,
+        receiversAddress,
+        item,
+        weight,
+        location,
+        departureDate,
+        deliveryDate,
+        shipmentMethod,
+        pickupDate,
+        status } = req.body
 
     try {
         // validations
-        if(!sendersName || !sendersEmail || !receiverName || !receiversAddress || !receiversNumber || ! description || !weight || !location || !status || !worth) {
+        if(!sendersName || !sendersEmail || !receiverName || !receiversEmail || !receiversAddress || !receiversNumber || !item || !weight || !location || !deliveryDate || !shipmentMethod || !status || !departureDate) {
             res.status(400)
             throw new Error("Fill all field")
         }
 
+        const trackingId = "TC232425245-V3"
         // create package 
         const package = await Package.create({
-            sendersName, 
-            sendersEmail, 
-            receiverName, 
-            receiversAddress, 
-            receiversNumber, 
-            description, 
-            weight, 
-            location, 
-            status, 
-            worth
+            sendersName,
+            sendersEmail,
+            receiverName,
+            receiversEmail,
+            receiversNumber,
+            receiversAddress,
+            item,
+            weight,
+            location,
+            departureDate,
+            deliveryDate,
+            shipmentMethod,
+            pickupDate,
+            trackingId,
+            completed: false,
+            status
         })
 
         if(!package) {
