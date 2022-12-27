@@ -67,10 +67,7 @@ const packageSchema = new Schema({
         type: String,
         require: true
     },
-    // worth: {
-    //     type: String,
-    //     require: true
-    // }
+
 }, {timestamps: true})
 
 const Package = mongoose.model('package', packageSchema)
