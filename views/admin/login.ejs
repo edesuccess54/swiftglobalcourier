@@ -50,6 +50,7 @@
 	// lgin request 
 	const loginAdmin = async (e) => {
 		e.preventDefault();
+		document.querySelector('.message').textContent = ""
 
 		const email = loginForm.email.value;
 		const password = loginForm.password.value;

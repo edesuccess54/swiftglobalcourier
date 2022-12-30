@@ -2,6 +2,7 @@
 const logOutBtn = document.querySelectorAll('.logout-btn');
 const changePasswordForm = document.querySelector('.change-password');
 const changeDisplayForm = document.querySelector('.change-disPlayName');
+const createBtn = document.querySelector('.create-btn')
 
 // logout request 
 const logout = async (e) => {
@@ -108,3 +109,8 @@ const changeDisplayName = async (e) => {
     }
 }
 changeDisplayForm.addEventListener('submit', changeDisplayName)
+
+const createpackage = (e) => {
+    e.preventDefault()
+}
+createBtn.addEventListener('click', createpackage)
