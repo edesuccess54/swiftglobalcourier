@@ -1,11 +1,11 @@
-<%- include('./partials/header') %> 
+<%- include('./partials/header.ejs') %> 
 
     
     <main>
         <div class="mainWrapper">
-            <%- include("./partials/sideBar") %> 
+            <%- include("./partials/sideBar.ejs") %> 
             <div class="rightContent">
-                <%- include('./partials/topBar') %> 
+                <%- include('./partials/topBar.ejs') %> 
                 <section>
 
                     <div class="mobile-tabs">
@@ -110,5 +110,89 @@
             </div>
         </div>
     </main>
+
+    <script>
+        const changePasswordForm = document.querySelector('.change-password');
+        const changeDisplayForm = document.querySelector('.change-disPlayName');
+
+        // change password request 
+        const changePassword = async (e) => {
+            e.preventDefault();
+            const oldpassword = changePasswordForm.oldPwd.value
+            const newpassword = changePasswordForm.newPwd.value
+            const confirmpassword = changePasswordForm.cPwd.value
+            const message = document.querySelector('.message')
+
+            const formData = {
+                oldpassword,
+                newpassword,
+                confirmpassword
+            }
+
+            if(!oldpassword || !newpassword || !confirmpassword) {
+                message.textContent = "Fields cannot be empty"
+                return
+            }
+
+            if(newpassword != confirmpassword) {
+                message.textContent = "Password does not match"
+                return
+            }
+
+            try {
+                const response = await fetch('/admin/changepassword', {
+                method:'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(formData)
+                })
+                if(!response.ok) {
+                    message.textContent = "Password failed to change"
+                    return
+                }
+                const json = await response.json()
+                message.textContent = json.message
+                
+            } catch (error) {
+                // message.textContent = error.message
+                console.log(error.message)
+            }
+
+        
+        }
+        changePasswordForm.addEventListener('submit', changePassword)
+
+        // change display name 
+        const changeDisplayName = async (e) => {
+            e.preventDefault()
+            const adminName = changeDisplayForm.dname.value
+            const message = document.querySelector('.message')
+            
+            if(!adminName) {
+                message.textContent = "Please enter a display name";
+                return
+            }
+
+            try {
+                const response = await fetch('/admin/displayName', {
+                    method: "PUT",
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({adminName})
+                })
+
+                if(!response.ok) {
+                    message.textContent = "Display name failed to change"
+                    return
+                }
+
+                const json = await response.json()
+
+                message.textContent = json.message
+
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+        changeDisplayForm.addEventListener('submit', changeDisplayName)
+    </script>
 
 <%- include('./partials/footer') %> 

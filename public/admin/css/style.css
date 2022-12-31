@@ -37,6 +37,17 @@
     min-width: 150px;
 }
 
+.error, .success {
+    color: red;
+    margin: 5px 0; 
+    text-align: center; 
+    font-size: 1.1em;
+}
+
+.success {
+    color: green;
+}
+
 .btn:hover {
     background: transparent;
     color: var(--primary);
