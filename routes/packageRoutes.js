@@ -14,7 +14,7 @@ const auth = require("../middleware/auth.js")
 router.get("/", auth, packages_get)
 router.post("/create", auth, packages_post)
 router.put("/update/:id", auth, packages_put)
-router.delete("/delete/:id", auth, packages_delete)
+router.delete("/delete", auth, packages_delete)
 
 
 module.exports = router;

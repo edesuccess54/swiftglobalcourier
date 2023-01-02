@@ -109,7 +109,7 @@
             const receiverEmail = createForm.receiverEmail.value
             const receiverNumber = createForm.receiverNumber.value
             const destination = createForm.destination.value
-            const package = createForm.package.value
+            const item = createForm.package.value
             const weight = createForm.weight.value
             const currentLocation = createForm.currentLocation.value
             const depatureDate = createForm.depatureDate.value
@@ -119,27 +119,13 @@
             const status = createForm.status.value
 
             // validation
-            if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !package||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
+            if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
                 message.classList.add('error')
                 message.textContent = 'All fields are required';
                 return;
             }
 
-            const packageInfo = {
-                senderName,
-                senderEmail,
-                receiverName,
-                receiverEmail,
-                receiverNumber,
-                destination,
-                package,
-                weight,
-                currentLocation,
-                depatureDate,
-                deliveryDate,
-                shipmentMethod,
-                PickupDate,
-                status 
+            const package = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status 
 
             }
 
@@ -147,7 +133,7 @@
                 const response = await fetch("/packages/create", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify(packageInfo)
+                    body: JSON.stringify(package)
                 });
 
                 if(!response.ok) {
@@ -157,12 +143,11 @@
                 }
 
                 const json = await response.json();
-                if(json.status === 200) {
+       
                     message.classList.add('success');
                     message.textContent = 'packages successfully created';
-                    confsole.log(json)
-                    return;
-                }
+                    console.log(json)
+                    createForm.reset()
 
                 
             } catch (error) {

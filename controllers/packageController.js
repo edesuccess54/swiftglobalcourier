@@ -1,57 +1,49 @@
 const Package = require("../models/package")
+const ErrorResponse = require("../utils/errorResponse")
 
 // create package fucntion 
-const packages_post = async (req, res) => {
+const packages_post = async (req, res, next) => {
+    console.log(1)
     const {
-        sendersName,
-        sendersEmail,
-        receiversName,
-        receiversEmail,
-        receiversNumber,
-        receiversAddress,
-        item,
-        weight,
-        location,
-        depatureDate,
-        deliveryDate,
-        shipmentMethod,
-        pickupDate,
-        status } = req.body
-
+        senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status } = req.body
+        console.log(2)
     try {
+        console.log(3)
         // validations
-        if(!sendersName || !sendersEmail || !receiversName || !receiversEmail || !receiversAddress || !receiversNumber || !item || !weight || !location || !deliveryDate || !shipmentMethod || !status || !depatureDate || !pickupDate) {
-            res.status(400)
-            throw new Error("Fill all field")
+        if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
+            next(new ErrorResponse("Fill all fields",400));
+            return
         }
+        console.log(4)
 
         const trackingId = "TC232425245-V3"
         // create package 
         const package = await Package.create({
-            sendersName,
-            sendersEmail,
-            receiversName,
-            receiversEmail,
-            receiversNumber,
-            receiversAddress,
+            senderName,
+            senderEmail,
+            receiverName,
+            receiverEmail,
+            receiverNumber,
+            destination,
             item,
             weight,
-            location,
+            currentLocation,
             depatureDate,
             deliveryDate,
             shipmentMethod,
-            pickupDate,
+            PickupDate,
             trackingId,
             completed: true,
             status
         })
-
+        console.log(5)
         if(!package) {
-            throw new Error("package fail to create")
+            next(new ErrorResponse("package fail to create",400));
+            return
         }
 
         res.status(201).json(package)
-        
+        console.log(5)
     } catch (error) {
         res.status(400).send(error.message)
     }
@@ -120,7 +112,7 @@ const packages_put = async (req, res) => {
 
 // delete package 
 const packages_delete = async (req, res) => {
-    const{ id } = req.params
+    const{ id } = req.body
     try {
         const package = await Package.findById(id)
 
@@ -136,8 +128,7 @@ const packages_delete = async (req, res) => {
             throw new Error("package was not deleted")
         }
 
-        res.status(200)
-        throw new Error("Package successfully deleted")
+        res.status(200).json({message: 'Package successfully deleted'})
         
     } catch (error) {
         res.status(400).json({error: error.message})

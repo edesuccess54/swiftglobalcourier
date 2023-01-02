@@ -2,28 +2,28 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const packageSchema = new Schema({
-    sendersName: {
+    senderName: {
         type: String,
         require: true
     },
     
-    sendersEmail: {
+    senderEmail: {
         type: String,
         require: true
     },
-    receiversName: {
+    receiverName: {
         type: String,
         require: true
     },
-    receiversEmail: {
+    receiverEmail: {
         type: String,
         require: true
     },
-    receiversNumber: {
+    receiverNumber: {
         type: String,
         require: true
     },
-    receiversAddress: {
+    destination: {
         type: String,
         require: true
     },
@@ -35,7 +35,7 @@ const packageSchema = new Schema({
         type: String,
         require: true
     },
-    location: {
+    currentLocation: {
         type: String,
         require: true
     },

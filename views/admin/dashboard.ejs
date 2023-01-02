@@ -41,24 +41,24 @@
                                 <thead>
                                  
                                     <tr style="white-space: nowrap;">
-                                        <th>Sender Name</th>
-                                        <th>Sender Email</th>
-                                        <th>Receiver Name</th>
+                                        <th>Sender</th>
+                                        <th>Sender</th>
+                                        <th>Receiver</th>
                                         <th>Destination</th>
                                         <th>Location</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody style="white-space: nowrap;">
+                                <tbody style="white-space: nowrap;" class="btnd">
                                     <% for(let i = 0; i < packages.length; i++) { %>
                                     <tr>
-                                        <td><%= packages[i].sendersName %></td>
-                                        <td><%= packages[i].sendersEmail %></td>
-                                        <td><%= packages[i].receiversName %></td>
-                                        <td><%= packages[i].receiversAddress %></td>
+                                        <td><%= packages[i].senderName %></td>
+                                        <td><%= packages[i].senderEmail %></td>
+                                        <td><%= packages[i].receiverName %></td>
+                                        <td><%= packages[i].destination %></td>
                                       
-                                        <td><%= packages[i].location %></td>
+                                        <td><%= packages[i].currentLocation %></td>
                                         <td><%= packages[i].status %></td>
                                         <td class="actionColumn">
                                             <span>
@@ -77,5 +77,29 @@
             </div>
         </div>
     </main>
+
+    <script>
+        const trashIcon = document.querySelector('.btnd');
+
+        async function deletePackage (e) {
+            const id = e.target.dataset.id
+
+            const response = await fetch('/packages/delete', {
+                method: 'DELETE',
+                headers: {"Content-Type": "application/json"},
+                body:JSON.stringify({id})
+            })
+
+            if(!response.ok) {
+                alert("Failed to delete package")
+            }
+
+            const json = await response.json()
+
+            alert(json.message)
+            
+        }
+        trashIcon.addEventListener('click', deletePackage);
+    </script>
 
 <%- include('./partials/footer') %> 
