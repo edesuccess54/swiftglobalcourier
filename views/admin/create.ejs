@@ -102,6 +102,7 @@
         const createpackage = async (e) => {
             message.classList.remove('error')
             message.textContent = '';
+
             e.preventDefault()
             const senderName = createForm.senderName.value
             const senderEmail = createForm.senderEmail.value
@@ -119,11 +120,11 @@
             const status = createForm.status.value
 
             // validation
-            if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
-                message.classList.add('error')
-                message.textContent = 'All fields are required';
-                return;
-            }
+            // if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
+            //     message.classList.add('error')
+            //     message.textContent = 'All fields are required';
+            //     return;
+            // }
 
             const package = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status 
 
@@ -136,18 +137,23 @@
                     body: JSON.stringify(package)
                 });
 
+                console.log(response)
+
                 if(!response.ok) {
                     message.classList.add('error')
-                    message.textContent = 'There was an error with the end point';
+                    message.textContent = response.statusText;
                     return;
                 }
 
-                const json = await response.json();
-       
-                    message.classList.add('success');
-                    message.textContent = 'packages successfully created';
-                    console.log(json)
-                    createForm.reset()
+                const result = await response.json();
+
+                if(result.error) {
+                    throw new Error(result.error)
+                }
+
+                message.classList.add('success');
+                message.textContent = 'packages successfully created';
+                createForm.reset()
 
                 
             } catch (error) {

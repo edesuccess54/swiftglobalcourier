@@ -10,13 +10,14 @@ const packages_post = async (req, res, next) => {
     try {
         console.log(3)
         // validations
-        if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
-            next(new ErrorResponse("Fill all fields",400));
-            return
-        }
+        // if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
+        //     next(new ErrorResponse("Please fill all fields",400));
+        //     return
+        // }
         console.log(4)
 
         const trackingId = "TC232425245-V3"
+        console.log(5)
         // create package 
         const package = await Package.create({
             senderName,
@@ -36,16 +37,18 @@ const packages_post = async (req, res, next) => {
             completed: true,
             status
         })
-        console.log(5)
+
+        console.log('the package are here: '+package)
+        console.log(6)
         if(!package) {
             next(new ErrorResponse("package fail to create",400));
             return
         }
 
         res.status(201).json(package)
-        console.log(5)
+        console.log(7)
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(400).json(error.message)
     }
 }
 

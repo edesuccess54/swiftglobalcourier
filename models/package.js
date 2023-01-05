@@ -4,68 +4,82 @@ const Schema = mongoose.Schema
 const packageSchema = new Schema({
     senderName: {
         type: String,
-        require: true
+        required: [true, "Senders name is required"],
+        // trim: true
     },
     
     senderEmail: {
         type: String,
-        require: true
+        // required: [true, "Senders' email is required"],
+        trim: true
     },
     receiverName: {
         type: String,
-        require: true
+        // required: [true, "Receivers' name is required"],
+        trim: true
     },
     receiverEmail: {
         type: String,
-        require: true
+        // required: [true, "Receivers' name is required"],
+        trim: true
     },
     receiverNumber: {
         type: String,
-        require: true
+        // required: [true, "Receivers' name is required"],
+        trim: true
     },
     destination: {
         type: String,
-        require: true
+        // required: [true, "Destination is required"],
+        trim: true
     },
     item: {
         type: String,
-        require: true
+        // required: [true, "Package is required"],
+        trim: true
     },
     weight: {
         type: String,
-        require: true
+        // required: [true, "Package weight is required"],
+        trim: true
     },
     currentLocation: {
         type: String,
-        require: true
+        // required: [true, "Package location is required"],
+        trim: true
     },
     departureDate: {
         type: String,
-        require: true
+        // required: [true, "Departure date is required"],
+        trim: true
     },
     deliveryDate: {
         type: String,
-        require: true
+        // required: [true, "Delivery date is required"],
+        trim: true
     },
     shipmentMethod: {
         type: String,
-        require: true
+        // required: [true, "Please select a shipment method"],
+        trim: true
     },
     pickupDate: {
         type: String,
-        require: true
+        // required: [true, "Pick up date is required"],
+        trim: true
     },
     trackingId: {
         type: String,
-        require: true
+        required: true
     },
     completed: {
         type: Boolean,
-        require: true
+        required: true
     },
     status: {
         type: String,
-        require: true
+        // required: [true, "Package status is required"],
+        trim: true
     },
 
 }, {timestamps: true})
