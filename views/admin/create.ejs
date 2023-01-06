@@ -83,7 +83,7 @@
                                     <input type="text" name="status">
                                 </div>
                                 
-                                <button class="btn">Creat</button>
+                                <button class="btn">Create</button>
                         </div>
                         <p class="message"></p>
                         </form>
@@ -98,8 +98,13 @@
     <script>
         const createForm = document.querySelector('.create-form')
         const message = document.querySelector('.message')
+        const btn = document.querySelector('.btn')
+
+        
 
         const createpackage = async (e) => {
+            btn.textContent = 'Processing...'
+
             message.classList.remove('error')
             message.textContent = '';
 
@@ -119,18 +124,14 @@
             const PickupDate = createForm.PickupDate.value
             const status = createForm.status.value
 
-            // validation
-            // if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
-            //     message.classList.add('error')
-            //     message.textContent = 'All fields are required';
-            //     return;
-            // }
-
-            const package = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status 
-
-            }
-
             try {
+                // validation
+                if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
+                    throw new Error('All fields are required');
+                }
+
+                const package = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status }
+
                 const response = await fetch("/packages/create", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
@@ -140,29 +141,27 @@
                 console.log(response)
 
                 if(!response.ok) {
-                    message.classList.add('error')
-                    message.textContent = response.statusText;
-                    return;
+                    throw new Error(response.statusText);
                 }
 
                 const result = await response.json();
 
                 if(result.error) {
-                    throw new Error(result.error)
+                    throw new Error(result.error);
                 }
 
                 message.classList.add('success');
                 message.textContent = 'packages successfully created';
-                createForm.reset()
+                createForm.reset();
 
-                
             } catch (error) {
-                message.classList.add('error')
+                message.classList.add('error');
+                btn.textContent = 'Create';
                 message.textContent = error.message;
                 return;
             }
         }
-        createForm.addEventListener('submit', createpackage)
+        createForm.addEventListener('submit', createpackage);
     </script>
 
 <%- include('./partials/footer') %> 
