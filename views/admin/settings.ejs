@@ -99,8 +99,9 @@
                                     <label for="pwd3">Confirm Password</label>
                                     <input type="password" id="pwd3" name="cPwd"  >
                                 </div>
-                                <button class="btn change-password-btn">Change Password</button>
                                 <p class="message"></p>
+                                <button class="btn change-password-btn">Change Password</button>
+                                
                             </form>
                         </div>
                     </div>
@@ -119,27 +120,34 @@
         const changePassword = async (e) => {
             e.preventDefault();
 
-            const oldpassword = changePasswordForm.oldPwd.value
-            const newpassword = changePasswordForm.newPwd.value
-            const confirmpassword = changePasswordForm.cPwd.value
+            const oldpassword = changePasswordForm.oldPwd.value;
+            const newpassword = changePasswordForm.newPwd.value;
+            const confirmpassword = changePasswordForm.cPwd.value;
+
             const message = document.querySelector('.message')
             const btn = document.querySelector('.change-password-btn')
 
+            message.textContent = "";
+            message.className = ' ';
+
+            console.log({oldpassword, newpassword, confirmpassword})
+
             btn.textContent = "Processing...";
-
-            const formData = {
-                oldpassword,
-                newpassword,
-                confirmpassword
-            }
-
+           
             try {
+                // alert('yes')
                 if(!oldpassword || !newpassword || !confirmpassword) {
                     throw new Error("Fields cannot be empty")
                 }
 
                 if(newpassword != confirmpassword) {
                     throw new Error("Password does not match")
+                }
+
+                const formData = {
+                    oldpassword,
+                    newpassword,
+                    confirmpassword
                 }
 
                 const response = await fetch('/admin/changepassword', {
@@ -154,6 +162,7 @@
 
                 const json = await response.json()
                 btn.textContent = "Change Password"
+                message.classList.remove('error')
                 message.classList.add('success')
                 message.textContent = json.message
                 
@@ -174,7 +183,7 @@
             const adminName = changeDisplayForm.dname.value
             const message = document.querySelector('.message')
 
-            message.classList.remove('error')
+            message.className('')
             message.textContent = '';
             
             try {

@@ -162,7 +162,7 @@ const logoutAdmin = async (req, res) => {
 }
 
 // change admin password 
-const changePassword = async (req, res) => {
+const changePassword = async (req, res, next) => {
     const {oldpassword, newpassword, confirmpassword } = req.body
     const id = req.admin._id
 
@@ -172,40 +172,44 @@ const changePassword = async (req, res) => {
         const admin = await Admin.findById(id)
         console.log(3)
         if(!admin) {
-            res.status(400)
-            throw new Error("you are not authorized")
+            next(new ErrorResponse("you are not authorized", 400) )
+            return
         }
         console.log(4)
         if(!oldpassword || !newpassword || !confirmpassword) {
-            res.status(400)
-            throw new Error("all fields are required")
+            next(new ErrorResponse("all fields are required", 400) )
+            return
         }
+
+        if(!hashedPassword) {
+            next(new ErrorResponse("old password is not correct", 400) )
+            return
+        }
+        
         console.log(5)
         if(newpassword == oldpassword) {
-            res.status(400)
-            throw new Error("Password can not be same with old password")
+            next(new ErrorResponse("Password can not be same with old password", 400) )
+            return
         }
         console.log(6)
         if(newpassword !== confirmpassword) {
-            res.status(400)
-            throw new Error("password does not match")
+            next(new ErrorResponse("password does not match", 400) )
+            return
         }
         console.log(7)
         const hashedPassword = await bcrypt.compare(oldpassword, admin.password)
 
-        if(!hashedPassword) {
-            res.status(400)
-            throw new Error("old password is not correct")
-        }
+        
         console.log(8)
          if(admin && hashedPassword) {
             admin.password = newpassword
             await admin.save()
-            res.status(200).json({message: "Password changed"})
+            res.status(200).json({message: " Your Password has been changed successfully"})
 
          } else {
             res.status(400);
-            throw new Error("Password is not correct");
+            next(new ErrorResponse("Password is not correct", 400) )
+            return
          }
         
     } catch (error) {
