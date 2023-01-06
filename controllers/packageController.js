@@ -10,10 +10,10 @@ const packages_post = async (req, res, next) => {
     try {
         console.log(3)
         // validations
-        // if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
-        //     next(new ErrorResponse("Please fill all fields",400));
-        //     return
-        // }
+        if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
+            next(new ErrorResponse("Please fill all fields",400));
+            return
+        }
         console.log(4)
 
         const trackingId = "TC232425245-V3"

@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 const packageSchema = new Schema({
     senderName: {
         type: String,
-        required: [true, "Senders name is required"],
-        // trim: true
+        // required: [true, "Senders name is required"],
+        trim: true
     },
     
     senderEmail: {
