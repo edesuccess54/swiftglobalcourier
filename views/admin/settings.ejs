@@ -100,7 +100,7 @@
                                     <input type="password" id="pwd3" name="cPwd"  >
                                 </div>
                                 <button class="btn change-password-btn">Change Password</button>
-                                <p class="message success error">wwrwewed</p>
+                                <p class="message"></p>
                             </form>
                         </div>
                     </div>
@@ -155,13 +155,12 @@
                 })
 
                 if(!response.ok) {
-                    throw new Error("Password failed to change")
+                    throw new Error(response.ResponseText)
                 }
 
                 const json = await response.json()
 
                 if(json.error) {
-                    console.log(message)
                     throw new Error(json.error)
                 }
 
@@ -172,10 +171,11 @@
                 
             } catch (error) {
                 btn.textContent = "Change Password"
-                message.classList.add('error')
-                message.textContent = error.message
+                // message.classList.add('error')
+                // message.textContent += error.message
+                document.querySelector('.message').textContent = error.message
                 console.log('here it go', message)
-                console.log(" here is the message element: "+ error)
+                console.log(" here is the message element: "+ error.message)
             }
         }
         changePasswordForm.addEventListener('submit', changePassword)

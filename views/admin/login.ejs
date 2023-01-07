@@ -76,13 +76,12 @@
 			loginBtn.textContent = 'Login';
 
 			if(result.error) {
-				document.querySelector('.message').textContent = result.error
-				return
+				throw new Error(result.error)
 			}
 			location.assign("/admin/dashboard")
 
 		} catch (error) {
-			// document.querySelector('.message').textContent = result.error
+			document.querySelector('.message').textContent = error.message
 			loginBtn.textContent = 'Login';
 		}
 	}
