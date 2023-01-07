@@ -87,21 +87,20 @@
                             </div>
                             <form class="change-password">
                                 <div class="input-group">
-                                    <label for="pwd1">Old Password</label>
+                                    <label for="pwd1">Old Password <span class="asterics error">*</span></label>
                                     <input type="password" id="pwd1" name="oldPwd">
                                 </div>
 
                                 <div class="input-group">
-                                    <label for="pwd2">New Password</label>
+                                    <label for="pwd2">New Password <span class="asterics error">*</span></label>
                                     <input type="password" id="pwd2" name="newPwd"  >
                                 </div>
                                 <div class="input-group">
-                                    <label for="pwd3">Confirm Password</label>
+                                    <label for="pwd3">Confirm Password <span class="asterics error">*</span></label>
                                     <input type="password" id="pwd3" name="cPwd"  >
                                 </div>
-                                <p class="message"></p>
                                 <button class="btn change-password-btn">Change Password</button>
-                                
+                                <p class="message success error">wwrwewed</p>
                             </form>
                         </div>
                     </div>
@@ -115,34 +114,33 @@
     <script>
         const changePasswordForm = document.querySelector('.change-password');
         const changeDisplayForm = document.querySelector('.change-disPlayName');
+        const message = document.querySelector('.message')
+        const btn = document.querySelector('.change-password-btn')
 
         // change password request 
         const changePassword = async (e) => {
             e.preventDefault();
 
+            btn.textContent = "Processing...";
+            message.className = 'message';
+            message.textContent = "";
+
+            console.log("here is the begining ;", message)
             const oldpassword = changePasswordForm.oldPwd.value;
             const newpassword = changePasswordForm.newPwd.value;
             const confirmpassword = changePasswordForm.cPwd.value;
-
-            const message = document.querySelector('.message')
-            const btn = document.querySelector('.change-password-btn')
-
-            message.textContent = "";
-            message.className = ' ';
-
-            console.log({oldpassword, newpassword, confirmpassword})
-
-            btn.textContent = "Processing...";
            
+            // console.log(message)
             try {
                 // alert('yes')
-                if(!oldpassword || !newpassword || !confirmpassword) {
-                    throw new Error("Fields cannot be empty")
-                }
+                // if(!oldpassword || !newpassword || !confirmpassword) {
+                //     throw new Error("Fields cannot be empty")
+                // }
 
-                if(newpassword != confirmpassword) {
-                    throw new Error("Password does not match")
-                }
+                // console.log(message)
+                // if(newpassword != confirmpassword) {
+                //     throw new Error("Password does not match")
+                // }
 
                 const formData = {
                     oldpassword,
@@ -161,6 +159,12 @@
                 }
 
                 const json = await response.json()
+
+                if(json.error) {
+                    console.log(message)
+                    throw new Error(json.error)
+                }
+
                 btn.textContent = "Change Password"
                 message.classList.remove('error')
                 message.classList.add('success')
@@ -170,6 +174,8 @@
                 btn.textContent = "Change Password"
                 message.classList.add('error')
                 message.textContent = error.message
+                console.log('here it go', message)
+                console.log(" here is the message element: "+ error)
             }
         }
         changePasswordForm.addEventListener('submit', changePassword)
@@ -183,7 +189,7 @@
             const adminName = changeDisplayForm.dname.value
             const message = document.querySelector('.message')
 
-            message.className('')
+            message.className="message"
             message.textContent = '';
             
             try {

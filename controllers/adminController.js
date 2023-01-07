@@ -181,24 +181,26 @@ const changePassword = async (req, res, next) => {
             return
         }
 
+        console.log(5)
+        const hashedPassword = await bcrypt.compare(oldpassword, admin.password)
+
+        console.log("hased password is -- "+ hashedPassword)
+
         if(!hashedPassword) {
             next(new ErrorResponse("old password is not correct", 400) )
             return
         }
-        
-        console.log(5)
+
+        console.log(6)
         if(newpassword == oldpassword) {
             next(new ErrorResponse("Password can not be same with old password", 400) )
             return
         }
-        console.log(6)
+        console.log(7)
         if(newpassword !== confirmpassword) {
             next(new ErrorResponse("password does not match", 400) )
             return
         }
-        console.log(7)
-        const hashedPassword = await bcrypt.compare(oldpassword, admin.password)
-
         
         console.log(8)
          if(admin && hashedPassword) {
@@ -207,13 +209,13 @@ const changePassword = async (req, res, next) => {
             res.status(200).json({message: " Your Password has been changed successfully"})
 
          } else {
-            res.status(400);
             next(new ErrorResponse("Password is not correct", 400) )
             return
          }
         
     } catch (error) {
-        res.status(400).json({error: error.message})
+        console.log(error.message)
+        // res.status(400).json({error: error.message})
     }
 }
 
