@@ -99,8 +99,8 @@
                                     <label for="pwd3">Confirm Password <span class="asterics error">*</span></label>
                                     <input type="password" id="pwd3" name="cPwd"  >
                                 </div>
+                                <p class="password-message"></p>
                                 <button class="btn change-password-btn">Change Password</button>
-                                <p class="message"></p>
                             </form>
                         </div>
                     </div>
@@ -114,33 +114,37 @@
     <script>
         const changePasswordForm = document.querySelector('.change-password');
         const changeDisplayForm = document.querySelector('.change-disPlayName');
-        const message = document.querySelector('.message')
+        // const message = document.querySelector('.message')
         const btn = document.querySelector('.change-password-btn')
 
         // change password request 
         const changePassword = async (e) => {
             e.preventDefault();
 
-            btn.textContent = "Processing...";
-            message.className = 'message';
-            message.textContent = "";
-
-            console.log("here is the begining ;", message)
+            const message = document.querySelector('.password-message')
             const oldpassword = changePasswordForm.oldPwd.value;
             const newpassword = changePasswordForm.newPwd.value;
             const confirmpassword = changePasswordForm.cPwd.value;
+
+            btn.textContent = "Processing...";
+            btn.style.disabbled = true
+            message.className = 'password-message';
+            message.textContent = "";
+
+            console.log("here is the begining ;", message)
+            
            
             // console.log(message)
             try {
                 // alert('yes')
-                // if(!oldpassword || !newpassword || !confirmpassword) {
-                //     throw new Error("Fields cannot be empty")
-                // }
+                if(!oldpassword || !newpassword || !confirmpassword) {
+                    throw new Error("Fields cannot be empty")
+                }
 
                 // console.log(message)
-                // if(newpassword != confirmpassword) {
-                //     throw new Error("Password does not match")
-                // }
+                if(newpassword != confirmpassword) {
+                    throw new Error("Password does not match")
+                }
 
                 const formData = {
                     oldpassword,
@@ -162,20 +166,17 @@
 
                 if(json.error) {
                     throw new Error(json.error)
+                    return
                 }
 
                 btn.textContent = "Change Password"
-                message.classList.remove('error')
                 message.classList.add('success')
                 message.textContent = json.message
                 
             } catch (error) {
+                message.classList.add('error')
                 btn.textContent = "Change Password"
-                // message.classList.add('error')
-                // message.textContent += error.message
-                document.querySelector('.message').textContent = error.message
-                console.log('here it go', message)
-                console.log(" here is the message element: "+ error.message)
+                message.textContent = error.message
             }
         }
         changePasswordForm.addEventListener('submit', changePassword)
