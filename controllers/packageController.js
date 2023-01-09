@@ -1,4 +1,7 @@
 const Package = require("../models/package")
+const validator = require("validator")
+const crypto = require("crypto")
+const base64url = require("base64url")
 const ErrorResponse = require("../utils/errorResponse")
 
 // create package fucntion 
@@ -14,7 +17,20 @@ const packages_post = async (req, res, next) => {
             next(new ErrorResponse("Please fill all fields",400));
             return
         }
+        if(!validator.isEmail(senderEmail)) {
+            next(new ErrorResponse("Please enter a valid sender email address",400));
+            return
+        }
+
+        if(!validator.isEmail(receiverEmail)) {
+            next(new ErrorResponse("Please enter a valid receiver email address",400));
+            return
+        }
         console.log(4)
+
+        function generateTrackingCode() {
+            return base64url(crypto.randomBytes(16));
+          }
 
         const trackingId = "TC232425245-V3"
         console.log(5)
