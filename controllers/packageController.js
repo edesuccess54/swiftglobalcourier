@@ -27,12 +27,38 @@ const packages_post = async (req, res, next) => {
             return
         }
         console.log(4)
+        
 
-        function generateTrackingCode() {
-            return base64url(crypto.randomBytes(16));
+         function generateTrackingCode() {
+            return base64url(crypto.randomBytes(12));
           }
 
-        const trackingId = "TC232425245-V3"
+          async function checkRandomCode(trackingCode) {
+            //   check if trackingId already exists in  database
+            const packageExist = await Package.countDocuments({trackingId: trackingCode})
+            return packageExist.length > 0;
+          }
+
+          async function getRandomCode() {
+            let trackingCode = "TC232425245-V3";
+            while (await checkRandomCode(trackingCode)) {
+                trackingCode = generateTrackingCode();
+            }
+            return trackingCode;
+          }
+
+        //   (async () => {
+        //     const randomStrings = [];
+        //     while (randomStrings.length < 8) {
+        //       randomStrings.push(await getRandomString());
+        //     }
+        //     console.log(randomStrings);
+        //   })();
+
+        let trackingId = getRandomCode()
+
+        console.log(trackingId)
+
         console.log(5)
         // create package 
         const package = await Package.create({
