@@ -133,15 +133,12 @@
 
             console.log("here is the begining ;", message)
             
-           
-            // console.log(message)
             try {
                 // alert('yes')
                 if(!oldpassword || !newpassword || !confirmpassword) {
                     throw new Error("Fields cannot be empty")
                 }
 
-                // console.log(message)
                 if(newpassword != confirmpassword) {
                     throw new Error("Password does not match")
                 }

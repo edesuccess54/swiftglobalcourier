@@ -72,7 +72,6 @@ const registerAdmin = async (req, res) => {
     
 }
 
-
 // login admin 
 const loginAdmin = async(req, res, next) => {
     const { email, password } = req.body
