@@ -82,6 +82,7 @@
                                     <label for="">Status of item</label>
                                     <input type="text" name="status">
                                 </div>
+                                <!-- <i class="fa-solid fa-spinner"></i> -->
                                 
                                 <button class="btn">Create</button>
                         </div>
@@ -101,8 +102,21 @@
         const btn = document.querySelector('.btn')
 
 
+        // show spinner function 
+        function showSpinner(button) {
+            button.disabled = true
+            button.innerHTML = 'Loading <i class="fa-solid fa-spinner"></i>'
+        }
+
+        // show spinner function 
+        function hideSpinner(button) {
+            button.disabled = false
+            button.innerHTML = 'Create'
+        }
+
+
         const createpackage = async (e) => {
-            btn.textContent = 'Processing...'
+            showSpinner(btn)
 
             message.className = 'message';
             message.textContent = '';
@@ -150,13 +164,13 @@
                 }
 
                 message.classList.add('success');
-                btn.textContent = 'Create';
+                hideSpinner(btn)
                 message.textContent = 'packages successfully created';
                 createForm.reset();
 
             } catch (error) {
+                hideSpinner(btn)
                 message.classList.add('error');
-                btn.textContent = 'Create';
                 message.textContent = error.message;
                 return;
             }

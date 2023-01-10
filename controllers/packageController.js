@@ -6,12 +6,9 @@ const ErrorResponse = require("../utils/errorResponse")
 
 // create package fucntion 
 const packages_post = async (req, res, next) => {
-    console.log(1)
     const {
         senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status } = req.body
-        console.log(2)
     try {
-        console.log(3)
         // validations
         if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
             next(new ErrorResponse("Please fill all fields",400));
@@ -26,8 +23,6 @@ const packages_post = async (req, res, next) => {
             next(new ErrorResponse("Please enter a valid receiver email address",400));
             return
         }
-        console.log(4)
-        
 
          function generateTrackingCode() {
             return base64url(crypto.randomBytes(12));
@@ -40,26 +35,15 @@ const packages_post = async (req, res, next) => {
           }
 
           async function getRandomCode() {
-            let trackingCode = "TC232425245-V3";
+            let trackingCode = generateTrackingCode();
             while (await checkRandomCode(trackingCode)) {
                 trackingCode = generateTrackingCode();
             }
             return trackingCode;
           }
 
-        //   (async () => {
-        //     const randomStrings = [];
-        //     while (randomStrings.length < 8) {
-        //       randomStrings.push(await getRandomString());
-        //     }
-        //     console.log(randomStrings);
-        //   })();
+        let trackingId = await getRandomCode()
 
-        let trackingId = getRandomCode()
-
-        console.log(trackingId)
-
-        console.log(5)
         // create package 
         const package = await Package.create({
             senderName,
@@ -80,15 +64,12 @@ const packages_post = async (req, res, next) => {
             status
         })
 
-        console.log('the package are here: '+package)
-        console.log(6)
         if(!package) {
             next(new ErrorResponse("package fail to create",400));
             return
         }
-
         res.status(201).json(package)
-        console.log(7)
+
     } catch (error) {
         res.status(400).json(error.message)
     }
