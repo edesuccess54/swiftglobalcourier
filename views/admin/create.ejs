@@ -82,12 +82,8 @@
                                     <label for="">Status of item</label>
                                     <input type="text" name="status">
                                 </div>
-                                <!-- <i class="fa-solid fa-spinner"></i> -->
-                                
                                 <button class="btn">Create</button>
-                               
                         </div>
-                        <p class="message"></p>
                         </form>
                         
                     </div>
@@ -101,13 +97,51 @@
         const createForm = document.querySelector('.create-form')
         const message = document.querySelector('.message')
         const btn = document.querySelector('.btn')
+        const toast = document.querySelector('.toast')
+        const toastIcon = document.querySelector('.toast-icon')
+        const toastMessage = document.querySelector('.toast-message')
+        const toastBtn = document.querySelector('.toast-close-btn i')
+
+        const closeNotification = () => {
+            toast.classList.remove('show')
+        }
+
+        toastBtn.addEventListener('click', closeNotification)
 
 
-        showSpinner(btn)
+        class toastNotification {
+            constructor(message) {
+                this.message = message
+            }
+            success(message) {
+                toast.classList.add('show')
+                toast.style.backgroundColor = "green"
+                toastMessage.style.color = '#fff'
+                toastIcon.style.color = '#fff'
+                toastMessage.textContent = message
+                toastIcon.innerHTML = '<i class="fa-regular fa-circle-check"></i>'
+
+                setTimeout(() => closeNotification(), 5000)
+            }
+
+            error(message) {
+                toast.classList.add('show')
+                toast.style.backgroundColor = "red"
+                toastMessage.style.color = '#fff'
+                toastIcon.style.color = '#fff'
+                toastMessage.textContent = message
+                toastIcon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>'
+
+                setTimeout(() => closeNotification(), 5000)
+            }
+        }
+
+        const notification = new toastNotification()
+
         // show spinner function 
         function showSpinner(button) {
             button.disabled = true
-            button.innerHTML = ' <span style="display:flex; align-item: center; justify-content: space-between"></span> <span>Loading... </span> <img src="/images/loading.gif" width="50px" alt="">'
+            button.innerHTML = ' <span style="display:flex; justify-content: space-between;"></span> <span> </span> <img src="/images/loading.gif" width="9%" alt="">'
         }
 
         // show spinner function 
@@ -165,15 +199,13 @@
                     throw new Error(result.error);
                 }
 
-                message.classList.add('success');
                 hideSpinner(btn)
-                message.textContent = 'packages successfully created';
+                notification.success('package successfully created');
                 createForm.reset();
 
             } catch (error) {
                 hideSpinner(btn)
-                message.classList.add('error');
-                message.textContent = error.message;
+                notification.error(error.message);
                 return;
             }
         }

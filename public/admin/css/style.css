@@ -23,6 +23,13 @@
     font-family: 'DM Sans', 'Roboto', sans-serif;
 }
 
+.fa-xmark {
+    font-size: 25px;
+    margin-left: auto;
+    color: var(--primary);
+    cursor: pointer;
+}
+
 .btn {
     background: var(--primary);
     color: #fff;
@@ -35,6 +42,56 @@
     font-size: 1.1em;
     margin: 10px 0;
     min-width: 150px;
+}
+
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    border-radius: 5px;
+    display: flex;
+    gap: 20px;
+    max-width: 400px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    padding-right: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.9s ease-in-out, transform 0.9s ease-in-out;
+}
+
+.toast-message {
+    flex-grow: 1;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+.toast-inner {
+    display: flex;
+    gap: 10px;
+    padding: 0 10px;
+    color: #fff;
+    min-width: 250px;
+}
+
+.toast-icon {
+    font-size: 1.2em;
+}
+
+.toast-message {
+    font-size: 1.2em;
+}
+
+.toast-close-btn i {
+    font-size: 1.2em !important;
+    cursor: pointer;
+    color: #fff !important;
 }
 
 .error, .success {
@@ -64,13 +121,6 @@ label {
 input {
     font-size: 1.1em;
     color: #1e1e1e;
-}
-
-.fa-xmark {
-    font-size: 25px;
-    margin-left: auto;
-    color: var(--primary);
-    cursor: pointer;
 }
 
 .modal {

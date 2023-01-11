@@ -15,12 +15,12 @@ const packages_post = async (req, res, next) => {
             return
         }
         if(!validator.isEmail(senderEmail)) {
-            next(new ErrorResponse("Please enter a valid sender email address",400));
+            next(new ErrorResponse("Please enter a valid sender email",400));
             return
         }
 
         if(!validator.isEmail(receiverEmail)) {
-            next(new ErrorResponse("Please enter a valid receiver email address",400));
+            next(new ErrorResponse("Please enter a valid receiver email",400));
             return
         }
 
