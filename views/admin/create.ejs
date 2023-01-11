@@ -85,6 +85,7 @@
                                 <!-- <i class="fa-solid fa-spinner"></i> -->
                                 
                                 <button class="btn">Create</button>
+                               
                         </div>
                         <p class="message"></p>
                         </form>
@@ -102,10 +103,11 @@
         const btn = document.querySelector('.btn')
 
 
+        showSpinner(btn)
         // show spinner function 
         function showSpinner(button) {
             button.disabled = true
-            button.innerHTML = 'Loading <i class="fa-solid fa-spinner"></i>'
+            button.innerHTML = ' <span style="display:flex; align-item: center; justify-content: space-between"></span> <span>Loading... </span> <img src="/images/loading.gif" width="50px" alt="">'
         }
 
         // show spinner function 
