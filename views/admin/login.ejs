@@ -44,21 +44,22 @@
 	</div>
 </section>
 
-<script>
+<script type="module">
+	import {notification, showSpinner, hideSpinner, closeNotification} from '/admin/js/notification.js';
 	const loginForm = document.querySelector('.login-form');
 
 	// lgin request 
 	const loginAdmin = async (e) => {
 		e.preventDefault();
-		document.querySelector('.message').textContent = ""
 
 		const email = loginForm.email.value;
 		const password = loginForm.password.value;
-		const loginBtn = loginForm.submit;
+		const btn = loginForm.submit;
+		
 
 		const formData = { email, password };
 
-		loginBtn.textContent = 'processing...';
+		showSpinner(btn)
 
 		try {
 			const url = '/admin/login'
@@ -73,7 +74,7 @@
 			}
 
 			const result = await response.json();
-			loginBtn.textContent = 'Login';
+			btn.textContent = 'Login';
 
 			if(result.error) {
 				throw new Error(result.error)
@@ -81,8 +82,9 @@
 			location.assign("/admin/dashboard")
 
 		} catch (error) {
+			// notification.error(error.message)
+			hideSpinner(btn)
 			document.querySelector('.message').textContent = error.message
-			loginBtn.textContent = 'Login';
 		}
 	}
 

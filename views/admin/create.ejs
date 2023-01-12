@@ -93,69 +93,17 @@
         </div>
     </main>
 
-    <script>
+    <script type="module">
+        import {notification, showSpinner, hideSpinner, closeNotification} from '/admin/js/notification.js';
+
         const createForm = document.querySelector('.create-form')
         const message = document.querySelector('.message')
         const btn = document.querySelector('.btn')
-        const toast = document.querySelector('.toast')
-        const toastIcon = document.querySelector('.toast-icon')
-        const toastMessage = document.querySelector('.toast-message')
-        const toastBtn = document.querySelector('.toast-close-btn i')
 
-        const closeNotification = () => {
-            toast.classList.remove('show')
-        }
-
-        toastBtn.addEventListener('click', closeNotification)
-
-
-        class toastNotification {
-            constructor(message) {
-                this.message = message
-            }
-            success(message) {
-                toast.classList.add('show')
-                toast.style.backgroundColor = "green"
-                toastMessage.style.color = '#fff'
-                toastIcon.style.color = '#fff'
-                toastMessage.textContent = message
-                toastIcon.innerHTML = '<i class="fa-regular fa-circle-check"></i>'
-
-                setTimeout(() => closeNotification(), 5000)
-            }
-
-            error(message) {
-                toast.classList.add('show')
-                toast.style.backgroundColor = "red"
-                toastMessage.style.color = '#fff'
-                toastIcon.style.color = '#fff'
-                toastMessage.textContent = message
-                toastIcon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>'
-
-                setTimeout(() => closeNotification(), 5000)
-            }
-        }
-
-        const notification = new toastNotification()
-
-        // show spinner function 
-        function showSpinner(button) {
-            button.disabled = true
-            button.innerHTML = ' <span style="display:flex; justify-content: space-between;"></span> <span> </span> <img src="/images/loading.gif" width="9%" alt="">'
-        }
-
-        // show spinner function 
-        function hideSpinner(button) {
-            button.disabled = false
-            button.innerHTML = 'Create'
-        }
-
+        toastBtn.addEventListener('click', () => closeNotification(toast))
 
         const createpackage = async (e) => {
             showSpinner(btn)
-
-            message.className = 'message';
-            message.textContent = '';
 
             e.preventDefault()
             const senderName = createForm.senderName.value
@@ -179,12 +127,12 @@
                     throw new Error('All fields are required');
                 }
 
-                const package = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status }
+                const packages = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status }
 
                 const response = await fetch("/packages/create", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify(package)
+                    body: JSON.stringify(packages)
                 });
 
                 console.log(response)
@@ -200,12 +148,12 @@
                 }
 
                 hideSpinner(btn)
-                notification.success('package successfully created');
+                notification.success('package successfully created', toast, toastIcon, toastMessage, closeNotification);
                 createForm.reset();
 
             } catch (error) {
                 hideSpinner(btn)
-                notification.error(error.message);
+                notification.error(error.message, toast, toastIcon, toastMessage, closeNotification);
                 return;
             }
         }

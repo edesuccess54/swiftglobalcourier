@@ -34,7 +34,6 @@
     background: var(--primary);
     color: #fff;
     border: 1px solid var(--primary);
-    /* border: none; */
     outline: none;
     border-radius: 5px;
     padding: 8px 10px;
@@ -50,7 +49,6 @@
     right: 20px;
     border-radius: 5px;
     display: flex;
-    gap: 20px;
     max-width: 400px;
     justify-content: space-between;
     align-items: center;
@@ -58,8 +56,8 @@
     padding-right: 10px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
-    transition: opacity 0.9s ease-in-out, transform 0.9s ease-in-out;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 }
 
 .toast-message {
