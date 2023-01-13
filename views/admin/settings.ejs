@@ -111,27 +111,23 @@
         </div>
     </main>
 
-    <script>
+    <script type="module">
+        import {notification, showSpinner, hideSpinner, closeNotification} from '/admin/js/notification.js';
         const changePasswordForm = document.querySelector('.change-password');
         const changeDisplayForm = document.querySelector('.change-disPlayName');
-        // const message = document.querySelector('.message')
         const btn = document.querySelector('.change-password-btn')
+
+        toastIcon.addEventListener('click', () => closeNotification(toast));
 
         // change password request 
         const changePassword = async (e) => {
             e.preventDefault();
 
-            const message = document.querySelector('.password-message')
+            showSpinner(btn)
+
             const oldpassword = changePasswordForm.oldPwd.value;
             const newpassword = changePasswordForm.newPwd.value;
             const confirmpassword = changePasswordForm.cPwd.value;
-
-            btn.textContent = "Processing...";
-            btn.style.disabbled = true
-            message.className = 'password-message';
-            message.textContent = "";
-
-            console.log("here is the begining ;", message)
             
             try {
                 // alert('yes')
@@ -163,17 +159,15 @@
 
                 if(json.error) {
                     throw new Error(json.error)
-                    return
                 }
 
-                btn.textContent = "Change Password"
-                message.classList.add('success')
-                message.textContent = json.message
+                hideSpinner(btn, "Change password")
+                notification.success(json.message, toast, toastIcon, toastMessage, closeNotification)
                 
             } catch (error) {
-                message.classList.add('error')
-                btn.textContent = "Change Password"
-                message.textContent = error.message
+
+                hideSpinner(btn, "Change Password")
+                notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
             }
         }
         changePasswordForm.addEventListener('submit', changePassword)
@@ -183,12 +177,9 @@
             e.preventDefault()
             const btn = document.querySelector('.display-name-btn')
 
-            btn.textContent= "Updating..."
-            const adminName = changeDisplayForm.dname.value
-            const message = document.querySelector('.message')
+            showSpinner(btn)
 
-            message.className="message"
-            message.textContent = '';
+            const adminName = changeDisplayForm.dname.value
             
             try {
                 if(!adminName) {
@@ -206,14 +197,12 @@
                 }
 
                 const json = await response.json()
-                message.classList.add('success')
-                message.textContent = json.message
-                btn.textContent = "Update Info"
+                notification.success(json.message)
+                hideSpinner(btn, "Update Info")
 
             } catch (error) {
-                message.classList.add('error')
-                message.textContent = error.message
-                btn.textContent = "Update Info"
+                notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
+                hideSpinner(btn, "Update Info")
             }
         }
         changeDisplayForm.addEventListener('submit', changeDisplayName)

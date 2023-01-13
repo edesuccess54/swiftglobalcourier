@@ -205,7 +205,7 @@ const changePassword = async (req, res, next) => {
          if(admin && hashedPassword) {
             admin.password = newpassword
             await admin.save()
-            res.status(200).json({message: " Your Password has been changed successfully"})
+            res.status(200).json({message: "Password changed successfully"})
 
          } else {
             next(new ErrorResponse("Password is not correct", 400) )
