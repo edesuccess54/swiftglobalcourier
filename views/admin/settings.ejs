@@ -197,7 +197,7 @@
                 }
 
                 const json = await response.json()
-                notification.success(json.message)
+                notification.success(json.message, toast, toastIcon, toastMessage, closeNotification)
                 hideSpinner(btn, "Update Info")
 
             } catch (error) {

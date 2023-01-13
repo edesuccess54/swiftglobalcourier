@@ -58,7 +58,7 @@
     visibility: hidden;
     transform: translateY(40px);
     transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-    z-index: 9999999;
+    z-index: 99999999999999;
 }
 
 .toast-message {

@@ -140,7 +140,7 @@ const loginAdmin = async(req, res, next) => {
             return
         }
 
-        res.status(200).json({message: "Display changed successfuly"})
+        res.status(200).json({message: "Display name changed successfuly"})
         
     } catch (error) {
         console.log(error.message)
