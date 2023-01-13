@@ -82,7 +82,7 @@ const loginAdmin = async(req, res, next) => {
              next(new ErrorResponse("Fill all fields",400));
             return;
         }
-        console.log(2)
+
         if(!validator.isEmail(email)) {
             next(new ErrorResponse("Not a valid email address",400));
             return;

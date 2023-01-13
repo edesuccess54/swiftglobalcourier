@@ -48,6 +48,10 @@
 	import {notification, showSpinner, hideSpinner, closeNotification} from '/admin/js/notification.js';
 	const loginForm = document.querySelector('.login-form');
 
+
+	toastBtn.addEventListener('click', () => closeNotification(toast))
+
+
 	// lgin request 
 	const loginAdmin = async (e) => {
 		e.preventDefault();
@@ -55,8 +59,7 @@
 		const email = loginForm.email.value;
 		const password = loginForm.password.value;
 		const btn = loginForm.submit;
-		
-
+		  
 		const formData = { email, password };
 
 		showSpinner(btn)
@@ -79,12 +82,14 @@
 			if(result.error) {
 				throw new Error(result.error)
 			}
+
+			notification.success("Login successful.", toast, toastIcon, toastMessage, closeNotification)
+			hideSpinner(btn)
 			location.assign("/admin/dashboard")
 
 		} catch (error) {
-			// notification.error(error.message)
+			notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
 			hideSpinner(btn)
-			document.querySelector('.message').textContent = error.message
 		}
 	}
 

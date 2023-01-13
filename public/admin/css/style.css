@@ -58,6 +58,7 @@
     visibility: hidden;
     transform: translateY(40px);
     transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+    z-index: 9999999;
 }
 
 .toast-message {
@@ -84,6 +85,10 @@
 
 .toast-message {
     font-size: 1.2em;
+}
+
+.toast-close-btn {
+    margin-left: auto;
 }
 
 .toast-close-btn i {
