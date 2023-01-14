@@ -29,7 +29,7 @@
                                     <div class="profile-details">
                                         <p>
                                             <span>Display Name</span> 
-                                            <span> Ede Success</span>
+                                            <span> <%= admin.adminName %></span>
                                         </p>
 
                                         <p>
@@ -117,7 +117,7 @@
         const changeDisplayForm = document.querySelector('.change-disPlayName');
         const btn = document.querySelector('.change-password-btn')
 
-        toastIcon.addEventListener('click', () => closeNotification(toast));
+        toastBtn.addEventListener('click', () => closeNotification(toast));
 
         // change password request 
         const changePassword = async (e) => {

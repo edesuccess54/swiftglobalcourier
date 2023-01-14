@@ -52,6 +52,7 @@
 	toastBtn.addEventListener('click', () => closeNotification(toast))
 
 
+	showSpinner(loginForm.submit)
 	// lgin request 
 	const loginAdmin = async (e) => {
 		e.preventDefault();
@@ -89,7 +90,7 @@
 
 		} catch (error) {
 			notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
-			hideSpinner(btn)
+			hideSpinner(btn, "Login")
 		}
 	}
 

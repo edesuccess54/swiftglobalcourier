@@ -16,7 +16,7 @@ const logout = async (e) => {
         if(json.message == 'Successfully Logged out') {
             location.assign("/admin/login")
         }
-        console.log(json)
+
     } catch (error) {
         console.log(error.message)
     }
