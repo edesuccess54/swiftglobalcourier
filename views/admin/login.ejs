@@ -51,9 +51,6 @@
 
 	toastBtn.addEventListener('click', () => closeNotification(toast))
 
-
-	showSpinner(loginForm.submit)
-	// lgin request 
 	const loginAdmin = async (e) => {
 		e.preventDefault();
 
@@ -74,7 +71,7 @@
 			})
 
 			if(!response.ok){
-				throw new Error("something went wrong")
+				throw new Error("Login failed, please try again")
 			}
 
 			const result = await response.json();
@@ -85,7 +82,7 @@
 			}
 
 			notification.success("Login successful.", toast, toastIcon, toastMessage, closeNotification)
-			hideSpinner(btn)
+			hideSpinner(btn, "Login")
 			location.assign("/admin/dashboard")
 
 		} catch (error) {

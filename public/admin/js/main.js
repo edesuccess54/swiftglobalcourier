@@ -13,6 +13,11 @@ const closeModalBtn = document.querySelector('.close-modal')
 const changePasswordBtn = document.querySelector('.pwd-btn')
 const topNavToggle = document.querySelector('.destop-greet')
 
+window.addEventListener('load', () => {
+    document.querySelector('.loading-spinner').classList.add('hide')
+})
+
+
 
 // function to open side nav 
 const openSideNav = (e) => {
@@ -120,6 +125,7 @@ const topNavModal = () => {
     }
 }
 topNavToggle.addEventListener('click', topNavModal)
+
 
 
 

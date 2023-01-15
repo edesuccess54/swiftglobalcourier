@@ -97,15 +97,32 @@
     color: #fff !important;
 }
 
-.error, .success {
-    color: red;
-    margin: 5px 0; 
-    text-align: center; 
-    font-size: 1.1em;
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+	height: 100%;
+    display: flex;
+	justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.8s ease-in-out;
+    background-color: #fff;
+    z-index: 999999;
 }
 
-.success {
-    color: green;
+.loading-spinner.hide {
+    opacity: 0;
+    visibility: collapse;
+    display: none;
+    
+}
+
+.loading-spinner img {
+    width: 400px;
+    height: 400px;
+    object-fit: contain;
 }
 
 .btn:hover {
@@ -465,7 +482,7 @@ body {
  .actionColumn {
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 15px;
  }
 
  .actionColumn .trash{

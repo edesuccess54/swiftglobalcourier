@@ -1,4 +1,4 @@
-export class toastNotification {
+ class toastNotification {
     constructor(message) {
         this.message = message
     }
@@ -31,11 +31,7 @@ export const notification = new toastNotification()
 // show spinner function 
 export function showSpinner(button) {
     button.disabled = true
-    button.style.backgroundImage = 'url("/images/loading.jpeg")'
-    button.style.backgroundPosition = 'center'
-    button.style.backgroundSize = 'contain'
-    button.style.backgroundRepeat = 'no-repeat'
-    // button.innerHTML = ' <span style=" display: block; overflow: hidden; background-image: url(/images/loading.gif)"><img style="width: 50px; height: 50px; object-fit:contain" src="/images/loading.gif" alt=""></span'
+    button.innerHTML = ' <span style=" display: block; overflow: hidden;"><img style="width: 100px; height: 30px; object-fit:contain" src="/images/loading.gif" alt=""></span'
 }
 
 // hide spinner function 
