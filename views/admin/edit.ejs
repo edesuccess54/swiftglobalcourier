@@ -8,7 +8,7 @@
                 <%- include('./partials/topBar') %> 
                 <div class="mainContent">
                     <div class="formContainer">
-                        <form action="">
+                        <form class="editForm">
                             <h2>Edit Package</h2>
                             <div class="formWrapper">
                                 <div class="inputGroup">
@@ -85,7 +85,7 @@
                                 </div>
                                 
                                 <button class="btn">Update</button>
-                            <script></script>
+                            
                         </div>
 
                         </form>
@@ -95,5 +95,15 @@
             </div>
         </div>
     </main>
+    <script type="module">
+        import {hideSpinner, showSpinner, notification, closeNotification} from '/admin/js/notification.js';
+        const btn = document.querySelector('.btn')
+
+        showSpinner(btn)
+        const editForm = document.querySelector('.editForm')
+        const url = new URLSearchParams()
+        console.log(url)
+
+    </script>
 
 <%- include('./partials/footer') %> 
