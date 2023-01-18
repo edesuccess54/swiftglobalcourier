@@ -3,7 +3,7 @@ const Admin = require('../models/adminModel')
 const Package = require('../models/package')
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
-const ErrorResponse = require("../utils/errorResponse")
+const ErrorResponse = require("../utils/errorResponse").default
 
 
 // generateToken

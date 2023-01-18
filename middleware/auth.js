@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/adminModel')
-const ErrorResponse = require("../utils/errorResponse")
+const ErrorResponse = require("../utils/errorResponse").default
 
 const proctect = async (req, res, next) => {
     try {

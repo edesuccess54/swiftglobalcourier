@@ -98,11 +98,45 @@
     <script type="module">
         import {hideSpinner, showSpinner, notification, closeNotification} from '/admin/js/notification.js';
         const btn = document.querySelector('.btn')
+        const editForm = document.querySelector('.editForm')
+
+        alert('yesssss')
+        const queryStrings = window.location.href.split('?')[1];
+
+        console.log(queryStrings)
+        // const urls = new URLSearchParams(queryStrings)
+        // console.log(urls.get(name))
+
+        const updatePackage = () => {
+            
+            const senderName = editForm.senderName.value
+            const senderEmail = editForm.senderEmail.value
+            const receiverName = editForm.receiverName.value
+            const receiverEmail = editForm.receiverEmail.value
+            const receiverNumber = editForm.receiverNumber.value
+            const destination = editForm.destination.value
+            const item = editForm.package.value
+            const weight = editForm.weight.value
+            const currentLocation = editForm.currentLocation.value
+            const depatureDate = editForm.depatureDate.value
+            const deliveryDate = editForm.deliveryDate.value
+            const shipmentMethod = editForm.shipmentMethod.value
+            const PickupDate = editForm.PickupDate.value
+            const status = editForm.status.value
+
+            try {
+
+
+            
+            } catch (error) {
+                
+            }
+
+        }
 
         showSpinner(btn)
-        const editForm = document.querySelector('.editForm')
-        const url = new URLSearchParams()
-        console.log(url)
+        
+
 
     </script>
 

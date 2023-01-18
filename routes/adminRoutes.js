@@ -19,7 +19,7 @@ router.get('/dashboard', auth, dashboardPage)
 router.get('/create', auth, createPage)
 router.get('/view', auth, viewPage)
 router.get('/settings', auth, settingsPage)
-router.get('/edit/:id', auth, editPage)
+router.get('/edit/?', auth, editPage)
 router.get('/login', loginPage)
 
 // Packages Routes
