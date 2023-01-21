@@ -101,9 +101,10 @@
         const editForm = document.querySelector('.editForm')
 
         alert('yesssss')
-        const queryStrings = window.location.href.split('?')[1];
+        const queryStrings = URLSearchParams()
+        const id = queryStrings.get('name')
 
-        console.log(queryStrings)
+        console.log(id)
         // const urls = new URLSearchParams(queryStrings)
         // console.log(urls.get(name))
 

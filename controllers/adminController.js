@@ -254,13 +254,14 @@ const settingsPage = async(req, res) => {
 // edit page 
 const editPage = async(req, res, next) => {
     const {id} = req.params
+    
 
     const singlepackage = await Package.findById(id)
 
-    if(!singlepackage) {
-        next(new ErrorResponse("package not found", 404))
-        return
-    }
+    // if(!singlepackage) {
+    //     next(new ErrorResponse("package not found", 404))
+    //     return
+    // }
     const admin = req.admin
     res.render('./admin/edit', {admin, singlepackage})
 }

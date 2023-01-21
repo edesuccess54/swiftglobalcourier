@@ -83,10 +83,10 @@ const packages_put = async (req, res) => {
 
         const package = await Package.findById(id)
 
-        if(!package) {
-            res.status(400)
-            throw new Error("Product not found")
-        }
+        // if(!package) {
+        //     res.status(400)
+        //     throw new Error("Product not found")
+        // }
 
         const {sendersName,
                 sendersEmail,
