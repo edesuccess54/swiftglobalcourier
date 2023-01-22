@@ -100,45 +100,65 @@
         const btn = document.querySelector('.btn')
         const editForm = document.querySelector('.editForm')
 
-        alert('yesssss')
         const queryStrings = URLSearchParams()
         const id = queryStrings.get('name')
 
-        console.log(id)
-        // const urls = new URLSearchParams(queryStrings)
-        // console.log(urls.get(name))
+        const senderName = editForm.senderName.value
+        const senderEmail = editForm.senderEmail.value
+        const receiverName = editForm.receiverName.value
+        const receiverEmail = editForm.receiverEmail.value
+        const receiverNumber = editForm.receiverNumber.value
+        const destination = editForm.destination.value
+        const item = editForm.package.value
+        const weight = editForm.weight.value
+        const currentLocation = editForm.currentLocation.value
+        const depatureDate = editForm.depatureDate.value
+        const deliveryDate = editForm.deliveryDate.value
+        const shipmentMethod = editForm.shipmentMethod.value
+        const PickupDate = editForm.PickupDate.value
+        const status = editForm.status.value
 
-        const updatePackage = () => {
+        const packages = {
+            id,
+            senderName,
+            senderEmail,
+            receiverName,
+            receiverEmail,
+            receiverNumber,
+            destination,
+            item,
+            weight,
+            currentLocation,
+            depatureDate,
+            deliveryDate,
+            shipmentMethod,
+            PickupDate,
+            status
+        }
+
+
+
+        const updatePackage = async () => {
             
-            const senderName = editForm.senderName.value
-            const senderEmail = editForm.senderEmail.value
-            const receiverName = editForm.receiverName.value
-            const receiverEmail = editForm.receiverEmail.value
-            const receiverNumber = editForm.receiverNumber.value
-            const destination = editForm.destination.value
-            const item = editForm.package.value
-            const weight = editForm.weight.value
-            const currentLocation = editForm.currentLocation.value
-            const depatureDate = editForm.depatureDate.value
-            const deliveryDate = editForm.deliveryDate.value
-            const shipmentMethod = editForm.shipmentMethod.value
-            const PickupDate = editForm.PickupDate.value
-            const status = editForm.status.value
-
             try {
+                const response = await fetch(`/admin/update/${id}`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(packages)
+                })
 
+                if(!response.ok) {
+                    console.log(response.statusText)
+                }
+                const json = await response.json()
 
             
             } catch (error) {
-                
+                console.log(error)
             }
 
         }
-
-        showSpinner(btn)
         
-
-
     </script>
 
 <%- include('./partials/footer') %> 
