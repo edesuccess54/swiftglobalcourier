@@ -2,7 +2,7 @@ const Package = require("../models/package")
 const validator = require("validator")
 const crypto = require("crypto")
 const base64url = require("base64url")
-const ErrorResponse = require("../utils/errorResponse").default
+const ErrorResponse = require("../utils/errorResponse")
 
 // create package fucntion 
 const packages_post = async (req, res, next) => {

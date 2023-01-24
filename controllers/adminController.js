@@ -3,7 +3,7 @@ const Admin = require('../models/adminModel')
 const Package = require('../models/package')
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
-const ErrorResponse = require("../utils/errorResponse").default
+const ErrorResponse = require("../utils/errorResponse")
 
 
 // generateToken
@@ -76,6 +76,8 @@ const registerAdmin = async (req, res) => {
 const loginAdmin = async(req, res, next) => {
     const { email, password } = req.body
 
+    console.log(1)
+
     try {
         // validation
         if(!email || !password) {
@@ -87,18 +89,18 @@ const loginAdmin = async(req, res, next) => {
             next(new ErrorResponse("Not a valid email address",400));
             return;
         }
-        // if(!validator.isStrongPassword(password)) {
-        //     next(new ErrorResponse("Password is not strong enough",400));
-        //     return;
-        // }
 
         const admin = await Admin.findOne({ email })
+
+        console.log(admin)
         if(!admin) {
             next(new ErrorResponse("Invalid email or password",400));
             return
         }
 
         const hashedPassword = await bcrypt.compare(password, admin.password)
+
+        console.log(hashedPassword)
         const token = await generateToken(admin._id)
         res.cookie("token", token),{
             path: "/",
@@ -107,6 +109,8 @@ const loginAdmin = async(req, res, next) => {
             sameSite: "none",
             secure: true
         }
+
+        console.log('token is ... '+token)
   
         if(admin && hashedPassword) {
             const { _id, email: adminEmail, password: adminPassword } = admin
@@ -116,6 +120,8 @@ const loginAdmin = async(req, res, next) => {
             adminPassword,
             token
             })
+
+            console.log('everything is correct ... '+token)
 
         } else {
             next(new ErrorResponse("Invalid email or password",400));
@@ -218,6 +224,16 @@ const changePassword = async (req, res, next) => {
     }
 }
 
+// reset password 
+const resetPassword = (req, res) => {
+    console.log("hello")
+}
+
+// forgot password page
+const forgotPassword = async (req, res) => {
+    res.render('./admin/forgot-password')
+}
+
 // admin dashboard page 
 const dashboardPage = async(req, res) => {
     const packages = await Package.find()
@@ -283,5 +299,7 @@ module.exports = {
     settingsPage,
     editPage,
     loginPage,
-    displayName
+    displayName,
+    forgotPassword,
+    resetPassword
 }
