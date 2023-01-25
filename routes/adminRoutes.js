@@ -13,7 +13,7 @@ router.get('/logout', logoutAdmin)
 router.put('/changepassword', auth, changePassword)
 router.put('/displayName', auth, displayName)
 router.post('/forgotPassword', forgotPassword)
-router.post('/auth/resetpassword', resetPassword)
+router.post('/auth/resetpassword/:resetToken', resetPassword)
 
 // Admin Routes 
 router.get('/dashboard', auth, dashboardPage)
@@ -30,8 +30,6 @@ router.get('/packages', auth, packages_get)
 router.post('/packages', auth, packages_post)
 router.put('/packages/:id', auth, packages_put)
 router.delete('/packages/:id', auth, packages_delete)
-
-
 
 
 module.exports = router
