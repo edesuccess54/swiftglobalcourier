@@ -229,7 +229,7 @@ const changePassword = async (req, res, next) => {
 }
 
 // reset password 
-const resetPassword = async (req, res, next) => {
+const forgotPassword = async (req, res, next) => {
     const {email} = req.body
 
     try {
@@ -271,29 +271,30 @@ const resetPassword = async (req, res, next) => {
         }).save()
     
         // construct url to reset password 
-      const resetUrl = `${process.env.URL}/auth/resetpassword/${resetToken}`
+      const resetUrl = `${process.env.URL}/admin/auth/resetpassword/?resetToken=${resetToken}`
     
       // reset email 
       const message = `
-        <h2>Hellow ${user.adminName}</h2>
-        <p>You requested to reset your password, Please use the url below to reset your password</p>
-        <p>Please contact customer care  if you didn't initiate this.</p>
-        <p>This reset link is only valid for 30 minutes</p>
+        <h2>Hello ${user.adminName},</h2>
+        <p>You requested to reset your password, Please click the button below to reset your password or copy the link to your browser url</p>
     
-        <a href=${resetUrl} clicktracking="off">${resetUrl}</a>
-    
-        <p>regards...</p>  `
+        <div>
+            <a style="padding: 10px; background: blue; color: #fff; font-size: 20px; border-radius: 5px; display: inline-block; margin: 5px 0; text-decoration: none;"href=${resetUrl} clicktracking="off">Reset</a> 
+        </div>
+
+        <a href="#">${resetUrl}</a>
+
+        <p>Please contact customer care  if you didn't request for password reset. <br> 
+            <span>This reset link is only valid for 30 minutes</span>
+        </p>
+        <hr>
+        <p>Best Regards...</p>  `
     
       const subject = "Password Reset Request";
       const send_to = user.email
       const sent_from = process.env.EMAIL_USER
     
-  await sendEmail(subject, message, send_to, sent_from)
-
-    //   if(!sendemail) {
-    //     next(new ErrorResponse("email not sent, please try again", 500))
-    //     return
-    //   }
+    await sendEmail(subject, message, send_to, sent_from)
 
       res.status(200).json({
         success: true,
@@ -305,12 +306,19 @@ const resetPassword = async (req, res, next) => {
     }
 }
 
+const resetPassword = async (req, res, next) => {
+    console.log('helloooo')
+}
 
+// reset password page
+const get_resetPassword = async (req, res, next) => {
+    res.render('./admin/resetpassword')
+}
 
 
 
 // forgot password page
-const forgotPassword = async (req, res) => {
+const forgotPasswordPage = async (req, res) => {
     res.render('./admin/forgot-password')
 }
 
@@ -380,6 +388,8 @@ module.exports = {
     editPage,
     loginPage,
     displayName,
+    forgotPasswordPage,
     forgotPassword,
+    get_resetPassword,
     resetPassword
 }
