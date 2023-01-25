@@ -6,6 +6,7 @@ const validator = require("validator")
 const bcrypt = require("bcryptjs")
 const ErrorResponse = require('../utils/errorResponse')
 const crypto = require("crypto")
+const sendEmail = require('../utils/sendEmail')
 
 
 
@@ -231,65 +232,82 @@ const changePassword = async (req, res, next) => {
 const resetPassword = async (req, res, next) => {
     const {email} = req.body
 
-    if(!email) {
-        next(new ErrorResponse("Email is required", 400))
-    }
+    try {
 
-    // check if email is valid 
-    if(!validator.isEmail(email)) {
-        next(new ErrorResponse("enter a valid email", 400))
-    }
-
-    // check if email exist in database 
-    const user = await Admin.findOne({email})
-
-    if(!user) {
-        next(new ErrorResponse("email does not exit", 400))
-    }
-
-    const token = await Token.findOne({userId: user._id})
-
-    if(token) {
-        await Token.deleteOne({_id: token._id})
-    }
-
-    const resetToken = crypto.randomBytes(32).toString("hex") + user._id;
-
-    const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex")
-
-    await new Token({
-        userId: user._id,
-        token: hashedToken,
-        createdAt: Date.now(),
-        expiresAt: Date.now() + 30 * (60 * 1000) //30 minutes,
-    }).save()
-
-  const resetUrl = `${process.env.URL}/auth/resetpassword/${resetToken}`
-
-  // reset email 
-  const message = `
-    <h2>Hellow ${user.adminName}</h2>
-    <p>You requested to reset your password, Please use the url below to reset your password</p>
-    <p>Please contact customer care  if you didn't initiate this.</p>
-    <p>This reset link is only valid for 30 minutes</p>
-
-    <a href=${resetUrl} clicktracking="off">${resetUrl}</a>
-
-    <p>regards...</p>  `
-
-  const subject = "Password Reset Request";
-  const send_to = user.email
-  const sent_from = process.env.EMAIL_USER
-
-
-
-
-
-    console.log("hello")
-    res.json(email)
+        if(!email) {
+            next(new ErrorResponse("Email is required", 400))
+            return
+        }
     
+        // check if email is valid 
+        if(!validator.isEmail(email)) {
+            next(new ErrorResponse("enter a valid email", 400))
+            return
+        }
     
+        // check if email exist in database 
+        const user = await Admin.findOne({email})
+    
+        if(!user) {
+            next(new ErrorResponse("email does not exit", 400))
+            return
+        }
+    
+        const token = await Token.findOne({userId: user._id})
+    
+        if(token) {
+            await Token.deleteOne({_id: token._id})
+        }
+    
+        const resetToken = crypto.randomBytes(32).toString("hex") + user._id;
+    
+        const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex")
+    
+        await new Token({
+            userId: user._id,
+            token: hashedToken,
+            createdAt: Date.now(),
+            expiresAt: Date.now() + 30 * (60 * 1000) //30 minutes,
+        }).save()
+    
+        // construct url to reset password 
+      const resetUrl = `${process.env.URL}/auth/resetpassword/${resetToken}`
+    
+      // reset email 
+      const message = `
+        <h2>Hellow ${user.adminName}</h2>
+        <p>You requested to reset your password, Please use the url below to reset your password</p>
+        <p>Please contact customer care  if you didn't initiate this.</p>
+        <p>This reset link is only valid for 30 minutes</p>
+    
+        <a href=${resetUrl} clicktracking="off">${resetUrl}</a>
+    
+        <p>regards...</p>  `
+    
+      const subject = "Password Reset Request";
+      const send_to = user.email
+      const sent_from = process.env.EMAIL_USER
+    
+  await sendEmail(subject, message, send_to, sent_from)
+
+    //   if(!sendemail) {
+    //     next(new ErrorResponse("email not sent, please try again", 500))
+    //     return
+    //   }
+
+      res.status(200).json({
+        success: true,
+        message: "Password reset link sent"
+      })
+        
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
 }
+
+
+
+
 
 // forgot password page
 const forgotPassword = async (req, res) => {
