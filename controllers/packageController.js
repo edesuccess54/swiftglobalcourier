@@ -1,4 +1,4 @@
-const Package = require("../models/package")
+const Package = require("../models/packageModel")
 const validator = require("validator")
 const crypto = require("crypto")
 const base64url = require("base64url")

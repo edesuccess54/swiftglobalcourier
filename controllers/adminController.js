@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/adminModel')
-const Package = require('../models/package')
+const Package = require('../models/packageModel')
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
-const ErrorResponse = require("../utils/errorResponse")
+const ErrorResponse = require('../utils/errorResponse')
+const Token = require('../models/tokenModel')
 
 
 // generateToken
@@ -225,8 +226,32 @@ const changePassword = async (req, res, next) => {
 }
 
 // reset password 
-const resetPassword = (req, res) => {
+const resetPassword = async (req, res, next) => {
+    const {email} = req.body
+
+    if(!email) {
+        next(new ErrorResponse("Email is required", 400))
+    }
+
+    // check if email is valid 
+    if(!validator.isEmail(email)) {
+        next(new ErrorResponse("enter a valid email", 400))
+    }
+
+    // check if email exist in database 
+    const emailExist = await Admin.findOne({email})
+
+    if(!emailExist) {
+        next(new ErrorResponse("email does not exit", 400))
+    }
+
+
+
+
     console.log("hello")
+    res.json(email)
+    
+    
 }
 
 // forgot password page

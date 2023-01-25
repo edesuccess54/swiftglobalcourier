@@ -12,7 +12,7 @@ router.post("/login", loginAdmin)
 router.get("/logout", logoutAdmin)
 router.put("/changepassword", auth, changePassword)
 router.put("/displayName", auth, displayName)
-router.put("/forgotPassword", resetPassword)
+router.post("/forgotPassword", resetPassword)
 
 
 // Admin Routes 
