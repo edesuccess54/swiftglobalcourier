@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/adminModel')
 const Package = require('../models/packageModel')
+const Token = require('../models/tokenModel')
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
 const ErrorResponse = require('../utils/errorResponse')
-const Token = require('../models/tokenModel')
+const crypto = require("crypto")
+
 
 
 // generateToken
@@ -239,11 +241,46 @@ const resetPassword = async (req, res, next) => {
     }
 
     // check if email exist in database 
-    const emailExist = await Admin.findOne({email})
+    const user = await Admin.findOne({email})
 
-    if(!emailExist) {
+    if(!user) {
         next(new ErrorResponse("email does not exit", 400))
     }
+
+    const token = await Token.findOne({userId: user._id})
+
+    if(token) {
+        await Token.deleteOne({_id: token._id})
+    }
+
+    const resetToken = crypto.randomBytes(32).toString("hex") + user._id;
+
+    const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex")
+
+    await new Token({
+        userId: user._id,
+        token: hashedToken,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + 30 * (60 * 1000) //30 minutes,
+    }).save()
+
+  const resetUrl = `${process.env.URL}/auth/resetpassword/${resetToken}`
+
+  // reset email 
+  const message = `
+    <h2>Hellow ${user.adminName}</h2>
+    <p>You requested to reset your password, Please use the url below to reset your password</p>
+    <p>Please contact customer care  if you didn't initiate this.</p>
+    <p>This reset link is only valid for 30 minutes</p>
+
+    <a href=${resetUrl} clicktracking="off">${resetUrl}</a>
+
+    <p>regards...</p>  `
+
+  const subject = "Password Reset Request";
+  const send_to = user.email
+  const sent_from = process.env.EMAIL_USER
+
 
 
 
