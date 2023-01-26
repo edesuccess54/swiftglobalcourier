@@ -357,11 +357,9 @@ const resetPassword = async (req, res, next) => {
 }
 
 // reset password page
-const get_resetPassword = async (req, res, next) => {
+const resetPasswordPage = async (req, res, next) => {
     res.render('./admin/resetpassword')
 }
-
-
 
 // forgot password page
 const forgotPasswordPage = async (req, res) => {
@@ -403,16 +401,16 @@ const settingsPage = async(req, res) => {
 
 // edit page 
 const editPage = async(req, res, next) => {
-    const {id} = req.params
+    // const {package} = req.params
     
 
-    const singlepackage = await Package.findById(id)
+    // const singlepackage = await Package.findById(package)
 
     // if(!singlepackage) {
     //     next(new ErrorResponse("package not found", 404))
     //     return
     // }
-    const admin = req.admin
+    // const admin = req.admin
     res.render('./admin/edit', {admin, singlepackage})
 }
 
@@ -436,6 +434,6 @@ module.exports = {
     displayName,
     forgotPasswordPage,
     forgotPassword,
-    get_resetPassword,
+    resetPasswordPage,
     resetPassword
 }

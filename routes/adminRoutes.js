@@ -1,5 +1,5 @@
 const express = require('express')
-const {registerAdmin, loginAdmin, logoutAdmin, changePassword, dashboardPage, createPage, viewPage, settingsPage, editPage, loginPage, displayName, forgotPasswordPage, resetPassword, get_resetPassword, forgotPassword} = require('../controllers/adminController')
+const {registerAdmin, loginAdmin, logoutAdmin, changePassword, dashboardPage, createPage, viewPage, settingsPage, editPage, loginPage, displayName, forgotPasswordPage, resetPassword, resetPasswordPage, forgotPassword} = require('../controllers/adminController')
 const { packages_get,packages_post,packages_put, packages_delete} = require('../controllers/packageController')
 
 const auth = require('../middleware/auth.js')
@@ -14,16 +14,17 @@ router.put('/changepassword', auth, changePassword)
 router.put('/displayName', auth, displayName)
 router.post('/forgotPassword', forgotPassword)
 router.post('/auth/resetpassword/:resetToken', resetPassword)
+router.get('/auth/resetpassword/', resetPasswordPage)
 
 // Admin Routes 
 router.get('/dashboard', auth, dashboardPage)
 router.get('/create', auth, createPage)
 router.get('/view', auth, viewPage)
 router.get('/settings', auth, settingsPage)
-router.get('/edit/?', auth, editPage)
+router.get('/edit/', auth, editPage)
 router.get('/login', loginPage)
 router.get('/forgot-password', forgotPasswordPage)
-router.get('/auth/resetpassword/', get_resetPassword)
+
 
 // Packages Routes
 router.get('/packages', auth, packages_get)

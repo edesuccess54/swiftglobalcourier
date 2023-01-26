@@ -100,8 +100,8 @@
         const btn = document.querySelector('.btn')
         const editForm = document.querySelector('.editForm')
 
-        const queryStrings = URLSearchParams()
-        const id = queryStrings.get('name')
+        const queryStrings = URLSearchParams(window.location.search)
+        const id = queryStrings.get('package')
 
         const senderName = editForm.senderName.value
         const senderEmail = editForm.senderEmail.value
@@ -119,7 +119,6 @@
         const status = editForm.status.value
 
         const packages = {
-            id,
             senderName,
             senderEmail,
             receiverName,
@@ -141,7 +140,7 @@
         const updatePackage = async () => {
             
             try {
-                const response = await fetch(`/admin/update/${id}`, {
+                const response = await fetch(`/admin/edit/${id}`, {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(packages)
