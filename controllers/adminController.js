@@ -310,42 +310,50 @@ const resetPassword = async (req, res, next) => {
     const {newPassword, confirmPassword} = req.body
     const {resetToken} = req.params
 
-    if(!newPassword || !confirmPassword) {
-        next(new ErrorResponse("Passwords are required", 400))
-        return
+    try {
+
+        if(!newPassword || !confirmPassword) {
+            next(new ErrorResponse("Passwords are required", 400))
+            return
+        }
+
+        if(!validator.isStrongPassword(newPassword) || !validator.isStrongPassword(newPassword) ) {
+            next(new ErrorResponse("Passwords is not strong enough", 400))
+            return
+        }
+
+        if(newPassword !== confirmPassword ) {
+            next(new ErrorResponse("Password does not match", 400))
+            return
+        }
+    
+        // hash token then compare token in the database 
+        const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex")
+
+        // find token in db 
+        const userToken = await Token.findOne({
+            token: hashedToken,
+            expiresAt: {$gt: Date.now()}
+        })
+
+        if(!userToken) {
+            next(new ErrorResponse("Invalid or expired token"))
+            return
+        }
+
+        const admin = await Admin.findOne({_id: userToken.userId})
+
+        admin.password = newPassword
+       
+        await admin.save()
+
+        res.status(200).json({
+            message: "Password reset successful, please login"
+        })
+
+    } catch (error) {
+        res.status(400).json({error: error.message})
     }
-
-    if(!validator.isStrongPassword(newPassword) || !validator.isStrongPassword(newPassword) ) {
-        next(new ErrorResponse("Passwords is not strong enough", 400))
-        return
-    }
-
-    if(newPassword !== confirmPassword ) {
-        next(new ErrorResponse("Password does not match", 400))
-        return
-    }
-
-    // hash token then compare token in the database 
-    const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex")
-
-    // find token in db 
-    const userToken = Token.findOne({
-        token: hashedToken,
-        expiresAt: {$gt: Date.now()}
-    })
-
-    if(!userToken) {
-        next(new ErrorResponse("Invalid or expired token"))
-        return
-    }
-
-    const admin = await Admin.findOne({_id: userToken.userId})
-    admin.password = newPassword
-
-    await Admin.save()
-    res.status(200).json({
-        message: "Password reset successful, please login"
-    })
 }
 
 // reset password page
