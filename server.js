@@ -30,10 +30,23 @@ app.use('/packages',packageRoutes)
 
 app.use(errorHandler)
 
-mongoose.connect(process.env.MONGO_URI).then((result) => {
-   app.listen(process.env.PORT, () => {
-      console.log(`Connected to database and now Listening on port ${process.env.PORT}`)
-   })
-}).catch((error) => {
-   console.log(error.message)
+// mongoose.connect(process.env.MONGO_URI)
+// .then(() => {
+//    app.listen(process.env.PORT, () => {
+//       console.log(`Connected to database and now Listening on port ${process.env.PORT}`)
+//    })
+// }).catch((error) => {
+//    console.log(error.message)
+// })
+
+
+// connect to mongoDB and start server
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {
+    app.listen(process.env.PORT, () => {
+        console.log(`server running on port ${process.env.PORT}`);
+    });
+})
+.catch((error) => {
+    console.log(error.message)
 })

@@ -401,17 +401,22 @@ const settingsPage = async(req, res) => {
 
 // edit page 
 const editPage = async(req, res, next) => {
-    // const {package} = req.params
+    const {package} = req.query
+
+    try {
+        const singlepackage = await Package.findById(package)
+
+        if(!singlepackage) {
+            next(new ErrorResponse("package not found", 404))
+            return
+        }
+        const admin = req.admin
     
-
-    // const singlepackage = await Package.findById(package)
-
-    // if(!singlepackage) {
-    //     next(new ErrorResponse("package not found", 404))
-    //     return
-    // }
-    // const admin = req.admin
-    res.render('./admin/edit', {admin, singlepackage})
+        res.render('./admin/edit', {admin, singlepackage})
+        
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
 }
 
 // login page 

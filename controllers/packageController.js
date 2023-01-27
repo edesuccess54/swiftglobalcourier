@@ -88,32 +88,24 @@ const packages_put = async (req, res) => {
         //     throw new Error("Product not found")
         // }
 
-        const {sendersName,
-                sendersEmail,
-                receiversName,
-                receiversEmail,
-                receiversNumber,
-                receiversAddress,
-                item,
-                weight,
-                location,
-                depatureDate,
-                deliveryDate,
-                shipmentMethod,
-                pickupDate,
-                status
-        } = package
+        // package details from database 
+        const {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,departureDate,deliveryDate,shipmentMethod,pickupDate,trackingId,completed,status} = package
 
-        package.sendersName = req.body.sendersName || sendersName
-        package.sendersEmail = req.body.sendersEmail || sendersEmail
-        package.receiversName = req.body.receiversName || receiversName
-        package.receiversAddress = req.body.receiversAddress || receiversAddress
-        package.receiversNumber = req.body.receiversNumber || receiversNumber
-        package.description = req.body.description || description
+        package.senderName = req.body.senderName || senderName
+        package.senderEmail = req.body.senderEmail || senderEmail
+        package.receiverName = req.body.receiverName || receiverName
+        package.receiverEmail = req.body.receiverEmail || receiverEmail
+        package.receiverNumber = req.body.receiverNumber || receiverNumber
+        package.destination = req.body.destination || destination
+        package.item = req.body.item || item
         package.weight = req.body.weight || weight
-        package.location = req.body.location || location
+        package.currentLocation = req.body.currentLocation || currentLocation
+
+        package.departureDate = req.body.departureDate || departureDate
+        package.deliveryDate = req.body.deliveryDate || deliveryDate
+        package.shipmentMethod = req.body.shipmentMethod || shipmentMethod
+        package.pickupDate = req.body.pickupDate || pickupDate
         package.status = req.body.status || status
-        package.worth = req.body.worth || worth
 
         const updatedPackage = await package.save()
 

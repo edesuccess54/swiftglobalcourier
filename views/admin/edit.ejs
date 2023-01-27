@@ -13,32 +13,32 @@
                             <div class="formWrapper">
                                 <div class="inputGroup">
                                     <label for="">Sender's Name:</label>
-                                    <input type="text" name="" value="<%= singlepackage.sendersName %>">
+                                    <input type="text" name="" value="<%= singlepackage.senderName %>">
                                 </div>
     
                                 <div class="inputGroup">
                                     <label for="">Sender's Email:</label>
-                                    <input type="text" name="" value="<%= singlepackage.sendersEmail%>">
+                                    <input type="text" name="" value="<%= singlepackage.senderEmail%>">
                                 </div>
     
                                 <div class="inputGroup">
                                     <label for="">Receiver's Name</label>
-                                    <input type="text" name="" value="<%= singlepackage.receiversName%>">
+                                    <input type="text" name="" value="<%= singlepackage.receiverName%>">
                                 </div>
     
                                 <div class="inputGroup">
                                     <label for="">Receiver's Email</label>
-                                    <input type="text" name="" value="<%= singlepackage.receiversEmail%>">
+                                    <input type="text" name="" value="<%= singlepackage.receiverEmail%>">
                                 </div>
 
                                 <div class="inputGroup">
                                     <label for="">Receiver's Number</label>
-                                    <input type="text" name="" value="<%= singlepackage.receiversNumber%>">
+                                    <input type="text" name="" value="<%= singlepackage.receiverNumber%>">
                                 </div>
     
                                 <div class="inputGroup">
                                     <label for="">Destination Address</label>
-                                    <input type="text" name="" value="<%= singlepackage.receiversAddress%>">
+                                    <input type="text" name="" value="<%= singlepackage.destination%>">
                                 </div>
 
                                 <div class="inputGroup">
@@ -53,12 +53,12 @@
 
                                 <div class="inputGroup">
                                     <label for="">Current Location</label>
-                                    <input type="text" name="" value="<%= singlepackage.location %>">
+                                    <input type="text" name="" value="<%= singlepackage.currentLocation %>">
                                 </div>
 
                                 <div class="inputGroup">
                                     <label for="">Depature Date</label>
-                                    <input type="date" name="" value="<%= singlepackage.depatureDate%>">
+                                    <input type="date" name="" value="<%= singlepackage.departureDate%>">
                                 </div>
 
                                 <div class="inputGroup">
@@ -101,7 +101,7 @@
         const editForm = document.querySelector('.editForm')
 
         const queryStrings = URLSearchParams(window.location.search)
-        const id = queryStrings.get('package')
+        const packageId = queryStrings.get('package')
 
         const senderName = editForm.senderName.value
         const senderEmail = editForm.senderEmail.value
@@ -140,14 +140,14 @@
         const updatePackage = async () => {
             
             try {
-                const response = await fetch(`/admin/edit/${id}`, {
+                const response = await fetch(`/admin/edit/${packageId}`, {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(packages)
                 })
 
                 if(!response.ok) {
-                    console.log(response.statusText)
+                    throw new Error(response.statusText)
                 }
                 const json = await response.json()
 
