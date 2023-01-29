@@ -27,10 +27,10 @@ router.get('/forgot-password', forgotPasswordPage)
 
 
 // Packages Routes
-router.get('/packages', auth, packages_get)
-router.post('/packages', auth, packages_post)
-router.put('/packages/:id', auth, packages_put)
-router.delete('/packages/:id', auth, packages_delete)
+// router.get('/packages', auth, packages_get)
+// router.post('/packages', auth, packages_post)
+// router.put('/packages/:id', auth, packages_put)
+// router.delete('/packages/:id', auth, packages_delete)
 
 
 module.exports = router

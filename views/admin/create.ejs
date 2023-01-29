@@ -11,76 +11,76 @@
                             <h2>Create Package</h2>
                             <div class="formWrapper">
                                 <div class="inputGroup">
-                                    <label for="">Sender's Name:</label>
-                                    <input type="text" name="senderName">
+                                    <label for="sname">Sender's Name:</label>
+                                    <input id="sname" type="text" name="senderName" title="senders name" placeholder="enter senders name">
                                 </div>
     
                                 <div class="inputGroup">
-                                    <label for="">Sender's Email:</label>
-                                    <input type="text" name="senderEmail">
+                                    <label for="semail">Sender's Email:</label>
+                                    <input id="semail" type="text" name="senderEmail">
                                 </div>
     
                                 <div class="inputGroup">
-                                    <label for="">Receiver's Name</label>
-                                    <input type="text" name="receiverName">
+                                    <label for="rname">Receiver's Name</label>
+                                    <input id="rname" type="text" name="receiverName">
                                 </div>
     
                                 <div class="inputGroup">
-                                    <label for="">Receiver's Email</label>
-                                    <input type="text" name="receiverEmail">
+                                    <label for="remail">Receiver's Email</label>
+                                    <input id="remail" type="text" name="receiverEmail">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Receiver's Number</label>
-                                    <input type="text" name="receiverNumber">
+                                    <label for="rnumber">Receiver's Number</label>
+                                    <input id="rnumber" type="text" name="receiverNumber">
                                 </div>
     
                                 <div class="inputGroup">
-                                    <label for="">Destination Address</label>
-                                    <input type="text" name="destination">
+                                    <label for="daddress">Destination Address</label>
+                                    <input id="daddress" type="text" name="destination">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">package </label>
-                                    <input type="text" name="package" placeholder="what are you sending to client?">
+                                    <label for="pack">package </label>
+                                    <input id="pack" type="text" name="package" placeholder="what are you sending to client?">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">weight</label>
-                                    <input type="text" name="weight">
+                                    <label for="weight">weight</label>
+                                    <input id="weight" type="text" name="weight">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Current Location</label>
-                                    <input type="text" name="currentLocation">
+                                    <label for="currentlocation">Current Location</label>
+                                    <input id="currentlocation" type="text" name="currentLocation">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Depature Date</label>
-                                    <input type="date" name="depatureDate">
+                                    <label for="deliveryDate">Depature Date</label>
+                                    <input id="deliveryDate" type="date" name="depatureDate">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Expected Delivery Date</label>
-                                    <input type="date" name="deliveryDate">
+                                    <label for="deliveryDate">Expected Delivery Date</label>
+                                    <input id="deliveryDate" type="date" name="deliveryDate">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Shipment Method</label>
-                                    <select name="shipmentMethod" id="">
+                                    <label for="deliveryDate">Shipment Method</label>
+                                    <select name="shipmentMethod" id="deliveryDate">
                                         <option selected disabled>--select shipment method--</option>
                                         <option value="Express Delivery">Express Delivery</option>
                                     </select>
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Pickup Date & time</label>
-                                    <input type="date" name="PickupDate">
+                                    <label for="PickupDate">Pickup Date & time</label>
+                                    <input id="PickupDate" type="date" name="PickupDate">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Status of item</label>
-                                    <input type="text" name="status">
+                                    <label for="status">Status of item</label>
+                                    <input id="status" type="text" name="status">
                                 </div>
                                 <button class="btn">Create</button>
                         </div>
@@ -146,12 +146,12 @@
                     throw new Error(result.error);
                 }
 
-                hideSpinner(btn)
+                hideSpinner(btn, "Create")
                 notification.success('package successfully created', toast, toastIcon, toastMessage, closeNotification);
                 createForm.reset();
 
             } catch (error) {
-                hideSpinner(btn)
+                hideSpinner(btn, "Create")
                 notification.error(error.message, toast, toastIcon, toastMessage, closeNotification);
                 return;
             }

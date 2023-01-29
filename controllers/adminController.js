@@ -406,11 +406,12 @@ const editPage = async(req, res, next) => {
     try {
         const singlepackage = await Package.findById(package)
 
+        const admin = req.admin
+
         if(!singlepackage) {
-            next(new ErrorResponse("package not found", 404))
+            res.render('./admin/edit', {admin, singlepackage})
             return
         }
-        const admin = req.admin
     
         res.render('./admin/edit', {admin, singlepackage})
         

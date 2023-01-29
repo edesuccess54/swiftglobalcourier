@@ -1,146 +1,151 @@
 <%- include('./partials/header') %> 
 
-    
+<% let booy = true %>     
     <main>
         <div class="mainWrapper">
             <%- include("./partials/sideBar") %> 
             <div class="rightContent">
                 <%- include('./partials/topBar') %> 
                 <div class="mainContent">
+                    <% if(!singlepackage) { %>
+                        <p>Oops! this product does not exits</p>
+                    <% } else {%>
                     <div class="formContainer">
                         <form class="editForm">
                             <h2>Edit Package</h2>
                             <div class="formWrapper">
                                 <div class="inputGroup">
-                                    <label for="">Sender's Name:</label>
-                                    <input type="text" name="" value="<%= singlepackage.senderName %>">
+                                    <label for="sendername">Sender's Name:</label>
+                                    <input id="sendername" type="text" name="senderName" value="<%= singlepackage.senderName %>">
                                 </div>
     
                                 <div class="inputGroup">
-                                    <label for="">Sender's Email:</label>
-                                    <input type="text" name="" value="<%= singlepackage.senderEmail%>">
+                                    <label for="senderemail">Sender's Email:</label>
+                                    <input id="senderemail" type="text" name="senderEmail" value="<%= singlepackage.senderEmail%>">
                                 </div>
     
                                 <div class="inputGroup">
-                                    <label for="">Receiver's Name</label>
-                                    <input type="text" name="" value="<%= singlepackage.receiverName%>">
+                                    <label for="receivername">Receiver's Name</label>
+                                    <input id="receivername" type="text" name="receiverName" value="<%= singlepackage.receiverName%>">
                                 </div>
     
                                 <div class="inputGroup">
-                                    <label for="">Receiver's Email</label>
-                                    <input type="text" name="" value="<%= singlepackage.receiverEmail%>">
+                                    <label for="receiveremail">Receiver's Email</label>
+                                    <input id="receiveremail" type="text" name="receiverEmail" value="<%= singlepackage.receiverEmail%>">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Receiver's Number</label>
-                                    <input type="text" name="" value="<%= singlepackage.receiverNumber%>">
+                                    <label for="receivernumber">Receiver's Number</label>
+                                    <input id="receivernumber" type="text" name="receiverNumber" value="<%= singlepackage.receiverNumber%>">
                                 </div>
     
                                 <div class="inputGroup">
-                                    <label for="">Destination Address</label>
-                                    <input type="text" name="" value="<%= singlepackage.destination%>">
+                                    <label for="destination">Destination Address</label>
+                                    <input id="destination" type="text" name="destination" value="<%= singlepackage.destination%>">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">package </label>
-                                    <input type="text" name="" placeholder="what are you sending to client?" value="<%= singlepackage.item%>">
+                                    <label for="package">package </label>
+                                    <input id="package" type="text" name="item" placeholder="what are you sending to client?" value="<%= singlepackage.item%>">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">weight</label>
-                                    <input type="text" name="" value="<%= singlepackage.weight%>">
+                                    <label for="weight">weight</label>
+                                    <input id="weight" type="text" name="weight" value="<%= singlepackage.weight%>">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Current Location</label>
-                                    <input type="text" name="" value="<%= singlepackage.currentLocation %>">
+                                    <label for="currentlocation">Current Location</label>
+                                    <input id="currentlocation" type="text" name="currentLocation" value="<%= singlepackage.currentLocation %>">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Depature Date</label>
-                                    <input type="date" name="" value="<%= singlepackage.departureDate%>">
+                                    <label for="departuredate">Depature Date</label>
+                                    <input id="departuredate" type="date" name="departureDate" value="<%= singlepackage.departureDate%>">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Expected Delivery Date</label>
-                                    <input type="date" name="" value="<%= singlepackage.deliveryDate%>">
+                                    <label for="deliveryDate">Expected Delivery Date</label>
+                                    <input id="deliveryDate" type="date" name="deliveryDate" value="<%= singlepackage.deliveryDate%>">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Shipment Method</label>
-                                    <select name="" id="">
+                                    <label for="shipmentMethod">Shipment Method</label>
+                                    <select name="shipmentMethod" id="shipmentMethod">
                                         <option  disabled>--select shipment method--</option>
                                         <option selected value="Express Delivery">Express Delivery</option>
                                     </select>
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Pickup Date & time</label>
-                                    <input type="date" name="" value="<%= singlepackage.pickupDate%>">
+                                    <label for="pickupDate">Pickup Date & time</label>
+                                    <input id="pickupDate" type="date" name="PickupDate" value="<%= singlepackage.pickupDate%>">
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="">Status of item</label>
-                                    <input type="text" name="" value="<%= singlepackage.status%>">
+                                    <label for="status">Status of item</label>
+                                    <input id="status" type="text" name="status" value="<%= singlepackage.status%>">
                                 </div>
                                 
-                                <button class="btn">Update</button>
-                            
+                                <button type="submit" class="btn">Update</button>
                         </div>
 
                         </form>
                     </div>
-                    
+                    <% } %>
                 </div>
             </div>
         </div>
     </main>
     <script type="module">
         import {hideSpinner, showSpinner, notification, closeNotification} from '/admin/js/notification.js';
+
+        toastBtn.addEventListener('click', () => closeNotification(toast))
+
         const btn = document.querySelector('.btn')
         const editForm = document.querySelector('.editForm')
-
-        const queryStrings = URLSearchParams(window.location.search)
+        const queryStrings = new URLSearchParams(document.location.search)
         const packageId = queryStrings.get('package')
 
-        const senderName = editForm.senderName.value
-        const senderEmail = editForm.senderEmail.value
-        const receiverName = editForm.receiverName.value
-        const receiverEmail = editForm.receiverEmail.value
-        const receiverNumber = editForm.receiverNumber.value
-        const destination = editForm.destination.value
-        const item = editForm.package.value
-        const weight = editForm.weight.value
-        const currentLocation = editForm.currentLocation.value
-        const depatureDate = editForm.depatureDate.value
-        const deliveryDate = editForm.deliveryDate.value
-        const shipmentMethod = editForm.shipmentMethod.value
-        const PickupDate = editForm.PickupDate.value
-        const status = editForm.status.value
+        const updatePackage = async (e) => {
+            e.preventDefault()
 
-        const packages = {
-            senderName,
-            senderEmail,
-            receiverName,
-            receiverEmail,
-            receiverNumber,
-            destination,
-            item,
-            weight,
-            currentLocation,
-            depatureDate,
-            deliveryDate,
-            shipmentMethod,
-            PickupDate,
-            status
-        }
+            showSpinner(btn)
 
-
-
-        const updatePackage = async () => {
-            
+            const senderName = editForm.senderName.value
+            const senderEmail = editForm.senderEmail.value
+            const receiverName = editForm.receiverName.value
+            const receiverEmail = editForm.receiverEmail.value
+            const receiverNumber = editForm.receiverNumber.value
+            const destination = editForm.destination.value
+            const item = editForm.item.value
+            const weight = editForm.weight.value
+            const currentLocation = editForm.currentLocation.value
+            const depatureDate = editForm.departureDate.value
+            const deliveryDate = editForm.deliveryDate.value
+            const shipmentMethod = editForm.shipmentMethod.value
+            const PickupDate = editForm.PickupDate.value
+            const status = editForm.status.value
+ 
             try {
-                const response = await fetch(`/admin/edit/${packageId}`, {
+                const packages = {
+                    senderName,
+                    senderEmail,
+                    receiverName,
+                    receiverEmail,
+                    receiverNumber,
+                    destination,
+                    item,
+                    weight,
+                    currentLocation,
+                    depatureDate,
+                    deliveryDate,
+                    shipmentMethod,
+                    PickupDate,
+                    status
+                }
+
+                const response = await fetch(`/packages/${packageId}`, {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(packages)
@@ -151,13 +156,17 @@
                 }
                 const json = await response.json()
 
+                console.log(json)
+             
+                hideSpinner(btn, 'Update')
             
             } catch (error) {
-                console.log(error)
+                notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
+                hideSpinner(btn, 'Update')
             }
-
         }
         
+        editForm.addEventListener('submit', updatePackage)
     </script>
 
 <%- include('./partials/footer') %> 

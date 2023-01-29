@@ -76,17 +76,15 @@ const packages_post = async (req, res, next) => {
 }
 
 // update package 
-const packages_put = async (req, res) => {
+const packages_put = async (req, res, next) => {
     const { id } = req.params
 
     try {
-
         const package = await Package.findById(id)
-
-        // if(!package) {
-        //     res.status(400)
-        //     throw new Error("Product not found")
-        // }
+        if(!package) {
+            next(new ErrorResponse("package you're trying to update does not exits", 404))
+            return
+        }
 
         // package details from database 
         const {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,departureDate,deliveryDate,shipmentMethod,pickupDate,trackingId,completed,status} = package
@@ -106,22 +104,26 @@ const packages_put = async (req, res) => {
         package.shipmentMethod = req.body.shipmentMethod || shipmentMethod
         package.pickupDate = req.body.pickupDate || pickupDate
         package.status = req.body.status || status
+        package.trackingId = trackingId
+        package.completed = completed
+        
 
         const updatedPackage = await package.save()
 
-        res.status(200).json({
-            _id: updatedPackage.id,
-            sendersName: updatedPackage.sendersName, 
-            sendersEmail: updatedPackage.sendersEmail, 
-            receiverName: updatedPackage.receiverName, 
-            receiversAddress: updatedPackage.receiversAddress, 
-            receiversNumber: updatedPackage.receiversNumber, 
-            description: updatedPackage.description, 
-            weight: updatedPackage.weight, 
-            location: updatedPackage.location, 
-            status: updatedPackage.status, 
-            worth: updatedPackage.worth
-        })
+        res.status(200).json(updatedPackage)
+
+        // res.status(200).json({
+        //     _id: updatedPackage.id,
+        //     sendersName: updatedPackage.senderName, 
+        //     sendersEmail: updatedPackage.senderEmail, 
+        //     receiverName: updatedPackage.receiverName, 
+        //     receiversAddress: updatedPackage.destination, 
+        //     receiversNumber: updatedPackage.receiverNumber, 
+        //     weight: updatedPackage.weight, 
+        //     location: updatedPackage.location, 
+        //     status: updatedPackage.status, 
+        //     worth: updatedPackage.worth
+        // })
         
     } catch (error) {
         res.status(400).json(error.message)
