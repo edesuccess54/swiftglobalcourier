@@ -1,20 +1,6 @@
 const express = require('express');
-const { 
-    homePage, 
-    aboutPage, 
-    servicePage, 
-    faqPage, 
-    trackPage, 
-    contactPage, 
-    quotePage, 
-    dashboardPage,
-    createPage,
-    viewPage,
-    settingsPage,
-    editPage,
-    trackingPage,
-    loginPage } = require('../controllers/mainController');
-const proctect = require('../middleware/auth');
+const { homePage, aboutPage, servicePage, faqPage, trackPage, contactPage, quotePage, trackingPage} = require('../controllers/mainController');
+// const proctect = require('../middleware/auth');
 
 const router = express.Router()
 

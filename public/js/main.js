@@ -1,25 +1,3 @@
-/***************************************************************************************************************
-||||||||||||||||||||||||||||         CUSTOM SCRIPT FOR LOGIS CARGO          ||||||||||||||||||||||||||||||||||||
-****************************************************************************************************************
-||||||||||||||||||||||||||||              TABLE OF CONTENT                  ||||||||||||||||||||||||||||||||||||
-****************************************************************************************************************
-****************************************************************************************************************
-1. revolution slider
-2. accrodion
-3. gallery fancybox activator 
-4. select menu
-5. client carousel
-6. counter number changer
-7. google map
-8. contact form validation
-9. sticky header
-10. gallery
-11. typed plugin
-12. Mobile Navigation
-13. testimonails carousel
-****************************************************************************************************************
-||||||||||||||||||||||||||||            End TABLE OF CONTENT                ||||||||||||||||||||||||||||||||||||
-****************************************************************************************************************/
 
 
 "use strict"; // Start of use strict
@@ -156,38 +134,8 @@ function gMap () {
 	};
 }
 // 8. contact form validation
-function contactFormValidation () {
 
-	if($('.contact-form').length){
-		$('.contact-form').validate({ // initialize the plugin
-			rules: {
-				name: {
-					required: true
-				},
-				email: {
-					required: true,
-					email: true
-				},
-				message: {
-					required: true
-				},
-				subject: {
-					required: true
-				}
-			},
-			submitHandler: function (form) { 
-				// sending value with ajax request
-				$.post($(form).attr('action'), $(form).serialize(), function (response) {
-					$(form).parent('div').append(response);
-					$(form).find('input[type="text"]').val('');
-					$(form).find('input[type="email"]').val('');
-					$(form).find('textarea').val('');
-				});
-				return false;
-			}
-		});
-	}
-}
+
 // 9. sticky header
 function stickyHeader () {
 	if ($('.stricky').length) {
@@ -280,7 +228,6 @@ jQuery(document).on('ready', function () {
 		accrodion();
 		selectMenu();		
 		CounterNumberChanger();
-		contactFormValidation();
 		gMap();
 		fleetGallery();
 		GalleryFancyboxActivator();

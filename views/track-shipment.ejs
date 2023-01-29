@@ -7,7 +7,7 @@
 	<div class="thm-container">
 		<h2>Career</h2>
 		<ul class="breadcumb">
-			<li><a href="index-2.html"><i class="fa fa-home"></i> Home</a></li>
+			<li><a href="/"><i class="fa fa-home"></i> Home</a></li>
 			<li><span>Track your Shipment</span></li>
 		</ul>
 	</div>
@@ -25,24 +25,20 @@
 			    <hr>
             
 
-				<form class="contact-form track-shipment-form" action="#" id="contactForm" method="post">
-					
-							<div class="label">
-								Search Number(s)*
+				<form class="contact-form track-shipment-form" id="contactForm" method="post">
+					<div class="label">
+						Search Number(s)*
+					</div>
+					<div class="content">
+						<div class="control-group form-group">
+							<div class="controls">
+								
+								<input type="text" class="form-control" name="track" id="name"  placeholder = "Please Enter Your Tracking Number">
+								<p class="help-block"></p>
+								<button type="submit" class="btn btn-primary" id="btn" name="btn" >Track</button>
 							</div>
-							<div class="content">
-        								<form name="sentMessage" action="#" id="contactForm" method="post" novalidate>
-                                <div class="control-group form-group">
-                                    <div class="controls">
-                                        
-                                        <input type="text" class="form-control" name="track" id="name"  placeholder = "Please Enter Your Tracking Number">
-                                        <p class="help-block"></p>
-                                        <input type="submit" name="btn" id="btn" value="Track" class="btn btn-primary">
-                                    </div>
-                                </div>
-                      
-							</div>
-						
+						</div>
+					</div>
 				</form>
                  	    	
 			</div>
@@ -61,12 +57,44 @@
 					<p>Contact us now to get quote for all your global <br>shipping and cargo need.</p>
 				</div>
 				<div class="col-md-6">
-					<a class="thm-btn" href="contact.html">Contact Us <i class="fa fa-arrow-circle-right"></i></a>
+					<a class="thm-btn" href="/contact">Contact Us <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
+<script type="module">
+	const trackShipmentFrom = document.querySelector('.track-shipment-form');
+
+
+	const trackShipment = async (e) => {
+		e.preventDefault()
+		const trackingCode = trackShipmentFrom.track.value
+
+		try {
+			if(!trackingCode) {
+				throw new Error('Enter your tracking code')
+			}
+
+			const response = await fetch('/', {
+				method: 'POST',
+				headers: {'content-ype':'application/json'},
+				body: JSON.stringify({trackingCode})
+			})
+
+			if(!response.ok) {
+				throw new Error("Opps! something went wrong")
+			}
+			const package = await response.json()
+			console.log(package)
+		} catch (error) {
+			console.log(error.message)
+		}
+	}
+
+	trackShipmentFrom.addEventListener('submit', trackShipment)
+</script>
 
 <!-- include footer  -->
 <%- include('./partials/footer.ejs')  %> 

@@ -162,10 +162,21 @@ const packages_get = async (req, res) => {
 
 }
 
+// get a single package 
+const get_singlePackage = async (req, res) => {
+    const {trackingCode} = req.body
+
+    try {
+        const package = await Package.findOne({trackingId: trackingCode})
+        console.log(package)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
 
 
 
 
 
 
-module.exports = { packages_get,packages_post,packages_put, packages_delete}
+module.exports = { packages_get,packages_post,packages_put, packages_delete, get_singlePackage}
