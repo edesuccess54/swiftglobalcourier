@@ -156,7 +156,7 @@
                 }
                 const json = await response.json()
 
-                console.log(json)
+                notification.success(json.message, toast, toastIcon, toastMessage, closeNotification)
              
                 hideSpinner(btn, 'Update')
             

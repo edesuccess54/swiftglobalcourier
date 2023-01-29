@@ -12,7 +12,7 @@
                             <div class="formWrapper">
                                 <div class="inputGroup">
                                     <label for="sname">Sender's Name:</label>
-                                    <input id="sname" type="text" name="senderName" title="senders name" placeholder="enter senders name">
+                                    <input id="sname" type="text" name="senderName" title="senders name" >
                                 </div>
     
                                 <div class="inputGroup">
@@ -102,9 +102,10 @@
         toastBtn.addEventListener('click', () => closeNotification(toast))
 
         const createpackage = async (e) => {
+            e.preventDefault()
+
             showSpinner(btn)
 
-            e.preventDefault()
             const senderName = createForm.senderName.value
             const senderEmail = createForm.senderEmail.value
             const receiverName = createForm.receiverName.value

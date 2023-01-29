@@ -107,23 +107,9 @@ const packages_put = async (req, res, next) => {
         package.trackingId = trackingId
         package.completed = completed
         
-
         const updatedPackage = await package.save()
 
-        res.status(200).json(updatedPackage)
-
-        // res.status(200).json({
-        //     _id: updatedPackage.id,
-        //     sendersName: updatedPackage.senderName, 
-        //     sendersEmail: updatedPackage.senderEmail, 
-        //     receiverName: updatedPackage.receiverName, 
-        //     receiversAddress: updatedPackage.destination, 
-        //     receiversNumber: updatedPackage.receiverNumber, 
-        //     weight: updatedPackage.weight, 
-        //     location: updatedPackage.location, 
-        //     status: updatedPackage.status, 
-        //     worth: updatedPackage.worth
-        // })
+        res.status(200).json({message: 'Package has been updated'})
         
     } catch (error) {
         res.status(400).json(error.message)
@@ -131,21 +117,22 @@ const packages_put = async (req, res, next) => {
 }
 
 // delete package 
-const packages_delete = async (req, res) => {
-    const{ id } = req.body
+const packages_delete = async (req, res, next) => {
+    const{ id } = req.params
     try {
         const package = await Package.findById(id)
 
         if(!package) {
-            res.status(404)
-            throw new Error("package not found")
+            next(new ErrorResponse("package not found", 404))
+            return
         }
 
         const deleted = await Package.deleteOne(package)
 
         if(!deleted) {
-            res.status(400)
-            throw new Error("package was not deleted")
+            next(new ErrorResponse("package was not deleted", 400))
+            return
+
         }
 
         res.status(200).json({message: 'Package successfully deleted'})

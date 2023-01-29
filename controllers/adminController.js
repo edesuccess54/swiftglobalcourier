@@ -275,7 +275,7 @@ const forgotPassword = async (req, res, next) => {
     
       // reset email 
       const message = `
-        <h2>Hello ${user.adminName},</h2>
+        <h2>Hello, ${user.adminName}.</h2>
         <p>You requested to reset your password, Please click the button below to reset your password or copy the link to your browser url</p>
     
         <div>
@@ -284,7 +284,7 @@ const forgotPassword = async (req, res, next) => {
 
         <a href="#">${resetUrl}</a>
 
-        <p>Please contact customer care  if you didn't request for password reset. <br> 
+        <p>Please contact customer care if you this request was not made by you. <br> 
             <span>This reset link is only valid for 30 minutes</span>
         </p>
         <hr>
