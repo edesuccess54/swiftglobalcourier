@@ -69,28 +69,41 @@
 
 
 	const trackShipment = async (e) => {
+		console.log(1)
 		e.preventDefault()
-		const trackingCode = trackShipmentFrom.track.value
+		console.log(2)
+		alert('yeahhhhhh')
+		console.log(3)
+		
+		console.log(4)
 
 		try {
+			const trackingCode = trackShipmentFrom.track.value
+
+			console.log('tracking code: ', trackingCode)
+			
 			if(!trackingCode) {
 				throw new Error('Enter your tracking code')
 			}
-
-			const response = await fetch('/', {
-				method: 'POST',
-				headers: {'content-ype':'application/json'},
-				body: JSON.stringify({trackingCode})
+			console.log(5)
+			const response = await fetch(`/packages/single/${trackingCode}`, {
+				method: 'GET',
+				headers: {'Content-Type':'application/json'},
 			})
-
+			console.log(6)
 			if(!response.ok) {
 				throw new Error("Opps! something went wrong")
 			}
-			const package = await response.json()
-			console.log(package)
+			console.log(7)
+			const data = await response.json()
+			console.log(data)
+			
 		} catch (error) {
 			console.log(error.message)
 		}
+	
+			
+		
 	}
 
 	trackShipmentFrom.addEventListener('submit', trackShipment)

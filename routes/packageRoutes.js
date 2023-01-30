@@ -9,7 +9,7 @@ router.get("/", auth, packages_get)
 router.post("/", auth, packages_post)
 router.put("/:id", auth, packages_put)
 router.delete("/:id", auth, packages_delete)
-router.get("/single")
+router.get("/single/:id", get_singlePackage)
 
 
 module.exports = router;

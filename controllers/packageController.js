@@ -143,7 +143,7 @@ const packages_delete = async (req, res, next) => {
 }
 
 // get all package
-const packages_get = async (req, res) => {
+const packages_get = async (req, res,) => {
 
     try {
         const package = await Package.find()
@@ -163,12 +163,19 @@ const packages_get = async (req, res) => {
 }
 
 // get a single package 
-const get_singlePackage = async (req, res) => {
-    const {trackingCode} = req.body
+const get_singlePackage = async (req, res, next) => {
+    const {trackingCode} = req.params
 
     try {
         const package = await Package.findOne({trackingId: trackingCode})
+
+        if(!package) {
+            next(new ErrorResponse("There is no package with the tracking code"), 404)
+            return
+        }
         console.log(package)
+        res.status(200).json({item:package})
+        
     } catch (error) {
         res.status(400).json({error: error.message})
     }
