@@ -4,15 +4,6 @@
 <!-- include the main navigation  -->
 <%- include('./partials/nav')  %> 
 
-<!-- <section class="inner-banner">
-	<div class="thm-container">
-		<h2>Company History</h2>
-		<ul class="breadcumb">
-			<li><a href="index-2.html"><i class="fa fa-home"></i> Home</a></li>
-			<li><span>Company History</span></li>
-		</ul>
-	</div>
-</section> -->
 
 <style>
 
@@ -21,12 +12,16 @@
     }
 </style>
 
-
-<section class="sec-padding single-service-page">
+<section class="sec-padding single-service-page" >
+    <% if(!package) { %>
+        <p style="font-size: 20px; text-align: center; margin: 20px 0;">package not found</p>
+        <hr>
+   <%} else {%>
 	<div class="thm-container">
 		<div class="row">
 			<div class="col-md-12 tracking-container" style="margin: auto; overflow: auto;">
                 <h2>track your package</h2>
+                
                 <div class="barcode-contaiiner" style="text-align: center; margin-top: 10px;">
                     <img src="/images/barcode.png" alt="" style="width:30%; object-fit: contain">
                     <h3 style="color: green; text-transform: uppercase">tc202243432-v3</h3>
@@ -59,9 +54,9 @@
                     </thead>
                     <tbody>
                         <tr style="width: 100%;">
-                            <td>Stjepan Hauser</td>
-                            <td>Sharon Britt</td>
-                            <td>BriefCase</td>
+                            <td>Apex Tech</td>
+                            <td>Support@apextech.com</td>
+                            <td>Jw</td>
                         </tr>
                     </tbody>
 
@@ -115,8 +110,9 @@
 		</div>
 	</div>
 </section>
+<% } %> 
 
-<section class="footer-top">
+<!-- <section class="footer-top">
 	<div class="thm-container">
 		<div class="row">
 			<div class="col-md-12">
@@ -130,7 +126,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 
 <!-- include footer  -->
 <%- include('./partials/footer.ejs')  %> 

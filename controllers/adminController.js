@@ -80,8 +80,6 @@ const registerAdmin = async (req, res) => {
 const loginAdmin = async(req, res, next) => {
     const { email, password } = req.body
 
-    console.log(1)
-
     try {
         // validation
         if(!email || !password) {
@@ -113,8 +111,6 @@ const loginAdmin = async(req, res, next) => {
             sameSite: "none",
             secure: true
         }
-
-        console.log('token is ... '+token)
   
         if(admin && hashedPassword) {
             const { _id, email: adminEmail, password: adminPassword } = admin
@@ -124,8 +120,6 @@ const loginAdmin = async(req, res, next) => {
             adminPassword,
             token
             })
-
-            console.log('everything is correct ... '+token)
 
         } else {
             next(new ErrorResponse("Invalid email or password",400));

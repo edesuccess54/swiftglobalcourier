@@ -164,17 +164,17 @@ const packages_get = async (req, res,) => {
 
 // get a single package 
 const get_singlePackage = async (req, res, next) => {
-    const {trackingCode} = req.params
+    const {id: trackingCode} = req.params
 
     try {
         const package = await Package.findOne({trackingId: trackingCode})
 
         if(!package) {
-            next(new ErrorResponse("There is no package with the tracking code"), 404)
+            next(new ErrorResponse("There is no package with the tracking code", 400))
             return
         }
-        console.log(package)
-        res.status(200).json({item:package})
+
+        res.status(200).json(package)
         
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -183,7 +183,25 @@ const get_singlePackage = async (req, res, next) => {
 
 
 
+const tracking = async (req, res, next) => {
+    const {id: trackingCode} = req.params
+
+    try {
+        const package = await Package.findOne({trackingId: trackingCode})
+
+        if(!package) {
+            res.render('./tracking', {package})
+            return
+        }
+
+        res.render('./tracking', {package})
+
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
 
 
 
-module.exports = { packages_get,packages_post,packages_put, packages_delete, get_singlePackage}
+
+module.exports = { packages_get,packages_post,packages_put, packages_delete, get_singlePackage, tracking}
