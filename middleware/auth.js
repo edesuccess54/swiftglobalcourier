@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../models/adminModel')
 const ErrorResponse = require("../utils/errorResponse").default
 
-const proctect = async (req, res, next) => {
+const auth = async (req, res, next) => {
     try {
         const token = req.cookies.token
 
@@ -25,13 +25,13 @@ const proctect = async (req, res, next) => {
             return
         }
 
-        req.admin = admin
+        req.admin = admin 
         next()
-        
+
     } catch (error) {
         res.redirect("/admin/login")
         return 
     }
 }
 
-module.exports = proctect
+module.exports = auth

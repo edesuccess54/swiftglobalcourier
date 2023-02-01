@@ -1,22 +1,16 @@
 const express = require('express');
 const { homePage, aboutPage, servicePage, faqPage, trackPage, contactPage, quotePage, trackingPage} = require('../controllers/mainController');
-// const proctect = require('../middleware/auth');
+const checkUser = require('../middleware/siteInfo.js');
 
 const router = express.Router()
 
-router.get('/', homePage)
-router.get('/about', aboutPage)
-router.get('/services', servicePage)
-router.get('/faq', faqPage)
-router.get('/track-shipment', trackPage)
-router.get('/contact', contactPage)
-router.get('/quote', quotePage)
-// router.get('/shipment/tracking', trackingPage)
-
-
-
-
-
+router.get('/', checkUser, homePage)
+router.get('/about', checkUser, aboutPage)
+router.get('/services', checkUser, servicePage)
+router.get('/faq', checkUser, faqPage)
+router.get('/track-shipment', checkUser, trackPage)
+router.get('/contact', checkUser, contactPage)
+router.get('/quote', checkUser, quotePage)
 
 
 module.exports = router;

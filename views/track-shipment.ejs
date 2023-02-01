@@ -52,16 +52,6 @@
 	const btn = document.querySelector('.btn')
 	const trackShipmentFrom = document.querySelector('.track-shipment-form');
 
-	function showDetails() {
-
-		return 
-		const singleServicePage = document.querySelector('.single-service-page')
-
-		singleServicePage.style.display = 'none'
-	}
-
-	showDetails()
-
 	const trackShipment = async (e) => {
 		showSpinner(btn)
 		e.preventDefault()
@@ -100,9 +90,6 @@
 			notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
 			console.log(error.message)
 		}
-	
-			
-		
 	}
 
 	trackShipmentFrom.addEventListener('submit', trackShipment)
