@@ -47,6 +47,7 @@
                                         <th>Destination</th>
                                         <th>Location</th>
                                         <th>Status</th>
+                                         <th>Tracking Code</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -60,6 +61,7 @@
                                       
                                         <td><%= packages[i].currentLocation %></td>
                                         <td><%= packages[i].status %></td>
+                                        <td><%= packages[i].trackingId %></td>
                                         <td class="actionColumn">
                                             <span>
                                                 <a href="../admin/edit/?package=<%- packages[i]._id %>" title="Edit package"><i class="fa-solid fa-pen-to-square edit" ></i></a>

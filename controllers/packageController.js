@@ -3,17 +3,23 @@ const validator = require("validator")
 const crypto = require("crypto")
 const base64url = require("base64url")
 const ErrorResponse = require("../utils/errorResponse")
+const uploadImg = require("../utils/convertToBase64.js")
 
 // create package fucntion 
 const packages_post = async (req, res, next) => {
     const {
-        senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status } = req.body
+        senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, item, weight, currentLocation, depatureDate, deliveryDate, shipmentMethod, pickupDate, status } = req.body
+
+
+
     try {
+    console.log(req.file)
         // validations
-        if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
+        if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate|| !status) {
             next(new ErrorResponse("Please fill all fields",400));
             return
         }
+
         if(!validator.isEmail(senderEmail)) {
             next(new ErrorResponse("Please enter a valid sender email",400));
             return
@@ -58,7 +64,7 @@ const packages_post = async (req, res, next) => {
             depatureDate,
             deliveryDate,
             shipmentMethod,
-            PickupDate,
+            pickupDate,
             trackingId,
             completed: true,
             status
@@ -163,45 +169,23 @@ const packages_get = async (req, res,) => {
 }
 
 // get a single package 
-const get_singlePackage = async (req, res, next) => {
-    const {id: trackingCode} = req.params
+// const get_singlePackage = async (req, res, next) => {
+//     const {id: trackingCode} = req.params
 
-    try {
-        const package = await Package.findOne({trackingId: trackingCode})
+//     try {
+//         const package = await Package.findOne({trackingId: trackingCode})
 
-        if(!package) {
-            next(new ErrorResponse("There is no package with the tracking code", 400))
-            return
-        }
+//         if(!package) {
+//             next(new ErrorResponse("There is no package with the tracking code", 400))
+//             return
+//         }
 
-        res.status(200).json(package)
+//         res.status(200).json(package)
         
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
+//     } catch (error) {
+//         res.status(400).json({error: error.message})
+//     }
+// }
 
 
-
-const tracking = async (req, res, next) => {
-    const {id: trackingCode} = req.params
-
-    try {
-        const package = await Package.findOne({trackingId: trackingCode})
-
-        if(!package) {
-            res.render('./tracking', {package})
-            return
-        }
-
-        res.render('./tracking', {package})
-
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
-
-
-
-
-module.exports = { packages_get,packages_post,packages_put, packages_delete, get_singlePackage, tracking}
+module.exports = { packages_get,packages_post,packages_put, packages_delete}

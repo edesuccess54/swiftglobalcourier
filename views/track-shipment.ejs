@@ -63,7 +63,7 @@
 				throw new Error('Enter your tracking code')
 			}
 
-			const response = await fetch(`/packages/shipment/tracking/${trackingCode}`, {
+			const response = await fetch(`/shipment/tracking/${trackingCode}`, {
 				method: 'GET',
 				headers: {'Content-Type':'application/text'},
 			})
@@ -82,7 +82,7 @@
 
 			console.log(data)
 
-			location.assign(`/packages/shipment/tracking/${trackingCode}`)
+			location.assign(`/shipment/tracking/${trackingCode}`)
 
 			
 		} catch (error) {

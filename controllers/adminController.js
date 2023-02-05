@@ -91,10 +91,9 @@ const loginAdmin = async(req, res, next) => {
             next(new ErrorResponse("Not a valid email address",400));
             return;
         }
-
+        
         const admin = await Admin.findOne({ email })
 
-        console.log(admin)
         if(!admin) {
             next(new ErrorResponse("Invalid email or password",400));
             return
@@ -102,7 +101,6 @@ const loginAdmin = async(req, res, next) => {
 
         const hashedPassword = await bcrypt.compare(password, admin.password)
 
-        console.log(hashedPassword)
         const token = await generateToken(admin._id)
         res.cookie("token", token),{
             path: "/",

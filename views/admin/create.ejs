@@ -7,7 +7,7 @@
                 <%- include('./partials/topBar') %> 
                 <div class="mainContent">
                     <div class="formContainer">
-                        <form class="create-form">
+                        <form class="create-form" enctype="multipart/form-data">
                             <h2>Create Package</h2>
                             <div class="formWrapper">
                                 <div class="inputGroup">
@@ -56,8 +56,8 @@
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="deliveryDate">Depature Date</label>
-                                    <input id="deliveryDate" type="date" name="depatureDate">
+                                    <label for="depatureDate">Depature Date</label>
+                                    <input id="depatureDate" type="date" name="depatureDate">
                                 </div>
 
                                 <div class="inputGroup">
@@ -66,8 +66,8 @@
                                 </div>
 
                                 <div class="inputGroup">
-                                    <label for="deliveryDate">Shipment Method</label>
-                                    <select name="shipmentMethod" id="deliveryDate">
+                                    <label for="shipmentMethod">Shipment Method</label>
+                                    <select name="shipmentMethod" id="shipmentMethod">
                                         <option selected disabled>--select shipment method--</option>
                                         <option value="Express Delivery">Express Delivery</option>
                                     </select>
@@ -75,19 +75,31 @@
 
                                 <div class="inputGroup">
                                     <label for="PickupDate">Pickup Date & time</label>
-                                    <input id="PickupDate" type="date" name="PickupDate">
+                                    <input id="PickupDate" type="date" name="pickupDate">
                                 </div>
 
                                 <div class="inputGroup">
                                     <label for="status">Status of item</label>
                                     <input id="status" type="text" name="status">
                                 </div>
-                                <button class="btn">Create</button>
+
+
+                                <div class="inputGroup">
+                                    <label for="packageimg">upload package image</label>
+                                    <input id="packageimg" type="file" name="file" multiple="multiple">
+                                </div>
+
+                                <div class="inputGroup">
+                                    
+                                </div>
+
+                                <button class="btn" type="submit">Create</button>
+  
                         </div>
-                        </form>
-                        
-                    </div>
+                         <div id="result" style="display: flex; gap:10px; flex-wrap: wrap; flex-grow: 1;"></div>
                     
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,6 +107,33 @@
 
     <script type="module">
         import {notification, showSpinner, hideSpinner, closeNotification} from '/admin/js/notification.js';
+
+        // frondend image upload 
+        const frontendImgUpload = async (e) => {
+            if(window.File && window.FileReader && window.FileList && window.Blob) {
+                const files = e.target.files;
+                const result = document.querySelector('#result');
+
+                for(let i = 0; i < files.length; i++) {
+                    const picReader = new FileReader();
+                    picReader.addEventListener('load', (event) => {
+                        const picFile = event.target
+                        const div = document.createElement('div')
+                        div.innerHTML = `<img class="thumnail" style="height: 100px; object-fit: contain;" src="${picFile.result}" title="${picFile.name}" />`;
+                        result.appendChild(div) 
+                    })
+                    picReader.readAsDataURL(files[i]);
+                }
+
+            } else {
+                notification.error("Your browser does not support File Upload", toast, toastIcon, toastMessage, closeNotification)
+                return
+            }
+            
+        }
+        
+        const imgUpload = document.querySelector('#packageimg')
+        imgUpload.addEventListener('change', (e) => frontendImgUpload(e))
 
         const createForm = document.querySelector('.create-form')
         const btn = document.querySelector('.btn')
@@ -118,18 +157,22 @@
             const depatureDate = createForm.depatureDate.value
             const deliveryDate = createForm.deliveryDate.value
             const shipmentMethod = createForm.shipmentMethod.value
-            const PickupDate = createForm.PickupDate.value
+            const pickupDate = createForm.pickupDate.value
             const status = createForm.status.value
+            const files = createForm.file.files
+
+            console.log(files)
+
 
             try {
                 // validation
-                if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !PickupDate||!status) {
+                if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item|| !weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate||!status) {
                     throw new Error('All fields are required');
                 }
 
-                const packages = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,PickupDate,status }
+                const packages = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,pickupDate,status,files }
 
-                const response = await fetch("/packages/create", {
+                const response = await fetch("/packages/", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(packages)
@@ -149,7 +192,7 @@
 
                 hideSpinner(btn, "Create")
                 notification.success('package successfully created', toast, toastIcon, toastMessage, closeNotification);
-                createForm.reset();
+                // createForm.reset();
 
             } catch (error) {
                 hideSpinner(btn, "Create")

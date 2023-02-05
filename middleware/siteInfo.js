@@ -1,7 +1,6 @@
-const checkUser = async (req, res, next) => {
-
-    res.locals.siteName = "peter obi 4 president"; 
-    res.locals.siteEmail = "peterobi@gmail.com";
+const siteInfo = async (req, res, next) => {
+    res.locals.siteName = "apextech"; 
+    res.locals.siteEmail = "edesuccess54@gmail.com";
     res.locals.siteNumber = "911";
     res.locals.siteLink = "peterobi.com";
     res.locals.adminEmail = "admin@google.com";
@@ -9,4 +8,4 @@ const checkUser = async (req, res, next) => {
     next()
 }
 
-module.exports = checkUser
+module.exports = siteInfo

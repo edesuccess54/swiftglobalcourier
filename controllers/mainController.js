@@ -1,4 +1,4 @@
-
+const Package = require("../models/packageModel")
 
 // home page 
 const homePage = async(req, res) => {
@@ -40,6 +40,24 @@ const trackingPage = async(req, res) => {
     res.render('tracking')
 }
 
+const tracking = async (req, res, next) => {
+    const {id: trackingCode} = req.params
+
+    try {
+        const package = await Package.findOne({trackingId: trackingCode})
+
+        if(!package) {
+            res.render('./tracking', {package})
+            return
+        }
+
+        res.render('./tracking', {package})
+
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
 
 
 
@@ -56,5 +74,6 @@ module.exports = {
     servicePage,
     aboutPage,
     trackingPage,
+    tracking
 }
 

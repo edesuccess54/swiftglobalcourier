@@ -48,7 +48,7 @@ const packageSchema = new Schema({
         // required: [true, "Package location is required"],
         trim: true
     },
-    departureDate: {
+    depatureDate: {
         type: String,
         // required: [true, "Departure date is required"],
         trim: true

@@ -24,10 +24,10 @@
                 
                 <div class="barcode-contaiiner" style="text-align: center; margin-top: 10px;">
                     <img src="/images/barcode.png" alt="" style="width:30%; object-fit: contain">
-                    <h3 style="color: green; text-transform: uppercase">tc202243432-v3</h3>
+                    <h3 style="color: green"><%= package.trackingId %></h3>
                 </div>
                 <div style="margin: 30px 0;">
-                    <h3 style="font-size: 2.5em;">Tracking Code: TC202243432-V3</h3>
+                    <h3 style="font-size: 2em;">Tracking Code: <%= package.trackingId %></h3>
                 </div>
 				<table class="table">
                     <thead>
@@ -39,9 +39,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>UK</td>
-                            <td>1300 MERCHANTS DR APT k58 DALLAS USA 30213</td>
-                            <td>On Transit >>></td>
+                            <td><%= package.currentLocation %></td>
+                            <td><%= package.destination %></td>
+                            <td><%= package.status %> >>></td>
                         </tr>
                     </tbody>
 
@@ -54,9 +54,9 @@
                     </thead>
                     <tbody>
                         <tr style="width: 100%;">
-                            <td>Apex Tech</td>
-                            <td>Support@apextech.com</td>
-                            <td>Jw</td>
+                            <td><%= package.senderName %></td>
+                            <td><%= package.senderEmail %></td>
+                            <td><%= package.item %></td>
                         </tr>
                     </tbody>
 
@@ -69,9 +69,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Mary Johson</td>
-                            <td>Maryjohnson@gmail.com</td>
-                            <td>+1(893)023-2567</td>
+                            <td><%= package.receiverName %></td>
+                            <td><%= package.receiverEmail %></td>
+                            <td><%= package.receiverNumber %></td>
                         </tr>
                     </tbody>
 
@@ -84,9 +84,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1300 MERCHANTS DR APT k58 DALLAS USA 30213</td>
-                            <td>06/09/2022</td>
-                            <td>12/12/2022</td>
+                            <td><%= package.destination %></td>
+                            <td><%= package.depatureDate %></td>
+                            <td><%= package.deliveryDate %></td>
                         </tr>
                     </tbody>
 
@@ -99,9 +99,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1300 MERCHANTS DR APT k58 DALLAS USA 30213</td>
-                            <td>27/11/2022</td>
-                            <td>180kg</td>
+                            <td><%= package.shipmentMethod %></td>
+                            <td><%= package.pickupDate %></td>
+                            <td><%= package.weight %></td>
                     </tbody>
                     
                 </table>
