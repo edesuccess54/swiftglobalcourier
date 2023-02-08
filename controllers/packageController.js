@@ -3,17 +3,17 @@ const validator = require("validator")
 const crypto = require("crypto")
 const base64url = require("base64url")
 const ErrorResponse = require("../utils/errorResponse")
-const uploadImg = require("../utils/convertToBase64.js")
+// const uploadImg = require("../utils/convertToBase64.js")
+// const { upload } = require("../utils/fileUploads.js")
+const cloudinary = require("cloudinary").v2.uploader
 
 // create package fucntion 
 const packages_post = async (req, res, next) => {
     const {
         senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, item, weight, currentLocation, depatureDate, deliveryDate, shipmentMethod, pickupDate, status } = req.body
 
-
-
     try {
-    console.log(req.file)
+        
         // validations
         if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate|| !status) {
             next(new ErrorResponse("Please fill all fields",400));
@@ -50,6 +50,30 @@ const packages_post = async (req, res, next) => {
 
         let trackingId = await getRandomCode()
 
+        // upload file here 
+        let fileData = {}
+
+        // save image to cloudinary 
+        if (!req.file) {
+            next(new ErrorResponse("no file was selected", 400));
+            return
+        }
+
+        let uploadedFile = await cloudinary.upload(req.file.path, { folder: "crestlogistics", resource_type: "image" })
+        
+        if (!uploadedFile) {
+            next(new ErrorResponse("image could not be uploaded", 500));
+            return
+        }
+
+        fileData = {
+            fileName: req.file.originalname,
+            filePath: uploadedFile.secure_url,
+            fileType: req.file.mimetype,
+            // fileSize: fileSzeFormater(req.file.size, 2),
+        }
+
+
         // create package 
         const package = await Package.create({
             senderName,
@@ -67,6 +91,7 @@ const packages_post = async (req, res, next) => {
             pickupDate,
             trackingId,
             completed: true,
+            image: fileData,
             status
         })
 

@@ -76,6 +76,10 @@ const packageSchema = new Schema({
         type: Boolean,
         required: true
     },
+    image: {
+        type: Array,
+        required: true
+    },
     status: {
         type: String,
         // required: [true, "Package status is required"],
