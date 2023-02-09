@@ -18,6 +18,6 @@ function fileFilter (req, file, callback) {
     }
 }
 
-const upload = multer({ storage, fileFilter }).array('file')
+const upload = multer({ storage, fileFilter })
 
 module.exports = {upload}

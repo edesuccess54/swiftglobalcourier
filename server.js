@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const errorHandler = require("./middleware/error")
 const path = require('path')
+const {upload} = require('./utils/fileUploads.js')
 
 
 const app = express();
@@ -23,10 +24,11 @@ app.use(cors())
 app.use("/uploads", express.static(path.join(__dirname, "./uploads")))
 
 // app.use(morgan('dev'))
+const uploadFile = upload.array('files', { maxCount: 3 })
 
 app.use('/',mainRoutes)
 app.use('/admin',adminRoutes)
-app.use('/packages',packageRoutes)
+app.use('/packages', uploadFile, packageRoutes)
 
 
 app.use(errorHandler)

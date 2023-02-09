@@ -9,8 +9,10 @@ const cloudinary = require("cloudinary").v2.uploader
 
 // create package fucntion 
 const packages_post = async (req, res, next) => {
+    console.log(1)
     const {
         senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, item, weight, currentLocation, depatureDate, deliveryDate, shipmentMethod, pickupDate, status } = req.body
+    console.log(2)
 
     try {
         
@@ -20,25 +22,35 @@ const packages_post = async (req, res, next) => {
             return
         }
 
+        console.log(3)
+
         if(!validator.isEmail(senderEmail)) {
             next(new ErrorResponse("Please enter a valid sender email",400));
             return
         }
+
+        console.log(4)
 
         if(!validator.isEmail(receiverEmail)) {
             next(new ErrorResponse("Please enter a valid receiver email",400));
             return
         }
 
+        console.log(4)
+
          function generateTrackingCode() {
             return base64url(crypto.randomBytes(12));
-          }
+         }
+        
+        console.log(5)
 
           async function checkRandomCode(trackingCode) {
             //   check if trackingId already exists in  database
             const packageExist = await Package.countDocuments({trackingId: trackingCode})
             return packageExist.length > 0;
           }
+        
+        console.log(6)
 
           async function getRandomCode() {
             let trackingCode = generateTrackingCode();
@@ -50,21 +62,29 @@ const packages_post = async (req, res, next) => {
 
         let trackingId = await getRandomCode()
 
+        // console.log(req)
+
         // upload file here 
         let fileData = {}
-
+console.log(7)
         // save image to cloudinary 
-        if (!req.file) {
+        if (!req.files) {
             next(new ErrorResponse("no file was selected", 400));
             return
         }
 
-        let uploadedFile = await cloudinary.upload(req.file.path, { folder: "crestlogistics", resource_type: "image" })
         
+
+        console.log(8)
+        let uploadedFile = await cloudinary.upload(req.files.path, { folder: "crestlogistics", resource_type: "image" })
+        
+          console.log(8+'a')
         if (!uploadedFile) {
             next(new ErrorResponse("image could not be uploaded", 500));
             return
         }
+
+        console.log(9)
 
         fileData = {
             fileName: req.file.originalname,
@@ -72,6 +92,8 @@ const packages_post = async (req, res, next) => {
             fileType: req.file.mimetype,
             // fileSize: fileSzeFormater(req.file.size, 2),
         }
+
+        console.log(10)
 
 
         // create package 
@@ -95,10 +117,15 @@ const packages_post = async (req, res, next) => {
             status
         })
 
+        console.log(11)
+
         if(!package) {
             next(new ErrorResponse("package fail to create",400));
             return
         }
+
+        console.log(12)
+
         res.status(201).json(package)
 
     } catch (error) {
