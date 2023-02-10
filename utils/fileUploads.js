@@ -1,23 +1,26 @@
-const multer = require('multer');
+const multer  = require('multer')
 
 const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, 'uploads')
+    destination: function (req, file, cb) {
+        cb(null, 'uploads')
     },
 
-    fileName: function (req, file, callback) { 
-        callback(null, new Date().toString().replace(/:/g,"-" + "-" + file.originalname))
+    fileName: function (req, file, cb) { 
+        cb(null, new Date().toString().replace(/:/g,"-" + "-" + file.originalname))
     }
 })
 
-function fileFilter (req, file, callback) {
+
+function fileFilter (req, file, cb) {
     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
-        callback(null, true)
+        cb(null, true)
     } else {
-        callback(null, false)
+        cb(null, false)
     }
+    console.log('coming from fileUploads file: ' + file)
+
 }
 
 const upload = multer({ storage, fileFilter })
 
-module.exports = {upload}
+module.exports = upload;

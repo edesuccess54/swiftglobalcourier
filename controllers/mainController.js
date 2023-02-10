@@ -59,6 +59,11 @@ const tracking = async (req, res, next) => {
 }
 
 
+const uploadPage = (req, res, next) => {
+    res.render('upload')
+}
+
+
 
 
 
@@ -74,6 +79,7 @@ module.exports = {
     servicePage,
     aboutPage,
     trackingPage,
-    tracking
+    tracking,
+    uploadPage
 }
 

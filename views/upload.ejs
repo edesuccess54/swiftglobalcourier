@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="text" name="name">
+        <input type="text" name="age">
+        <input type="file" name="image" id="file_img">
+        <button type="submit">upload image</button>
+    </form>
+    
+    <script>
+        const form = document.querySelector('form');
+        const img = document.querySelector('#file_img').files[0];
+
+
+        
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+        let formData = new FormData()
+
+            const image = e.target.image.files[0];
+
+            formData.append('file', image)
+
+            console.log('form data: ', formData)
+
+            const name = form.name.value;
+            const age = form.age.value;
+
+            const package = {
+                name,
+                age,
+            }
+            
+            const request = await fetch('/upload', {
+                method: 'POST',
+                headers: { 'Content-Type' : 'multipart/form-data'},
+                body: JSON.stringify(formData)
+            })
+
+            if(!request.ok) {
+                alert(request.statusText);
+            }
+
+            response = await request.json();
+            console.log(response)
+        })
+    </script>
+</body>
+</html>

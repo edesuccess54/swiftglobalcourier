@@ -7,7 +7,7 @@
                 <%- include('./partials/topBar') %> 
                 <div class="mainContent">
                     <div class="formContainer">
-                        <form action="/packages/" class="create-form" method="POST" enctype="multipart/form-data">
+                        <form class="create-form" method="post" enctype="multipart/form-data">
                             <h2>Create Package</h2>
                             <div class="formWrapper">
                                 <div class="inputGroup">
@@ -86,12 +86,12 @@
 
                                 <div class="inputGroup">
                                     <label for="packageimg">upload package image</label>
-                                    <input id="packageimg" type="file" name="file" >
+                                    <input id="packageimg" type="file" name="image" >
                                 </div>
 
-                                <div class="inputGroup">
+                                <!-- <div class="inputGroup">
                                     
-                                </div>
+                                </div> -->
 
                                 <button class="btn" type="submit">Create</button>
   
@@ -107,6 +107,11 @@
 
     <script type="module">
         import {notification, showSpinner, hideSpinner, closeNotification} from '/admin/js/notification.js';
+
+        const createForm = document.querySelector('.create-form')
+        const btn = document.querySelector('.btn')
+
+        toastBtn.addEventListener('click', () => closeNotification(toast))
 
         // frondend image upload 
         const frontendImgUpload = async (e) => {
@@ -135,11 +140,7 @@
         const imgUpload = document.querySelector('#packageimg')
         imgUpload.addEventListener('change', (e) => frontendImgUpload(e))
 
-        const createForm = document.querySelector('.create-form')
-        const btn = document.querySelector('.btn')
-
-        toastBtn.addEventListener('click', () => closeNotification(toast))
-
+        // function to create new package 
         const createpackage = async (e) => {
             e.preventDefault()
 
@@ -159,8 +160,6 @@
             const shipmentMethod = createForm.shipmentMethod.value
             const pickupDate = createForm.pickupDate.value
             const status = createForm.status.value
-
-            console.log(files)
 
 
             try {
@@ -191,7 +190,7 @@
 
                 hideSpinner(btn, "Create")
                 notification.success('package successfully created', toast, toastIcon, toastMessage, closeNotification);
-                // createForm.reset();
+                createForm.reset();
 
             } catch (error) {
                 hideSpinner(btn, "Create")

@@ -1,5 +1,5 @@
 const express = require('express');
-const { homePage, aboutPage, servicePage, faqPage, trackPage, contactPage, quotePage, tracking} = require('../controllers/mainController');
+const { homePage, aboutPage, servicePage, faqPage, trackPage, contactPage, quotePage, tracking, uploadPage} = require('../controllers/mainController');
 const siteInfo = require('../middleware/siteInfo.js');
 
 const router = express.Router()
@@ -12,6 +12,9 @@ router.get('/track-shipment', siteInfo, trackPage)
 router.get("/shipment/tracking/:id", siteInfo, tracking)
 router.get('/contact', siteInfo, contactPage)
 router.get('/quote', siteInfo, quotePage)
+
+
+router.get('/upload', siteInfo, uploadPage)
 
 
 
