@@ -4,40 +4,41 @@ const crypto = require("crypto")
 const base64url = require("base64url")
 const ErrorResponse = require("../utils/errorResponse")
 // const uploadImg = require("../utils/convertToBase64.js")
-// const { upload } = require("../utils/fileUploads.js")
-const cloudinary = require("cloudinary").v2.uploader
+const cloudinary = require("cloudinary").v2
 
 // create package fucntion 
 const packages_post = async (req, res, next) => {
-    const { senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, item, weight, currentLocation, depatureDate, deliveryDate, shipmentMethod, pickupDate, status } = req.body
+    const { senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, packages, weight, currentLocation, depatureDate, deliveryDate, shipmentMethod, pickupDate, status } = req.body
+
+    // console.log(req.body)
 
     try {
         // validations
-        if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate|| !status) {
-            next(new ErrorResponse("Please fill all fields",400));
-            return
-        }
-
+        // if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !packages||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate|| !status) {
+        //     next(new ErrorResponse("Please fill all fields",400));
+        //     return
+        // }
+        console.log(1)
         if(!validator.isEmail(senderEmail)) {
             next(new ErrorResponse("Please enter a valid sender email",400));
             return
         }
-
+         console.log(2)
         if(!validator.isEmail(receiverEmail)) {
             next(new ErrorResponse("Please enter a valid receiver email",400));
             return
         }
-
+         console.log(3)
          function generateTrackingCode() {
             return base64url(crypto.randomBytes(12));
          }
-    
+          console.log(4)
           async function checkRandomCode(trackingCode) {
             //   check if trackingId already exists in  database
             const packageExist = await Package.countDocuments({trackingId: trackingCode})
             return packageExist.length > 0;
           }
-        
+         console.log(5)
           async function getRandomCode() {
             let trackingCode = generateTrackingCode();
             while (await checkRandomCode(trackingCode)) {
@@ -45,23 +46,24 @@ const packages_post = async (req, res, next) => {
             }
             return trackingCode;
           }
-
+          console.log(6)
         let trackingId = await getRandomCode()
         
         if (!req.file) {
             next(new ErrorResponse("no file was selected", 400));
             return
         }
-
+        console.log(7)
         let fileData = {}
 
-        let uploadedFile = await cloudinary.upload(req.file.path, { folder: "exlogistics", resource_type: "image" })
+        let uploadedFile = await cloudinary.uploader.upload(req.file.path, {folder: "exlogistics", resource_type: "image"})
         
+        console.log(8)
         if (!uploadedFile) {
             next(new ErrorResponse("image could not be uploaded", 500));
             return
         }
-
+        console.log(9)
         fileData = {
             fileName: req.file.originalname,
             filePath: uploadedFile.secure_url,
@@ -89,7 +91,7 @@ const packages_post = async (req, res, next) => {
             image: fileData,
             status
         })
-
+        console.log(10)
         if(!package) {
             next(new ErrorResponse("package fail to create",400));
             return

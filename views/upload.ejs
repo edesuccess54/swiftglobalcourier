@@ -7,10 +7,10 @@
 </head>
 <body>
 
-    <form action="/upload" method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         <input type="text" name="name">
         <input type="text" name="age">
-        <input type="file" name="image" id="file_img">
+        <input type="file" name="file" id="file_img">
         <button type="submit">upload image</button>
     </form>
     
@@ -18,30 +18,17 @@
         const form = document.querySelector('form');
         const img = document.querySelector('#file_img').files[0];
 
-
-        
-
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-        let formData = new FormData()
+            let formData = new FormData(form)
 
-            const image = e.target.image.files[0];
+            const image = e.target.file.files[0];
 
-            formData.append('file', image)
-
-            console.log('form data: ', formData)
-
-            const name = form.name.value;
-            const age = form.age.value;
-
-            const package = {
-                name,
-                age,
-            }
+    
+            console.log('form data is here', formData)
             
             const request = await fetch('/upload', {
                 method: 'POST',
-                headers: { 'Content-Type' : 'multipart/form-data'},
                 body: JSON.stringify(formData)
             })
 

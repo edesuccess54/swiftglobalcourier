@@ -152,7 +152,7 @@
             const receiverEmail = createForm.receiverEmail.value
             const receiverNumber = createForm.receiverNumber.value
             const destination = createForm.destination.value
-            const item = createForm.package.value
+            const packages = createForm.package.value
             const weight = createForm.weight.value
             const currentLocation = createForm.currentLocation.value
             const depatureDate = createForm.depatureDate.value
@@ -161,19 +161,21 @@
             const pickupDate = createForm.pickupDate.value
             const status = createForm.status.value
 
+            console.log(packages)
+
 
             try {
                 // validation
-                if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !item|| !weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate||!status) {
+                if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !packages|| !weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate||!status) {
                     throw new Error('All fields are required');
                 }
 
-                const packages = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,pickupDate,status }
+                // const packages = {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,packages,weight,currentLocation,depatureDate,deliveryDate,shipmentMethod,pickupDate,status }
 
                 const response = await fetch("/packages/", {
                     method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify(packages)
+                    // headers: {"Content-Type": "application/json"},
+                    body: new FormData(createForm)
                 });
 
                 console.log(response)
