@@ -6,7 +6,7 @@ const upload = require('../utils/fileUploads.js')
 
 // Packages Routes
 router.get("/", auth, packages_get)
-router.post("/", auth, upload.single("image"),  packages_post)
+router.post("/", auth, upload.array("image"),  packages_post)
 router.put("/:id", auth, packages_put)
 router.delete("/:id", auth, packages_delete)
 

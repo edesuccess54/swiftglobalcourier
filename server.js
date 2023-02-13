@@ -28,7 +28,6 @@ app.use("/uploads", express.static(path.join(__dirname, "./uploads")))
 app.use('/',mainRoutes)
 app.use('/admin',adminRoutes)
 app.use('/packages', packageRoutes)
-
 app.use('/upload', uploadRoutes)
 
 

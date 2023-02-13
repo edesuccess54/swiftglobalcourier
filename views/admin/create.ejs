@@ -42,7 +42,7 @@
 
                                 <div class="inputGroup">
                                     <label for="pack">package </label>
-                                    <input id="pack" type="text" name="package" placeholder="what are you sending to client?">
+                                    <input id="pack" type="text" name="packages" placeholder="what are you sending to client?">
                                 </div>
 
                                 <div class="inputGroup">
@@ -86,7 +86,7 @@
 
                                 <div class="inputGroup">
                                     <label for="packageimg">upload package image</label>
-                                    <input id="packageimg" type="file" name="image" >
+                                    <input id="packageimg" type="file" name="image" multiple=true >
                                 </div>
 
                                 <!-- <div class="inputGroup">
@@ -152,7 +152,7 @@
             const receiverEmail = createForm.receiverEmail.value
             const receiverNumber = createForm.receiverNumber.value
             const destination = createForm.destination.value
-            const packages = createForm.package.value
+            const packages = createForm.packages.value
             const weight = createForm.weight.value
             const currentLocation = createForm.currentLocation.value
             const depatureDate = createForm.depatureDate.value
@@ -160,9 +160,6 @@
             const shipmentMethod = createForm.shipmentMethod.value
             const pickupDate = createForm.pickupDate.value
             const status = createForm.status.value
-
-            console.log(packages)
-
 
             try {
                 // validation
@@ -174,11 +171,8 @@
 
                 const response = await fetch("/packages/", {
                     method: "POST",
-                    // headers: {"Content-Type": "application/json"},
                     body: new FormData(createForm)
                 });
-
-                console.log(response)
 
                 if(!response.ok) {
                     throw new Error(response.statusText);
@@ -192,7 +186,7 @@
 
                 hideSpinner(btn, "Create")
                 notification.success('package successfully created', toast, toastIcon, toastMessage, closeNotification);
-                createForm.reset();
+                // createForm.reset();
 
             } catch (error) {
                 hideSpinner(btn, "Create")

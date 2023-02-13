@@ -10,14 +10,13 @@ const cloudinary = require("cloudinary").v2
 const packages_post = async (req, res, next) => {
     const { senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, packages, weight, currentLocation, depatureDate, deliveryDate, shipmentMethod, pickupDate, status } = req.body
 
-    // console.log(req.body)
 
     try {
         // validations
-        // if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !packages||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate|| !status) {
-        //     next(new ErrorResponse("Please fill all fields",400));
-        //     return
-        // }
+        if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !packages||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate|| !status) {
+            next(new ErrorResponse("Please fill all fields",400));
+            return
+        }
         console.log(1)
         if(!validator.isEmail(senderEmail)) {
             next(new ErrorResponse("Please enter a valid sender email",400));
@@ -44,33 +43,44 @@ const packages_post = async (req, res, next) => {
             while (await checkRandomCode(trackingCode)) {
                 trackingCode = generateTrackingCode();
             }
-            return trackingCode;
+            return trackingCode;  
           }
           console.log(6)
         let trackingId = await getRandomCode()
         
-        if (!req.file) {
+        if (!req.files) {
             next(new ErrorResponse("no file was selected", 400));
             return
         }
         console.log(7)
-        let fileData = {}
+        let images = []
 
-        let uploadedFile = await cloudinary.uploader.upload(req.file.path, {folder: "exlogistics", resource_type: "image"})
+
+        for (let i = 0; i < req.files.length; i++) {
+            let fileData = {}
+
+            let uploadedFile = await cloudinary.uploader.upload(req.files[i].path, { folder: "exlogistics", resource_type: "image" })
+            
+             console.log(8)
+            if (!uploadedFile) {
+                next(new ErrorResponse("image could not be uploaded", 500));
+                return
+            }
+            console.log(9)
+             fileData = {
+                fileName: req.files[i].originalname,
+                filePath: uploadedFile.secure_url,
+                fileType: req.files[i].mimetype,
+                fileSize: req.files[i].size,
+            }
+
+            images.push(fileData)
+        }
+
+        console.log('images is here', images)
+
+        console.log(10)
         
-        console.log(8)
-        if (!uploadedFile) {
-            next(new ErrorResponse("image could not be uploaded", 500));
-            return
-        }
-        console.log(9)
-        fileData = {
-            fileName: req.file.originalname,
-            filePath: uploadedFile.secure_url,
-            fileType: req.file.mimetype,
-            fileSize: req.file.size,
-        }
-
         // create package 
         const package = await Package.create({
             senderName,
@@ -79,7 +89,7 @@ const packages_post = async (req, res, next) => {
             receiverEmail,
             receiverNumber,
             destination,
-            item,
+            item: packages,
             weight,
             currentLocation,
             depatureDate,
@@ -88,10 +98,10 @@ const packages_post = async (req, res, next) => {
             pickupDate,
             trackingId,
             completed: true,
-            image: fileData,
+            image: images,
             status
         })
-        console.log(10)
+        console.log(11)
         if(!package) {
             next(new ErrorResponse("package fail to create",400));
             return
