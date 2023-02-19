@@ -10,34 +10,33 @@ const cloudinary = require("cloudinary").v2
 const packages_post = async (req, res, next) => {
     const { senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, packages, weight, currentLocation, depatureDate, deliveryDate, shipmentMethod, pickupDate, status } = req.body
 
-
     try {
         // validations
         if(!senderName || !senderEmail|| !receiverName|| !receiverEmail|| !receiverNumber|| !destination|| !packages||!weight|| !currentLocation|| !depatureDate|| !deliveryDate|| !shipmentMethod|| !pickupDate|| !status) {
             next(new ErrorResponse("Please fill all fields",400));
             return
         }
-        console.log(1)
+
         if(!validator.isEmail(senderEmail)) {
             next(new ErrorResponse("Please enter a valid sender email",400));
             return
         }
-         console.log(2)
+
         if(!validator.isEmail(receiverEmail)) {
             next(new ErrorResponse("Please enter a valid receiver email",400));
             return
         }
-         console.log(3)
+
          function generateTrackingCode() {
             return base64url(crypto.randomBytes(12));
          }
-          console.log(4)
+
           async function checkRandomCode(trackingCode) {
             //   check if trackingId already exists in  database
             const packageExist = await Package.countDocuments({trackingId: trackingCode})
             return packageExist.length > 0;
           }
-         console.log(5)
+
           async function getRandomCode() {
             let trackingCode = generateTrackingCode();
             while (await checkRandomCode(trackingCode)) {
@@ -45,17 +44,15 @@ const packages_post = async (req, res, next) => {
             }
             return trackingCode;  
           }
-          console.log(6)
+
         let trackingId = await getRandomCode()
         
         if (!req.files) {
             next(new ErrorResponse("no file was selected", 400));
             return
         }
-        console.log(7)
+
         let images = []
-
-
         for (let i = 0; i < req.files.length; i++) {
             let fileData = {}
 
@@ -76,10 +73,6 @@ const packages_post = async (req, res, next) => {
 
             images.push(fileData)
         }
-
-        console.log('images is here', images)
-
-        console.log(10)
         
         // create package 
         const package = await Package.create({
@@ -101,7 +94,7 @@ const packages_post = async (req, res, next) => {
             image: images,
             status
         })
-        console.log(11)
+
         if(!package) {
             next(new ErrorResponse("package fail to create",400));
             return
@@ -156,23 +149,26 @@ const packages_put = async (req, res, next) => {
 
 // delete package 
 const packages_delete = async (req, res, next) => {
-    const{ id } = req.params
+    const { id } = req.params
+    console.log(1)
     try {
         const package = await Package.findById(id)
+        console.log(2)
 
         if(!package) {
             next(new ErrorResponse("package not found", 404))
             return
         }
-
+        console.log(3)
         const deleted = await Package.deleteOne(package)
+        console.log(4)
 
         if(!deleted) {
             next(new ErrorResponse("package was not deleted", 400))
             return
 
         }
-
+        console.log(5)
         res.status(200).json({message: 'Package successfully deleted'})
         
     } catch (error) {
@@ -182,7 +178,6 @@ const packages_delete = async (req, res, next) => {
 
 // get all package
 const packages_get = async (req, res,) => {
-
     try {
         const package = await Package.find()
 
@@ -190,10 +185,8 @@ const packages_get = async (req, res,) => {
             res.status(404)
             throw new Error("packages not found")
         }
-
         res.status(200).json({package})
 
-        
     } catch (error) {
         res.status(400).json({error: error.message})
     }
