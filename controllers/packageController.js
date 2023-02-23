@@ -160,7 +160,7 @@ const packages_delete = async (req, res, next) => {
             return
         }
         console.log(3)
-        const deleted = await Package.deleteOne(package)
+        const deleted = await Package.deleteOne({package})
         console.log(4)
 
         if(!deleted) {
@@ -192,25 +192,5 @@ const packages_get = async (req, res,) => {
     }
 
 }
-
-// get a single package 
-// const get_singlePackage = async (req, res, next) => {
-//     const {id: trackingCode} = req.params
-
-//     try {
-//         const package = await Package.findOne({trackingId: trackingCode})
-
-//         if(!package) {
-//             next(new ErrorResponse("There is no package with the tracking code", 400))
-//             return
-//         }
-
-//         res.status(200).json(package)
-        
-//     } catch (error) {
-//         res.status(400).json({error: error.message})
-//     }
-// }
-
 
 module.exports = { packages_get,packages_post,packages_put, packages_delete}

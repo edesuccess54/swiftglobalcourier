@@ -94,10 +94,6 @@
                 headers: {"Content-Type": "application/json"},
             })
 
-            if(!response.ok) {
-                throw new Error("Failed to delete package")
-            }
-
             const json = await response.json()
 
             notification.success(json.message, toast, toastIcon, toastMessage, closeNotification)
