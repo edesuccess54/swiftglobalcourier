@@ -17,12 +17,12 @@ router.post('/auth/resetpassword/:resetToken', resetPassword)
 router.get('/auth/resetpassword/', siteInfo, resetPasswordPage)
 
 // Admin Routes 
-router.get('/dashboard', auth, dashboardPage)
-router.get('/create', auth, createPage)
-router.get('/view', auth, viewPage)
-router.get('/settings', auth, settingsPage)
-router.get('/edit/', auth, editPage)
-router.get('/login', siteInfo, loginPage)
+router.get('/dashboard', siteInfo, auth, dashboardPage)
+router.get('/create', siteInfo, auth, createPage)
+router.get('/view', siteInfo, auth, viewPage)
+router.get('/settings', siteInfo, auth, settingsPage)
+router.get('/edit/', siteInfo, auth, editPage)
+router.get('/login', siteInfo, siteInfo, loginPage)
 router.get('/forgot-password', siteInfo, forgotPasswordPage)
 
 module.exports = router

@@ -5,10 +5,11 @@ const base64url = require("base64url")
 const ErrorResponse = require("../utils/errorResponse")
 // const uploadImg = require("../utils/convertToBase64.js")
 const cloudinary = require("cloudinary").v2
+const sendEmail = require("../utils/sendEmail")
 
 // create package fucntion 
 const packages_post = async (req, res, next) => {
-    const { senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, packages, weight, currentLocation, depatureDate, deliveryDate, shipmentMethod, pickupDate, status } = req.body
+    const { senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, packages, weight, currentLocation, depatureDate, deliveryDate, shipmentMethod, pickupDate, status, originCountry, destinationCountry, } = req.body
 
     try {
         // validations
@@ -58,12 +59,11 @@ const packages_post = async (req, res, next) => {
 
             let uploadedFile = await cloudinary.uploader.upload(req.files[i].path, { folder: "exlogistics", resource_type: "image" })
             
-             console.log(8)
             if (!uploadedFile) {
                 next(new ErrorResponse("image could not be uploaded", 500));
                 return
             }
-            console.log(9)
+
              fileData = {
                 fileName: req.files[i].originalname,
                 filePath: uploadedFile.secure_url,
@@ -73,6 +73,9 @@ const packages_post = async (req, res, next) => {
 
             images.push(fileData)
         }
+
+        // generate deposit code 
+        const depositCode = Math.floor(Math.random() * 1000000000)
         
         // create package 
         const package = await Package.create({
@@ -83,6 +86,8 @@ const packages_post = async (req, res, next) => {
             receiverNumber,
             destination,
             item: packages,
+            originCountry,
+            destinationCountry,
             weight,
             currentLocation,
             depatureDate,
@@ -90,6 +95,7 @@ const packages_post = async (req, res, next) => {
             shipmentMethod,
             pickupDate,
             trackingId,
+            depositCode,
             completed: true,
             image: images,
             status
@@ -99,8 +105,32 @@ const packages_post = async (req, res, next) => {
             next(new ErrorResponse("package fail to create",400));
             return
         }
-        res.status(201).json(package)
 
+        // construct url to track package 
+      const TrackUrl = `${process.env.URL}/track-shipment`
+
+         // package notification email 
+      const message = `
+        <h2>Hello, ${receiverName}.</h2>
+        <p>This is to inform you that a package has been sent to you through our Logistics company from ${senderName} with the email address of ${senderEmail}. All process has been concluded and your package has been shipped. Below are the details of the package</p>
+
+        <p>item: ${packages}</p>
+        <p>Tracking Code: ${trackingId}</p>
+
+        <a href=${TrackUrl}>${TrackUrl}</a>
+
+        <p>Please click on the website above to track your package or copy the url to your browser. <br> 
+        </p>
+        <hr>
+        <p>Best Regards...</p>  `
+    
+        const subject = "Your package has been shipped";
+        const send_to = receiverEmail;
+        const sent_from = process.env.EMAIL_USER;
+    
+    await sendEmail(subject, message, send_to, sent_from)
+
+        res.status(201).json(package)
     } catch (error) {
         res.status(400).json(error.message)
     }
@@ -150,25 +180,20 @@ const packages_put = async (req, res, next) => {
 // delete package 
 const packages_delete = async (req, res, next) => {
     const { id } = req.params
-    console.log(1)
     try {
         const package = await Package.findById(id)
-        console.log(2)
 
         if(!package) {
             next(new ErrorResponse("package not found", 404))
             return
         }
-        console.log(3)
-        const deleted = await Package.deleteOne({package})
-        console.log(4)
+        const deleted = await Package.deleteOne({_id: package._id})
 
         if(!deleted) {
             next(new ErrorResponse("package was not deleted", 400))
             return
 
         }
-        console.log(5)
         res.status(200).json({message: 'Package successfully deleted'})
         
     } catch (error) {

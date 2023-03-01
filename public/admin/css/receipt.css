@@ -1,0 +1,193 @@
+/* generate recipt styles starts here  */
+
+.receipt-container {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.receipt-container.show {
+    display: flex;
+}
+
+.receipt-wrapper {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 auto;
+    width: 90%;
+    background: #f2f2f2;
+}
+
+.close-icon {
+    display: flex;
+    margin-left: auto;
+    margin-right: 70px;
+    font-size: 34px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-receipt-container {
+    display: flex;
+}
+
+.btn-receipt-container button {
+    margin-left: auto;
+}
+
+.inner-container-left, .inner-container-right {
+    padding: 10px;
+}
+
+.inner-container-left {
+    padding-right: 0;
+}
+
+.inner-container-right {
+    padding-left: 0;
+}
+
+.barcode {
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.barcode-cont {
+    height: 70px;
+    overflow: hidden;
+}
+
+.bgimage {
+    background: url('/admin/images/plane2.jpeg') no-repeat center;
+    background-size: cover;
+    background-color: #ccc;
+    background-blend-mode: overlay;
+}
+
+.barcode img {
+    width: 100%;
+    object-fit: center;
+}
+
+.printarea {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.printarea span {
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.receipt-wrapper table {
+    width: 100%;
+}
+
+.receipt-wrapper table,  .receipt-wrapper th, .receipt-wrapper td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+ .receipt-wrapper td {
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.depositor-receiver {
+    margin: auto;
+    border: 1px solid #383d51;
+}
+
+.header {
+    margin: auto;
+    background-color: #383d51;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 1px 0;
+}
+
+.depositor-receiver p {
+    font-weight: 700;
+}
+
+.header-warning {
+    width: 100%;
+    background-color: #383d51;
+    color: red;
+    text-align: left;
+    padding-left: 8px;
+    font-weight: 700;
+}
+
+.warning {
+    margin: auto;
+    text-align: left;
+    border: 2px solid #383d51;
+    color: red;
+}
+
+.warning h4 {
+    margin-top: 10px;
+}
+.pickup-section {
+    margin: auto;
+    background-color: #383d51;
+    color: #fff;
+    padding: 10px;
+}
+
+.delivery-bus-wrapper {
+    background: url('/admin/images/planefly.jpeg') no-repeat center;
+    background-size: cover;
+    background-color: #ccc;
+    background-blend-mode: screen;
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    border-left: 10px solid #383d51;
+}
+
+.bus {
+    width: 100px;
+    align-self: flex-start;
+    border-bottom: 2px solid #000;
+}
+
+.bus img {
+    width: 100%;
+}
+
+.hero-text h3 {
+   font-size: 25px;
+}
+
+.hero-text span{
+    font-size: 25px;
+}
+
+.bgcolor {
+    background-color: #383d51;
+    padding: 5px;
+}
+
+.details li {
+    border: 1px solid #000;
+}
+
+
+@media screen and (min-width: 767px) {
+    .receipt-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* generate receipt ends here  */

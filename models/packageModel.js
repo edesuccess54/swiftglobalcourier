@@ -27,6 +27,16 @@ const packageSchema = new Schema({
         type: String,
         trim: true
     },
+    originCountry: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    destinationCountry: {
+        type: String,
+        required: true,
+        trim: true
+    },
     item: {
         type: String,
         trim: true
@@ -57,6 +67,10 @@ const packageSchema = new Schema({
     },
     trackingId: {
         type: String,
+        required: true
+    },
+    depositCode: {
+        type: Number,
         required: true
     },
     completed: {

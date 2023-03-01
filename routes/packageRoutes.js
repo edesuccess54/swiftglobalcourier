@@ -3,6 +3,7 @@ const router = express.Router()
 const { packages_get,packages_post,packages_put, packages_delete,} = require("../controllers/packageController")
 const auth = require("../middleware/auth.js")
 const upload = require('../utils/fileUploads.js')
+const siteInfo = require('../middleware/siteInfo.js');
 
 // Packages Routes
 router.get("/", auth, packages_get)
