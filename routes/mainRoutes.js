@@ -1,6 +1,6 @@
 const express = require('express');
 const { homePage, aboutPage, servicePage, faqPage, trackPage, contactPage, quotePage, tracking, uploadPage} = require('../controllers/mainController');
-const siteInfo = require('../middleware/siteInfo.js');
+const {siteInfo} = require('../middleware/siteInfo');
 
 const router = express.Router()
 

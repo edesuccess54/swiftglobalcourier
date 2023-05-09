@@ -1,11 +1,13 @@
 const siteInfo = async (req, res, next) => {
-    res.locals.siteName = "apextech"; 
-    res.locals.siteEmail = "edesuccess54@gmail.com";
-    res.locals.siteNumber = "911";
-    res.locals.siteLink = "apextech.com";
-    res.locals.adminEmail = "admin@google.com";
-    res.locals.siteAddress = "my backyard";   
+    res.locals.siteName = "Crestnet Logistics and Courier Services"; 
+    res.locals.siteEmail = "info@crestnetlogistics.com";
+    res.locals.deliveryEmail = "delivery@crestnetlogistics.com";
+    res.locals.siteNumber = "+1 (315) 231-0187";
+    res.locals.siteLink = "crestnetlogistics.com";
+    res.locals.adminEmail = "admin@crestnetlogistics.com";
+    res.locals.siteAddress = "120 Stuyvesant place, System island 10302 NY";  
+    
     next()
 }
 
-module.exports = siteInfo
+module.exports = {siteInfo}

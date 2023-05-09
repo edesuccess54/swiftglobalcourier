@@ -2,7 +2,7 @@ const express = require('express')
 const {registerAdmin, loginAdmin, logoutAdmin, changePassword, dashboardPage, createPage, viewPage, settingsPage, editPage, loginPage, displayName, forgotPasswordPage, resetPassword, resetPasswordPage, forgotPassword} = require('../controllers/adminController')
 
 const auth = require('../middleware/auth.js')
-const siteInfo = require('../middleware/siteInfo.js')
+const {siteInfo} = require('../middleware/siteInfo')
 
 const router = express.Router()
 
@@ -22,7 +22,7 @@ router.get('/create', siteInfo, auth, createPage)
 router.get('/view', siteInfo, auth, viewPage)
 router.get('/settings', siteInfo, auth, settingsPage)
 router.get('/edit/', siteInfo, auth, editPage)
-router.get('/login', siteInfo, siteInfo, loginPage)
+router.get('/login', siteInfo, loginPage)
 router.get('/forgot-password', siteInfo, forgotPasswordPage)
 
 module.exports = router

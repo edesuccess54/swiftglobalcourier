@@ -186,7 +186,7 @@
                                 <p style="padding: 5px 10px">it is to inform you that our company has ordered your goods (02/26/2023) hence the Receipt of the order has been attached. The estimated time for the delivery was (1 To 2 Days) working days.</p>
                             </div>
                             <div class="btn-receipt-container">
-                                <button class="btn">Download</button>
+                                <button class="btn download">Download</button>
                             </div>
                         </div>
                     </div>
@@ -204,7 +204,7 @@
 
         toastBtn.addEventListener('click', () => closeNotification(toast))
 
-
+        // function to display the receipt after creation of package 
         function disPlayReceipt(details) {
             const {destination, currentLocation, trackingId, senderName, senderEmail, receiverName, receiverEmail, receiverNumber, depositCode, originCountry, destinationCountry} = details
             const receiptWrapper = document.querySelector('.receipt-container');
@@ -232,12 +232,31 @@
             receiptWrapper.classList.add('show')
         }
 
+        // function to close the receipt after creation 
         function closeReceipt() {
             const receiptWrapper = document.querySelector('.receipt-container');
             receiptWrapper.classList.remove('show')
         }
 
         closeIcon.addEventListener('click', closeReceipt)
+
+        // function to download receipt to pdf 
+        function receiptToPdf() {
+            download.textContent = 'Downloading...'
+            const htmlContent = document.querySelector('.receipt-wrapper')
+
+            html2pdf().from(htmlContent).save('download.pdf'); 
+
+            download.textContent = 'Download'
+
+        }
+
+        let download = document.querySelector('.download')
+        download.addEventListener('click', receiptToPdf)
+
+
+
+
 
         // frondend image upload 
         const frontendImgUpload = async (e) => {

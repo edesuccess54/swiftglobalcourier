@@ -102,13 +102,13 @@ const loginAdmin = async(req, res, next) => {
         const hashedPassword = await bcrypt.compare(password, admin.password)
 
         const token = await generateToken(admin._id)
-        res.cookie("token", token),{
+        res.cookie("token", token,{
             path: "/",
             httpOnly: true,
             expires: new Date(Date.now() + 1000 * 86400), 
             sameSite: "none",
             secure: true
-        }
+        })
   
         if(admin && hashedPassword) {
             const { _id, email: adminEmail, password: adminPassword } = admin
