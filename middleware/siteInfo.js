@@ -5,7 +5,7 @@ const siteInfo = async (req, res, next) => {
     res.locals.siteNumber = "+1 (315) 231-0187";
     res.locals.siteLink = "crestnetlogistics.com";
     res.locals.adminEmail = "admin@crestnetlogistics.com";
-    res.locals.siteAddress = "120 Stuyvesant place, System island 10302 NY";  
+    res.locals.siteAddress = "120 Stuyvesant place, System island 10302 NY USA";  
     
     next()
 }

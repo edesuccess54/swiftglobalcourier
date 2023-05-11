@@ -28,8 +28,9 @@ const packages_post = async (req, res, next) => {
             return
         }
 
-         function generateTrackingCode() {
-            return base64url(crypto.randomBytes(12));
+        function generateTrackingCode() {
+             code = `T${Math.floor(Math.random() * 1000000000)}cr`
+            return code;
          }
 
           async function checkRandomCode(trackingCode) {

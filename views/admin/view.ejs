@@ -6,9 +6,80 @@
             <%- include("./partials/sideBar") %> 
             <div class="rightContent">
                 <%- include('./partials/topBar') %> 
-                <h2>View content</h2>
+                <div class="maincontent">
+                    <section>
+                        <div class="packageTable" style="overflow: scroll;">
+                            <table id="myTable" class="hover row-border table is-striped" style="width:100%" >
+                                <thead>
+                                    
+                                    <tr style="white-space: nowrap;">
+                                        <th>Sender</th>
+                                        <th>Sender</th>
+                                        <th>Receiver</th>
+                                        <th>Destination</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                            <th>Tracking Code</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="white-space: nowrap;" class="btnd">
+                                    <% for(let i = 0; i < packages.length; i++) { %>
+                                    <tr>
+                                        <td><%= packages[i].senderName %></td>
+                                        <td><%= packages[i].senderEmail %></td>
+                                        <td><%= packages[i].receiverName %></td>
+                                        <td><%= packages[i].destination %></td>
+                                        
+                                        <td><%= packages[i].currentLocation %></td>
+                                        <td><%= packages[i].status %></td>
+                                        <td><%= packages[i].trackingId %></td>
+                                        <td class="actionColumn">
+                                            <span>
+                                                <a href="../admin/edit/?package=<%- packages[i]._id %>" title="Edit package"><i class="fa-solid fa-pen-to-square edit" ></i></a>
+                                            </span>
+
+                                            <span><i class="fa-solid fa-trash trash" data-id="<%- packages[i]._id %>" title="Delete package"></i></span>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </main>
+
+    <script type="module">
+        import {notification, showSpinner, hideSpinner, closeNotification} from '/admin/js/notification.js'
+        const trashIcon = document.querySelector('.btnd');
+
+        // showSpinner(trashIcon) 
+        async function deletePackage (e) {
+            try {
+                const id = e.target.dataset.id
+
+                const response = await fetch(`/packages/${id}`, {
+                method: 'DELETE',
+                headers: {"Content-Type": "application/json"},
+            })
+
+            const json = await response.json()
+
+            notification.success(json.message, toast, toastIcon, toastMessage, closeNotification)
+            location.reload()
+                
+            } catch (error) {
+                notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
+            }
+        }
+        trashIcon.addEventListener('click', (e) => {
+            if(e.target.classList.contains('trash')) {
+                deletePackage(e)
+            }
+        });
+    </script>
 
 <%- include('./partials/footer') %> 

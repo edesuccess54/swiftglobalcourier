@@ -1,0 +1,85 @@
+<%- include('./partials/header') %> 
+
+    <main>
+        <div class="mainWrapper">
+            <%- include("./partials/sideBar") %> 
+            <div class="rightContent">
+                <%- include('./partials/topBar') %> 
+                <div class="maincontent" style="height:100vh">
+                
+                    <div class="loginForm-wrapper">
+                    <form class="location-form">
+                        <h4 style="margin-bottom: 20px;">Update Package Current Location</h4>
+                        <label for="tracking-id">Package Tracking Id</label>
+                        <input id="tracking-id" type="text" name="trackingid" style="padding: 10px;">
+
+                        <label for="location">New Location</label>
+                        <input id="location" type="text" name="location" style="padding: 10px;">
+                        <button class="btn" name="submit">Update Package Location</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script type="module">
+	import {notification, showSpinner, hideSpinner, closeNotification} from '/admin/js/notification.js';
+	const locationForm = document.querySelector('.location-form');
+
+
+	toastBtn.addEventListener('click', () => closeNotification(toast))
+
+	const changePackageLocation = async (e) => {
+		e.preventDefault();
+
+		const trackingid = locationForm.trackingid.value;
+        const location = locationForm.location.value;
+		const btn = locationForm.submit;
+		  
+		const formData = { trackingid, location };
+
+		showSpinner(btn)
+
+		try {
+
+            if(!trackingid || !location) {
+                throw new Error('All fields are required')
+            }
+
+            console.log(1)
+
+			const response = await fetch('/admin/change-location', {
+				method: 'POST', 
+				headers: { 'Content-Type': 'application/json'},
+				body: JSON.stringify(formData)
+			})
+
+			if(!response.ok){
+				throw new Error("location failed to change, please try again")
+			}
+
+			const result = await response.json();
+
+			btn.textContent = 'Update Package Location';
+
+			if(result.error) {
+				throw new Error(result.error)
+			}
+
+			notification.success(result.message, toast, toastIcon, toastMessage, closeNotification)
+			hideSpinner(btn, "Update Package Location");
+            locationForm.reset()
+			
+		} catch (error) {
+            console.log(error.message)
+			notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
+			hideSpinner(btn, "Update Package Location")
+		}
+	}
+
+ 	locationForm.addEventListener('submit', changePackageLocation)
+</script>
+
+<%- include('./partials/footer') %> 

@@ -220,6 +220,44 @@ const changePassword = async (req, res, next) => {
     }
 }
 
+
+// change package location 
+const changePackageLocation = async (req, res, next) => {
+    const { trackingid, location } = req.body
+
+    try {
+        // check if empty 
+        if (!trackingid || !location) { 
+            next(new ErrorResponse("All fields are required", 400))
+            return
+        }
+    
+        const package = await Package.findOne({ trackingId: trackingid })
+    
+        if (!package) { 
+            next(new ErrorResponse("Package not found", 404))
+            return
+        }
+
+        console.log(package)
+
+        package.currentLocation = location;
+
+        const upadetedLocation = await package.save()
+
+        if (!upadetedLocation) {
+            next(new ErrorResponse("Location failed to update", 404))
+            return
+        }
+
+        res.status(200).json({ message: 'location has been updated' });
+
+    } catch (error) {
+         res.status(400).json({error: error.message})
+    }
+
+ }
+
 // reset password 
 const forgotPassword = async (req, res, next) => {
     const {email} = req.body
@@ -382,8 +420,15 @@ const createPage = async(req, res) => {
 // view package page 
 const viewPage = async(req,res) => {
     const admin = req.admin
-    res.render('./admin/view', {admin})
+    const packages = await Package.find()
+    res.render('./admin/view', {admin, packages})
 }
+
+// change location page 
+const changeLocationPage = async (req, res, next) => {
+    const admin = req.admin;
+    res.render('./admin/change-location', { admin });
+ }
 
 // settings page 
 const settingsPage = async(req, res) => {
@@ -426,6 +471,7 @@ module.exports = {
     dashboardPage,
     createPage,
     viewPage,
+    changeLocationPage,
     settingsPage,
     editPage,
     loginPage,
@@ -433,5 +479,6 @@ module.exports = {
     forgotPasswordPage,
     forgotPassword,
     resetPasswordPage,
-    resetPassword
+    resetPassword,
+    changePackageLocation
 }

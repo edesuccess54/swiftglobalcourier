@@ -30,6 +30,10 @@ app.use('/admin',adminRoutes)
 app.use('/packages', packageRoutes)
 app.use('/upload', uploadRoutes)
 
+app.use('*', (req, res) => {
+  res.redirect('/')
+})
+
 
 app.use(errorHandler)
 

@@ -44,7 +44,7 @@
                                         <th>Sender</th>
                                         <th>Sender</th>
                                         <th>Receiver</th>
-                                        <th>Destination</th>
+                                        <!-- <th>Destination</th> -->
                                         <th>Location</th>
                                         <th>Status</th>
                                          <th>Tracking Code</th>
@@ -57,7 +57,7 @@
                                         <td><%= packages[i].senderName %></td>
                                         <td><%= packages[i].senderEmail %></td>
                                         <td><%= packages[i].receiverName %></td>
-                                        <td><%= packages[i].destination %></td>
+                                        <!-- <td><%= packages[i].destination %></td> -->
                                       
                                         <td><%= packages[i].currentLocation %></td>
                                         <td><%= packages[i].status %></td>
@@ -97,6 +97,7 @@
             const json = await response.json()
 
             notification.success(json.message, toast, toastIcon, toastMessage, closeNotification)
+            location.reload()
                 
             } catch (error) {
                 notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
