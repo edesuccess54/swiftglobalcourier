@@ -86,10 +86,51 @@
                                     <label for="status">Status of item</label>
                                     <input id="status" type="text" name="status" value="<%= singlepackage.status%>">
                                 </div>
+
+                                <div class="inputGroup">
+                                    <label for="packageimg">upload package image</label>
+                                    <input id="packageimg" type="file" name="image" multiple=true >
+                                </div>
+
                                 
                                 <button type="submit" class="btn">Update</button>
                         </div>
 
+                         <div id="result" style="display: flex; gap:10px; flex-wrap: wrap; flex-grow: 1;">
+
+                            <style>
+
+                                .eidt-image-wrapper {
+                                    position: relative;
+                                }
+                                .eidt-image-wrapper:hover .delete-image {
+                                    display: block;
+                                }
+
+                                .delete-image {
+                                    display: none;
+                                    position: absolute;
+                                    font-size: 40px;
+                                    right: 0;
+                                    color: red;
+                                    cursor: pointer;
+
+                                }
+
+                            </style>
+
+                            <% if(singlepackage.image.length < 1) { %>
+                                <p>This Package does not have any image</p>
+                                <% } else { %>
+                                    <% for(let i = 0; i < singlepackage.image.length; i++) { %>
+                                        <div class="eidt-image-wrapper">
+                                            <span class="delete-image" data-filename ="<%= singlepackage.image[i].fileName %>" data-packageid="<%= singlepackage._id %>">&times</span>
+                                            <img class="thumnail" style="height: 200px; object-fit: contain;" src="<%= singlepackage.image[i].filePath %>" alt="">
+                                        </div>
+                                <% }
+                                    }
+                                %> 
+                        </div>
                         </form>
                     </div>
                     <% } %>
@@ -106,6 +147,90 @@
         const editForm = document.querySelector('.editForm')
         const queryStrings = new URLSearchParams(document.location.search)
         const packageId = queryStrings.get('package')
+
+
+
+
+
+         // frondend image upload 
+        const frontendImgUpload = async (e) => {
+            if(window.File && window.FileReader && window.FileList && window.Blob) {
+                const files = e.target.files;
+                const result = document.querySelector('#result');
+
+                for(let i = 0; i < files.length; i++) {
+                    const picReader = new FileReader();
+                    picReader.addEventListener('load', (event) => {
+                        const picFile = event.target
+                        const div = document.createElement('div')
+                        div.innerHTML = `<img class="thumnail" style="height: 100px; object-fit: contain;" src="${picFile.result}" title="${picFile.name}" />`;
+                        result.appendChild(div) 
+                    })
+                    picReader.readAsDataURL(files[i]);
+                }
+
+            } else {
+                notification.error("Your browser does not support File Upload", toast, toastIcon, toastMessage, closeNotification)
+                return
+            }
+            
+        }
+        
+        const imgUpload = document.querySelector('#packageimg')
+        imgUpload.addEventListener('change', (e) => frontendImgUpload(e))
+
+
+
+
+
+
+        // function to delete image while editing package 
+        const deleteImageIcons = document.querySelectorAll('.delete-image')
+
+        const deleteImage = async (e) => {
+    
+            try {
+                const fileName = e.target.dataset.filename
+                const packageId = e.target.dataset.packageid
+
+                const details = [fileName, packageId]
+
+                const response = await fetch(`/packages/images/delete/${details}`, {
+                    method: 'DELETE',
+                    headers: {'Content-Type':'application/json'}
+                })
+
+                if(!response.ok) {
+                    throw new Error('Image fialed to delete')
+                }
+                const result = await response.json()
+
+                if(result.error) {
+                    throw new Error(result.error);
+                }
+
+                notification.success(result.message, toast, toastIcon, toastMessage, closeNotification);
+
+                location.reload()
+                
+            } catch (error) {
+                notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
+            }
+        }
+
+        deleteImageIcons.forEach(deleteImageIcon =>  deleteImageIcon.addEventListener('click',  deleteImage))
+       
+
+        // function to delete image ends here
+
+
+
+
+
+
+
+
+
 
         const updatePackage = async (e) => {
             e.preventDefault()
@@ -147,8 +272,9 @@
 
                 const response = await fetch(`/packages/${packageId}`, {
                     method: 'PUT',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(packages)
+                    // headers: {'Content-Type': 'application/json'},
+                    body: new FormData(editForm)
+                    // body: JSON.stringify(packages)
                 })
 
                 if(!response.ok) {

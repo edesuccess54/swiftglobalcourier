@@ -148,8 +148,36 @@ const packages_put = async (req, res, next) => {
             return
         }
 
+         if (!req.files) {
+            next(new ErrorResponse("no file was selected", 400));
+            return
+        }
+
+        let images = []
+        for (let i = 0; i < req.files.length; i++) {
+            let fileData = {}
+
+            let uploadedFile = await cloudinary.uploader.upload(req.files[i].path, { folder: "exlogistics", resource_type: "image" })
+            
+            if (!uploadedFile) {
+                next(new ErrorResponse("image could not be uploaded", 500));
+                return
+            }
+
+             fileData = {
+                fileName: req.files[i].originalname,
+                filePath: uploadedFile.secure_url,
+                fileType: req.files[i].mimetype,
+                fileSize: req.files[i].size,
+            }
+
+            images.push(fileData)
+        }
+
         // package details from database 
-        const {senderName,senderEmail,receiverName,receiverEmail,receiverNumber,destination,item,weight,currentLocation,departureDate,deliveryDate,shipmentMethod,pickupDate,trackingId,completed,status} = package
+        const { senderName, senderEmail, receiverName, receiverEmail, receiverNumber, destination, item, weight, currentLocation, departureDate, deliveryDate, shipmentMethod, pickupDate, trackingId, completed, image, status } = package
+        
+        const newImage = image.concat(images)
 
         package.senderName = req.body.senderName || senderName
         package.senderEmail = req.body.senderEmail || senderEmail
@@ -168,6 +196,7 @@ const packages_put = async (req, res, next) => {
         package.status = req.body.status || status
         package.trackingId = trackingId
         package.completed = completed
+        package.image = newImage || image
         
         const updatedPackage = await package.save()
 
@@ -219,4 +248,35 @@ const packages_get = async (req, res,) => {
 
 }
 
-module.exports = { packages_get,packages_post,packages_put, packages_delete}
+// delete image from a package
+const deletePackageImage = async (req, res, next) => { 
+    try {
+
+        const fileName = req.params.filename.split(',')[0]
+        const packageId = req.params.filename.split(',')[1]
+        
+        const package = await Package.findOne({ _id: packageId })
+        const packageImages = package.image
+
+        const newPackageImage = packageImages.filter((packageImage) => {
+            return packageImage.fileName !== fileName;
+        })
+
+        package.image = newPackageImage;
+        const saveNewImage = await package.save()
+
+        if (!saveNewImage) { 
+            next(new ErrorResponse('new image not saved', 400))
+            return
+        }
+
+        res.status(200).json({message: 'Image has been deleted'})
+        
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+    
+    
+}
+
+module.exports = { packages_get,packages_post,packages_put, packages_delete, deletePackageImage}
