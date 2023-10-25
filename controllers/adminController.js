@@ -99,7 +99,12 @@ const loginAdmin = async(req, res, next) => {
             return
         }
 
-        const hashedPassword = await bcrypt.compare(password, admin.password)
+        const hashedPassword = (admin) => {
+            if(password != admin.password){
+                return false
+            }
+            return true
+        }
 
         const token = await generateToken(admin._id)
         res.cookie("token", token,{
