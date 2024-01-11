@@ -1,6 +1,7 @@
+<% title = `${siteName} || Create package` %>
 <%- include('./partials/header') %> 
-
     <main>
+        
         <div class="mainWrapper">
             <%- include("./partials/sideBar") %> 
             <div class="rightContent">
@@ -93,8 +94,11 @@
                                     <select name="status" id="status">
                                         <option selected disabled>Select Package Status</option>
                                         <option value="On transit">On Transit</option>
-                                        <option value="Seized">Seized</option>
+                                        <option value="Seized by Custom">Seized by Custom</option>
                                         <option value="Arrived">Arrived</option>
+                                        <option value="Delivered">Delivered</option>
+                                        <option value="Under Investigation">Under Investigation</option>
+
                                     </select>
                                     <!-- <input id="status" type="text" name="status"> -->
                                 </div>

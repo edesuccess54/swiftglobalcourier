@@ -1,4 +1,4 @@
-
+<% let status = page %>
 
 <div class="sideWrapper">
     <div class="innerWrapper">
@@ -8,34 +8,34 @@
         </div>
         <ul>
             <li>
-                <% const status = "yyy" %>
-                <a href="/admin/dashboard" class="<%- status ? 'active' : '' %> ">
+                <a href="/admin/dashboard" class="<%- status=="dashboard" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-life-ring"></i>&nbsp; Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="/admin/create" class="<%= status %> ">
+                
+                <a href="/admin/create" class="<%- status=="create" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-plus"></i>&nbsp; Create package</span>
                 </a>
             </li>
             <li>
-                <a href="/admin/view" class="<%= status %> ">
+                <a href="/admin/view" class="<%- status=="view package" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-eye"></i>&nbsp; View packages</span>
                 </a>
             </li>
 
             <li>
-                <a href="/admin/change-location" class="<%= status %> ">
+                <a href="/admin/change-location" class="<%- page=="location" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-eye"></i>&nbsp;Update Location</span>
                 </a>
             </li>
            
             <li>
-                <a href="/admin/Settings">
+                <a href="/admin/Settings" class="<%- status=="settings" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-gears"></i>&nbsp; Settings</span>
                 </a>

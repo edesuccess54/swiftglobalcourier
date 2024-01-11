@@ -1,0 +1,103 @@
+<%- include('../partials/head')  %> 
+<body>
+
+<!-- include the main navigation  -->
+<%- include('../partials/nav')  %> 
+
+<section class="sec-padding single-service-page">
+	<div class="thm-container">
+		<div class="row">
+			<div class="col-md-12 tracking-container" style="margin: auto; overflow: auto;">
+               
+                <div class="loginForm-wrapper">
+                    <form class="login-form">
+                        <h2>Admin Registeration</h2>
+                        <label for="email">Email</label>
+                        <input id="email" type="text" name="email">
+
+                        <label for="name">Admin Name</label>
+                        <input id="name" type="text" name="name">
+
+                        <label for="pwd">Password</label>
+                        <input id="pwd" type="password" name="password">
+                        <button type="submit" class="btn" name="submit">Register</button>
+                    </form>
+                </div>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="footer-top">
+	<div class="thm-container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-md-6">
+					<h3>Logistic and cargo</h3>
+					<p>Contact us now to get quote for all your global <br>shipping and cargo need.</p>
+				</div>
+				<div class="col-md-6">
+					<a class="thm-btn" href="/contact">Contact Us <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script type="module">
+	import {notification, showSpinner, hideSpinner, closeNotification} from '/admin/js/notification.js';
+	const loginForm = document.querySelector('.login-form');
+
+
+	toastBtn.addEventListener('click', () => closeNotification(toast))
+
+	const registerAdmin = async (e) => {
+		e.preventDefault();
+
+		const email = loginForm.email.value;
+        const adminName = loginForm.name.value;
+		const password = loginForm.password.value;
+		const btn = loginForm.submit;
+		  
+		const formData = { email, password, adminName };
+
+		showSpinner(btn)
+
+		try {
+			const url = '/admin/register'
+			const response = await fetch(url, {
+				method: 'POST', 
+				headers: { 'Content-Type': 'application/json'},
+				body: JSON.stringify(formData)
+			})
+
+			if(!response.ok){
+				throw new Error("Registeration failed, please try again")
+			}
+
+			const result = await response.json();
+			btn.textContent = 'Register';
+
+			if(result.error) {
+				throw new Error(result.error)
+			}
+
+			notification.success("Registeration successful.", toast, toastIcon, toastMessage, closeNotification)
+			hideSpinner(btn, "Register")
+			location.assign("/admin/dashboard")
+
+		} catch (error) {
+			notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
+			hideSpinner(btn, "Register")
+		}
+	}
+
+ 	loginForm.addEventListener('submit', registerAdmin)
+</script>
+
+
+<!-- include footer  -->
+<%- include('../partials/footer.ejs')  %>
+

@@ -1,3 +1,6 @@
+<% title = `${siteName} || Settings` %>
+
+
 <%- include('./partials/header.ejs') %> 
 
     
@@ -171,7 +174,29 @@
                 notification.error(error.message, toast, toastIcon, toastMessage, closeNotification)
             }
         }
-        changePasswordForm.addEventListener('submit', changePassword)
+        changePasswordForm.addEventListener('submit', (e) =>{
+            e.preventDefault()
+            
+            // closing the password modal so as to show the sweet alert modal for confirmation
+            const passwordModal = document.querySelector('.password-modal')
+            document.querySelector('.modal-overlay').classList.remove('active')
+            passwordModal.classList.remove('show')
+            // closing the password modal so as to show the sweet alert modal for confirmation
+
+            Swal.fire({
+                title: "Do you want to save the changes?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Save",
+                denyButtonText: `Don't save`
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    changePassword(e)
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
+        })
 
         // change display name 
         const changeDisplayName = async (e) => {

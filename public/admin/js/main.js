@@ -92,7 +92,7 @@ editProfileBtn.addEventListener('click', openModal)
 changePasswordBtn.addEventListener('click', openModal)
 
 // function to close edit profile modal 
-const closeModal = (e) => {
+function closeModal(e) {
     if(e.target.classList.contains('m1')) {
         const profileModel = document.querySelector('.profile-modal')
         document.querySelector('.modal-overlay').classList.remove('active')

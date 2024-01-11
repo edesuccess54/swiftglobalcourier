@@ -14,7 +14,7 @@
 
 <section class="sec-padding single-service-page" >
     <% if(!package) { %>
-        <p style="font-size: 20px; text-align: center; margin: 20px 0;">package not found</p>
+        <p style="font-size: 20px; text-align: center; margin: 20px 0;">No package was found with this tracking id</p>
         <hr>
    <%} else {%>
 	<div class="thm-container">
@@ -28,7 +28,7 @@
                 </div>
                 <div style="margin: 30px 0; display: flex !important; flex-wrap: wrap;">
                     <h3 style="font-size: 2em;">Tracking Code: <%= package.trackingId %></h3>
-                    <span class="view-image" style="margin-left: auto; font-size: 18px;"><a href="#">View images</a></span>
+                    <span class="view-image" style="margin-left: auto; font-size: 18px;"><a href="#">View images(items)</a></span>
                 </div>
 				<table class="table">
                     <thead>
@@ -115,7 +115,7 @@
 
 <style>
     .image-wrapepr {
-        position: absolute;
+        position: fixed;
         display: none;
         align-items: center;
         top: 0px;
@@ -139,7 +139,7 @@
         flex-wrap: wrap;
         gap: 10px;
         width: 100%;
-        height: 600px;
+        max-height: 500px;
         padding: 10px;
         margin: 0 auto;
         background: #f2f2f2;
@@ -159,7 +159,7 @@
         font-size: 40px;
         position: absolute;
         right: 70px;
-        top: 50px;
+        top: 70px;
     }
 
     @media screen and (max-width: 767px) {

@@ -18,7 +18,7 @@ generateToken = async (id) => {
 // register admin 
 const registerAdmin = async (req, res) => {
     const {email, password, adminName} = req.body
-
+console.log(1)
     try {
         // validation 
         if(!validator.isEmail(email)) {
@@ -26,10 +26,14 @@ const registerAdmin = async (req, res) => {
             throw new Error("Invalid email")
         }
 
-        if(!validator.isStrongPassword(password)) {
-            res.status(400)
-            throw new Error("Password is not strong enough")
-        }
+        console.log(2)
+
+        // if(!validator.isStrongPassword(password)) {
+        //     res.status(400)
+        //     throw new Error("Password is not strong enough")
+        // }
+
+        console.log(3)
 
         const userExists = await Admin.findOne({ email })
 
@@ -37,7 +41,7 @@ const registerAdmin = async (req, res) => {
             res.status(400)
             throw new Error("Email already exists")
         }
-
+        console.log(4)
         const admin = await Admin.create({
             email,
             adminName,
@@ -54,6 +58,7 @@ const registerAdmin = async (req, res) => {
             sameSite:"none",
             secure: true
         })
+        console.log(5)
 
         if(admin) {
             const { _id, email, password } = admin
@@ -403,6 +408,7 @@ const forgotPasswordPage = async (req, res) => {
 
 // admin dashboard page 
 const dashboardPage = async(req, res) => {
+    const page = "dashboard";
     const packages = await Package.find()
     const total_package = await Package.countDocuments()
     const uncompleted = await Package.countDocuments({completed:false})
@@ -413,36 +419,41 @@ const dashboardPage = async(req, res) => {
         uncompleted,
         completed
     }
-    res.render('./admin/dashboard', {admin, packages, packageOverview})
+    res.render('./admin/dashboard', {admin, page, packages, packageOverview})
 }
 
 // create package page 
 const createPage = async(req, res) => {
+    const page = "create";
     const admin = req.admin
-    res.render('./admin/create', {admin})
+    res.render('./admin/create', {admin, page})
 }
 
 // view package page 
 const viewPage = async(req,res) => {
+    const page = "view package";
     const admin = req.admin
     const packages = await Package.find()
-    res.render('./admin/view', {admin, packages})
+    res.render('./admin/view', {admin, page, packages})
 }
 
 // change location page 
 const changeLocationPage = async (req, res, next) => {
+    const page = "location"
     const admin = req.admin;
-    res.render('./admin/change-location', { admin });
+    res.render('./admin/change-location', { admin, page });
  }
 
 // settings page 
 const settingsPage = async(req, res) => {
+    const page = "settings";
     const admin = req.admin
-    res.render('./admin/settings', {admin})
+    res.render('./admin/settings', {admin, page})
 }
 
 // edit page 
 const editPage = async(req, res, next) => {
+    const page = "view package"
     const {package} = req.query
 
     try {
@@ -451,11 +462,11 @@ const editPage = async(req, res, next) => {
         const admin = req.admin
 
         if(!singlepackage) {
-            res.render('./admin/edit', {admin, singlepackage})
+            res.render('./admin/edit', {admin, singlepackage, page})
             return
         }
     
-        res.render('./admin/edit', {admin, singlepackage})
+        res.render('./admin/edit', {admin, singlepackage, page})
         
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -465,6 +476,11 @@ const editPage = async(req, res, next) => {
 // login page 
 const loginPage = async(req, res) => {
     res.render('./admin/login')
+}
+
+// register page 
+const registerPage = async(req, res) => {
+    res.render('./admin/register')
 }
 
 
@@ -480,6 +496,7 @@ module.exports = {
     settingsPage,
     editPage,
     loginPage,
+    registerPage,
     displayName,
     forgotPasswordPage,
     forgotPassword,

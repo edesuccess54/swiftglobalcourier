@@ -1,3 +1,5 @@
+<% let status = page %>
+
 <div class="mobileMenu">
     <div class="innerWrapper">
         <div class="sideLogo">
@@ -7,33 +9,34 @@
         </div>
         <ul>
             <li>
-                <a href="/admin/dashboard" class="active">
+                <a href="/admin/dashboard" class="<%- status=="dashboard" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-life-ring"></i>&nbsp; Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="/admin/create">
+                
+                <a href="/admin/create" class="<%- status=="create" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-plus"></i>&nbsp; Create package</span>
                 </a>
             </li>
             <li>
-                <a href="/admin/view">
+                <a href="/admin/view" class="<%- status=="view package" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-eye"></i>&nbsp; View packages</span>
                 </a>
             </li>
 
             <li>
-                <a href="/admin/change-location" >
+                <a href="/admin/change-location" class="<%- status=="location" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-eye"></i>&nbsp;Update Location</span>
                 </a>
             </li>
            
             <li>
-                <a href="/admin/Settings">
+                <a href="/admin/Settings" class="<%- status=="settings" ? 'active' : '' %> ">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
                     <span class="menu"><i class="fa-solid fa-gears"></i>&nbsp; Settings</span>
                 </a>
@@ -42,7 +45,7 @@
             <li>
                 <a href="" class="logout-btn">
                     <span class="icon"><i class="fa-solid fa-grid-horizontal"></i></span>
-                    <span><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout</span>
+                    <span class="menu"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout</span>
                 </a>
             </li>
         </ul>
